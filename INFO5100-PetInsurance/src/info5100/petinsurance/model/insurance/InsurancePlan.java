@@ -9,5 +9,32 @@ package info5100.petinsurance.model.insurance;
  * @author rakshaisrani
  */
 public class InsurancePlan {
+    int id;
+    String planName;
+    String inclusions;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPlanName() {
+        return planName;
+    }
+
+    public void setPlanName(String planName) {
+        this.planName = planName;
+    }
+
+    public String getInclusions() {
+        return inclusions;
+    }
+
+    public void setInclusions(String inclusions) {
+        this.inclusions = inclusions;
+    }
     
 }

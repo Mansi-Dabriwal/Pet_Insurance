@@ -2,15 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package info5100.petinsurance.model.animal;
+package info5100.petinsurance.model.support;
 
 /**
  *
- * @author rakshaisrani
+ * @author mansidabriwal
  */
-public class AnimalOwner {
+public class SupportRepresentative {
     
-    int id;
-    int personId;
-    String address;   
 }
