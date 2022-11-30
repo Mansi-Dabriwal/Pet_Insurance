@@ -9,27 +9,36 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
  * @author rakshaisrani
  */
 public class DatabaseConnection {
-    
-    private static Connection connection;
-    
-    private static void setConnection() throws SQLException{
-      connection = (Connection) DriverManager.getConnection(Constants.jdbcUrl,
-                        Constants.username, Constants.password);
+
+    private static Statement statement;
+
+    private static void setConnection() throws SQLException {
+        try {
+            Connection connection = DriverManager.getConnection(Constants.connectionUrl);
+            statement = connection.createStatement();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
-    
-    public static ResultSet getData(String query) throws SQLException{
+
+    public static ResultSet getData(String query) throws SQLException {
         setConnection();
-        PreparedStatement st = (PreparedStatement) connection
-                        .prepareStatement(query);
-        ResultSet rs = st.executeQuery();
-        return rs;
+
+        ResultSet resultSet = null;
+        // Create and execute a SELECT SQL statement.
+        query = "SELECT * from demo";
+        resultSet = statement.executeQuery(query);
+
+        return resultSet;
     }
-    
+
 }
