@@ -16,6 +16,7 @@ public class InsuranceDetails {
     Date dateOfInsurance;
     int validity;
     String existingMedicalConditions;
+    int planId;
 
     public int getId() {
         return id;

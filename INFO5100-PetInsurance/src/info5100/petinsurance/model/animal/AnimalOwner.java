@@ -11,6 +11,6 @@ package info5100.petinsurance.model.animal;
 public class AnimalOwner {
     
     int id;
-    int personId;
-    String address;   
+    int personId; // this is personID from Person
+
 }

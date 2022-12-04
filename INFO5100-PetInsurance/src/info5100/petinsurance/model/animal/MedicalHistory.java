@@ -13,6 +13,7 @@ public class MedicalHistory {
     int id;
     boolean isDomesticPet;
     boolean fluAffected;
+    int animalID;
 
     public int getId() {
         return id;

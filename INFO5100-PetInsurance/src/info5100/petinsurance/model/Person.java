@@ -14,6 +14,7 @@ public class Person {
     String lName;
     String phone;
     String email;
+    int addressID;
 
     public int getId() {
         return id;
