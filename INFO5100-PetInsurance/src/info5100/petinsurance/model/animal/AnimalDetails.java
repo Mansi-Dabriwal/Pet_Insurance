@@ -16,7 +16,8 @@ public class AnimalDetails {
     int age;
     String gender;
     int animalOwnerID;
-    int medicalHistoryID;
+
+   
     String bloodType;
 
     public int getAnimalOwnerID() {
@@ -27,14 +28,9 @@ public class AnimalDetails {
         this.animalOwnerID = animalOwnerID;
     }
 
-    public int getMedicalHistoryID() {
-        return medicalHistoryID;
-    }
+ 
 
-    public void setMedicalHistoryID(int medicalHistoryID) {
-        this.medicalHistoryID = medicalHistoryID;
-    }
-    
+   
 
     public String getAnimalType() {
         return animalType;
@@ -79,7 +75,7 @@ public class AnimalDetails {
         this.gender = gender;
     }
 
-    
+
 
    
 

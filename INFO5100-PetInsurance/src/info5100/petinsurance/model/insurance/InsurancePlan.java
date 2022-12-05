@@ -12,6 +12,7 @@ public class InsurancePlan {
     int id;
     String planName;
     String inclusions;
+    int validity;
     int planPremium;
     int planCoverage;
     int validity;
@@ -39,5 +40,6 @@ public class InsurancePlan {
     public void setInclusions(String inclusions) {
         this.inclusions = inclusions;
     }
+
     
 }
