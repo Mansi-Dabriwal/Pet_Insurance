@@ -142,8 +142,6 @@ public class AddInsurancePlan extends javax.swing.JFrame {
                 rs = DatabaseConnection.getData("select * from InsurancePlan", false);
 
                 while (rs.next()) {
-                    System.out.print(rs.getInt(1) + "\n");
-
                     if (rs.getString(2).equalsIgnoreCase(planName.getText())) {
                         JFrame jFrame = new JFrame();
                         JOptionPane.showMessageDialog(jFrame, "There's already a plan with same name, Please enter a new name!");
@@ -225,7 +223,6 @@ public class AddInsurancePlan extends javax.swing.JFrame {
         try {
 
             String insertPlan = createNewPlanInsertStatement();
-            System.out.print("Insert query: " + insertPlan);
             DatabaseConnection.getData(insertPlan, true);
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Plan created!");

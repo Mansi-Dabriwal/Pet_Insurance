@@ -4,19 +4,30 @@
  */
 package info5100.petinsurance.ui;
 
+import info5100.petinsurance.utilities.DatabaseConnection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ashit
  */
 public class SignUp extends javax.swing.JFrame {
 
-    /**
-     * Creates new form SignUp
-     */
+    private boolean allowSignUp;
+
     public SignUp() {
+        this.allowSignUp = false;
         initComponents();
     }
 
+    /**
+     * Creates new form SignUp
+     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,7 +53,7 @@ public class SignUp extends javax.swing.JFrame {
         usernameTextField = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        signUpButton = new javax.swing.JButton();
         verifyBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,11 +88,21 @@ public class SignUp extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Insurance Provider Admin", "Hospital Admin", "Veterinary Admin", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Abuse Report Support Representative", "System Admin" }));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setText("Sign Up");
+        signUpButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        signUpButton.setText("Sign Up");
+        signUpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signUpButtonActionPerformed(evt);
+            }
+        });
 
         verifyBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         verifyBtn.setText("Verify");
+        verifyBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verifyBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -108,17 +129,17 @@ public class SignUp extends javax.swing.JFrame {
                         .addGap(91, 91, 91)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(firstNameTextField)
-                            .addComponent(lastNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                            .addComponent(emailTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                            .addComponent(addressTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                            .addComponent(usernameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                            .addComponent(lastNameTextField)
+                            .addComponent(emailTextField)
+                            .addComponent(addressTextField)
+                            .addComponent(usernameTextField)
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPasswordField1))
                         .addGap(63, 63, 63)
                         .addComponent(verifyBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(314, 314, 314)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(signUpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(70, 70, 70))
         );
         jPanel1Layout.setVerticalGroup(
@@ -157,7 +178,7 @@ public class SignUp extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
-                .addComponent(jButton1)
+                .addComponent(signUpButton)
                 .addContainerGap())
         );
 
@@ -176,6 +197,38 @@ public class SignUp extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
+        // TODO add your handling code here:
+        if (!allowSignUp) {
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
+        }
+        else {
+           //  performValidation();
+           // registerUser();
+        
+        }
+    }//GEN-LAST:event_signUpButtonActionPerformed
+
+    private void verifyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verifyBtnActionPerformed
+        // TODO add your handling code here:
+        try {
+            ResultSet rs = DatabaseConnection.getData("select username from UserAccount", false);
+            while (rs.next()) {
+                if (rs.getString(1).equalsIgnoreCase(usernameTextField.getText())) {
+                    JFrame jFrame = new JFrame();
+                    JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
+
+                } else {
+                    allowSignUp = true;
+
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_verifyBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,7 +269,6 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JTextField addressTextField;
     private javax.swing.JTextField emailTextField;
     private javax.swing.JTextField firstNameTextField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -229,7 +281,53 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField lastNameTextField;
+    private javax.swing.JButton signUpButton;
     private javax.swing.JTextField usernameTextField;
     private javax.swing.JButton verifyBtn;
     // End of variables declaration//GEN-END:variables
+//    public void registerUser(){
+//       try {
+//
+//            String insertPlan = createNewSignUpInsertStatement();
+//            DatabaseConnection.getData(insertPlan, true);
+//            JFrame jFrame = new JFrame();
+//            JOptionPane.showMessageDialog(jFrame, "Plan created!");
+//        } catch (Exception e) {
+//
+//            e.printStackTrace();
+//
+//            JFrame jFrame = new JFrame();
+//            JOptionPane.showMessageDialog(jFrame, "Creation of insurance plan failed. Please try again!");
+//
+//        }
+//    }
+    
+    
+//    private String createNewSignUpInsertStatement() {
+//
+//        return new StringBuilder().append("insert into InsurancePlan Values (\'")
+//                .append(planName.getText()).append("\' , ")
+//                .append(" \' \', ")
+//                .append(Integer.valueOf(premiumAmount.getText()))
+//                .append(",")
+//                .append(Integer.valueOf(planCoverage.getText()))
+//                .append(",")
+//                .append(Integer.valueOf(validity.getSelectedItem().toString()))
+//                .append(")")
+//                .toString();
+//
+//    }
+    
+//    private String createNewAddressInsertStatement(){
+//        return new StringBuilder().append("insert into InsurancePlan Values (\'")
+//                .append(planName.getText()).append("\' , ")
+//                .append(" \' \', ")
+//                .append(Integer.valueOf(premiumAmount.getText()))
+//                .append(",")
+//                .append(Integer.valueOf(planCoverage.getText()))
+//                .append(",")
+//                .append(Integer.valueOf(validity.getSelectedItem().toString()))
+//                .append(")")
+//                .toString();
+//    }
 }

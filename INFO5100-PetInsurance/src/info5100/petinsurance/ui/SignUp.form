@@ -67,10 +67,10 @@
                           <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="firstNameTextField" max="32767" attributes="0"/>
-                              <Component id="lastNameTextField" pref="275" max="32767" attributes="0"/>
-                              <Component id="emailTextField" pref="275" max="32767" attributes="0"/>
-                              <Component id="addressTextField" pref="275" max="32767" attributes="0"/>
-                              <Component id="usernameTextField" pref="275" max="32767" attributes="0"/>
+                              <Component id="lastNameTextField" max="32767" attributes="0"/>
+                              <Component id="emailTextField" max="32767" attributes="0"/>
+                              <Component id="addressTextField" max="32767" attributes="0"/>
+                              <Component id="usernameTextField" max="32767" attributes="0"/>
                               <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
                               <Component id="jPasswordField1" max="32767" attributes="0"/>
                           </Group>
@@ -79,7 +79,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="314" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="107" max="-2" attributes="0"/>
+                          <Component id="signUpButton" min="-2" pref="107" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
@@ -130,7 +130,7 @@
                       <Component id="jPasswordField1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="signUpButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -235,13 +235,16 @@
         </Component>
         <Component class="javax.swing.JPasswordField" name="jPasswordField1">
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="signUpButton">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Sign Up"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signUpButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="verifyBtn">
           <Properties>
@@ -250,6 +253,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Verify"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="verifyBtnActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
