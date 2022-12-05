@@ -40,6 +40,11 @@ public class WelcomeFrame extends javax.swing.JFrame {
         signInBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         signInBtn.setForeground(new java.awt.Color(51, 51, 0));
         signInBtn.setText("Sign In");
+        signInBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signInBtnActionPerformed(evt);
+            }
+        });
 
         signUpBtn.setBackground(new java.awt.Color(255, 255, 153));
         signUpBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -54,8 +59,6 @@ public class WelcomeFrame extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 153, 51));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("LOVE  CARE  PROTECT");
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ashit\\OneDrive\\Desktop\\Welcome_pagepreview.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -105,8 +108,16 @@ public class WelcomeFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void signUpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpBtnActionPerformed
-        // TODO add your handling code here:
+
+        new SignUp().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_signUpBtnActionPerformed
+
+    private void signInBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInBtnActionPerformed
+
+        new SignIn().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_signInBtnActionPerformed
 
     /**
      * @param args the command line arguments
