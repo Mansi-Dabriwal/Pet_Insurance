@@ -12,10 +12,19 @@ public class Hospital {
     
     int id;
     String hospitalName;
-    String address;
+    String addressID;
     String phone;
     String email;
 
+
+    public String getAddressID() {
+        return addressID;
+    }
+
+    public void setAddressID(String addressID) {
+        this.addressID = addressID;
+    }
+  
     public int getId() {
         return id;
     }
@@ -32,14 +41,7 @@ public class Hospital {
         this.hospitalName = hospitalName;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
+    
     public String getPhone() {
         return phone;
     }

@@ -10,4 +10,23 @@ package info5100.petinsurance.model.support;
  */
 public class SupportRepresentative {
     
+    int personId;
+    boolean availability;
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
+    }
+
+    public boolean isAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
+    }
+
 }

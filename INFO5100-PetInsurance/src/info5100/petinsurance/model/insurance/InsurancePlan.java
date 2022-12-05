@@ -15,6 +15,7 @@ public class InsurancePlan {
     int validity;
     int planPremium;
     int planCoverage;
+    int validity;
 
     public int getId() {
         return id;
