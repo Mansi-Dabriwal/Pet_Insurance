@@ -15,9 +15,7 @@ public class AnimalDetails {
     String breed;
     int age;
     String gender;
-//    AnimalOwner animalOwner;
     int animalOwnerID;
-//    MedicalHistory medicalHistory;
     int medicalHistoryID;
     String bloodType;
 
