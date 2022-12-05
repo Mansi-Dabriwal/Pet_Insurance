@@ -2,25 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package info5100.petinsurance.model.animal;
+package info5100.petinsurance.model.support;
 
 /**
  *
- * @author rakshaisrani
+ * @author mansidabriwal
  */
-public class AnimalOwner {
+public class SupportRepresentative {
     
-    int id;
-    int personId; // this is personID from Person
-     
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    int personId;
+    boolean availability;
 
     public int getPersonId() {
         return personId;
@@ -30,7 +21,12 @@ public class AnimalOwner {
         this.personId = personId;
     }
 
-    
-    
+    public boolean isAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
+    }
 
 }
