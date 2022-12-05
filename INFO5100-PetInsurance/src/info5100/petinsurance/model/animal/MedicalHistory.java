@@ -13,7 +13,7 @@ public class MedicalHistory {
     int id;
     boolean isDomesticPet;
     boolean fluAffected;
-    int animalID;
+    int animalID;   // id from AnimalDetails
 
     public int getId() {
         return id;

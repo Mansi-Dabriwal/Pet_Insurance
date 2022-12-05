@@ -14,6 +14,7 @@ public class InsurancePlan {
     String inclusions;
     int planPremium;
     int planCoverage;
+    int validity;
 
     public int getId() {
         return id;

@@ -11,13 +11,41 @@ package info5100.petinsurance.model.animal;
 public class AnimalDetails {
     
     int id;
-    String type;
+    String animalType;
     String breed;
     int age;
     String gender;
-    AnimalOwner animalOwner;
-    MedicalHistory medicalHistory;
+//    AnimalOwner animalOwner;
+    int animalOwnerID;
+//    MedicalHistory medicalHistory;
+    int medicalHistoryID;
     String bloodType;
+
+    public int getAnimalOwnerID() {
+        return animalOwnerID;
+    }
+
+    public void setAnimalOwnerID(int animalOwnerID) {
+        this.animalOwnerID = animalOwnerID;
+    }
+
+    public int getMedicalHistoryID() {
+        return medicalHistoryID;
+    }
+
+    public void setMedicalHistoryID(int medicalHistoryID) {
+        this.medicalHistoryID = medicalHistoryID;
+    }
+    
+
+    public String getAnimalType() {
+        return animalType;
+    }
+
+    public void setAnimalType(String animalType) {
+        this.animalType = animalType;
+    }
+    
 
     public int getId() {
         return id;
@@ -27,13 +55,7 @@ public class AnimalDetails {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
+    
 
     public String getBreed() {
         return breed;
@@ -59,21 +81,9 @@ public class AnimalDetails {
         this.gender = gender;
     }
 
-    public AnimalOwner getAnimalOwner() {
-        return animalOwner;
-    }
+    
 
-    public void setAnimalOwner(AnimalOwner animalOwner) {
-        this.animalOwner = animalOwner;
-    }
-
-    public MedicalHistory getMedicalHistory() {
-        return medicalHistory;
-    }
-
-    public void setMedicalHistory(MedicalHistory medicalHistory) {
-        this.medicalHistory = medicalHistory;
-    }
+   
 
     public String getBloodType() {
         return bloodType;

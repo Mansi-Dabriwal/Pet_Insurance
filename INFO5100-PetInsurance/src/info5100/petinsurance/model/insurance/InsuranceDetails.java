@@ -14,7 +14,6 @@ public class InsuranceDetails {
     int id;
     int animalId;
     Date dateOfInsurance;
-    int validity;
     String existingMedicalConditions;
     int planId;
 
@@ -40,14 +39,6 @@ public class InsuranceDetails {
 
     public void setDateOfInsurance(Date dateOfInsurance) {
         this.dateOfInsurance = dateOfInsurance;
-    }
-
-    public int getValidity() {
-        return validity;
-    }
-
-    public void setValidity(int validity) {
-        this.validity = validity;
     }
 
     public String getExistingMedicalConditions() {

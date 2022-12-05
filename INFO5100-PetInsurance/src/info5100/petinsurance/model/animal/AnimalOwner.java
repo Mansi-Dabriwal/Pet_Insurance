@@ -12,5 +12,25 @@ public class AnimalOwner {
     
     int id;
     int personId; // this is personID from Person
+     
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
+    }
+
+    
+    
 
 }
