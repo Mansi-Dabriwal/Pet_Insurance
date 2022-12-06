@@ -46,6 +46,7 @@ public class AdoptAnimal extends javax.swing.JFrame {
         breed = new javax.swing.JTextField();
         age = new javax.swing.JTextField();
         sendRequest = new javax.swing.JButton();
+        backBtn = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -82,6 +83,13 @@ public class AdoptAnimal extends javax.swing.JFrame {
             }
         });
 
+        backBtn.setText("Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -108,7 +116,10 @@ public class AdoptAnimal extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(158, 158, 158)
-                        .addComponent(sendRequest)))
+                        .addComponent(sendRequest))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(backBtn)))
                 .addContainerGap(132, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -135,7 +146,9 @@ public class AdoptAnimal extends javax.swing.JFrame {
                     .addComponent(age, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addComponent(sendRequest)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(backBtn)
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -169,6 +182,12 @@ public class AdoptAnimal extends javax.swing.JFrame {
     private void breedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_breedActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_breedActionPerformed
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+        new AnimalRescue().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_backBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,6 +227,7 @@ public class AdoptAnimal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField age;
     private javax.swing.JTextField animalType;
+    private javax.swing.JButton backBtn;
     private javax.swing.JTextField breed;
     private javax.swing.JTextField gender;
     private javax.swing.JButton jButton1;
