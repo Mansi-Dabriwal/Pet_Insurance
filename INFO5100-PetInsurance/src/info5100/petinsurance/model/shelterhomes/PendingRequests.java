@@ -4,6 +4,16 @@
  */
 package info5100.petinsurance.model.shelterhomes;
 
+import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.WorkFlowStatus;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author mansidabriwal
@@ -30,8 +40,13 @@ public class PendingRequests extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        showAll = new javax.swing.JButton();
+        confirmRequest = new javax.swing.JButton();
+        cancelRequest = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 189, 50));
 
         jLabel1.setText("Pending Requests");
 
@@ -43,10 +58,31 @@ public class PendingRequests extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Animal Type", "Gender", "Breed", "Age", "Request"
+                "Animal Id", "Animal Type", "Gender", "Breed", "Age"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+
+        showAll.setText("Show all Requests");
+        showAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showAllActionPerformed(evt);
+            }
+        });
+
+        confirmRequest.setText("Confirm Request");
+        confirmRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmRequestActionPerformed(evt);
+            }
+        });
+
+        cancelRequest.setText("Cancel Request");
+        cancelRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelRequestActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -59,8 +95,15 @@ public class PendingRequests extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(showAll)
+                                .addGap(18, 18, 18)
+                                .addComponent(confirmRequest)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cancelRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -69,7 +112,12 @@ public class PendingRequests extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addGap(48, 48, 48)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(showAll)
+                    .addComponent(confirmRequest)
+                    .addComponent(cancelRequest))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -85,6 +133,112 @@ public class PendingRequests extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void confirmRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmRequestActionPerformed
+        // TODO add your handling code here:
+        animalForAdoption(WorkFlowStatus.COMPLETED);
+//        int row_noo;
+//        DefaultTableModel tb1Model = (DefaultTableModel) jTable1.getModel();
+//        
+//        
+//        
+//        if(jTable1.getSelectedRowCount()==1){
+//            
+//            row_noo = jTable1.getSelectedRow();
+//            System.out.println(jTable1.getValueAt(row_noo, 0));
+//            int id = (int) jTable1.getValueAt(row_noo, 0);
+//            System.out.println("id:"+id);
+//            //tb1Model.removeRow(jTable1.getSelectedRow());
+//            //change status to confirm
+//            row_noo = row_noo+1;
+//            try {
+//                ResultSet rs;
+//                System.out.println("update  AnimalsForAdoption set Status = '"+ WorkFlowStatus.COMPLETED+"' where id ="+id);
+//                DatabaseConnection.getData("update  AnimalsForAdoption set Status = '"+ WorkFlowStatus.COMPLETED+"' where id ="+id, true);
+//                JOptionPane.showMessageDialog(this, "Confirmed the adoption!");
+//                tb1Model.removeRow(jTable1.getSelectedRow());
+//            } catch (SQLException ex) {
+//                ex.printStackTrace();
+//                JOptionPane.showMessageDialog(this, "Error!!");
+//            }
+//            
+//            
+//        }else{
+//            if(jTable1.getRowCount()==0){
+//                // if Table1 is empty (no data) then display message
+//                JOptionPane.showMessageDialog(this, "Table is empty");
+//                
+//            }else{
+//                JOptionPane.showMessageDialog(this, "Please select a single row for delete");
+//            }
+//        }
+    }//GEN-LAST:event_confirmRequestActionPerformed
+
+    private void showAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        model.setRowCount(0);
+        
+        ResultSet rs;
+        try {
+            rs = DatabaseConnection.getData("select * from AnimalsForAdoption where Status='PENDING'", false);
+            while (rs.next()) {
+            int animalId = rs.getInt("id");
+            String animalType = rs.getString("animalType");
+            String gender = rs.getString("gender");
+            String breed = rs.getString("breed");
+            int age = rs.getInt("age");
+            System.out.println(animalType + gender + breed + age);
+            
+            model.addRow(new Object[]{animalId,animalType, gender, breed, age});
+        }
+        } catch (SQLException ex) {
+            Logger.getLogger(PendingRequests.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_showAllActionPerformed
+
+    private void cancelRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelRequestActionPerformed
+        // TODO add your handling code here:
+        
+        animalForAdoption(WorkFlowStatus.CANCELLED);
+//        int row_noo;
+//        DefaultTableModel tb1Model = (DefaultTableModel) jTable1.getModel();
+//        
+//        
+//        
+//        if(jTable1.getSelectedRowCount()==1){
+//            
+//            row_noo = jTable1.getSelectedRow();
+////            System.out.println("row no."+row_noo);
+//            int id = (int) jTable1.getValueAt(row_noo, 0);
+//            System.out.println("id:"+id);
+//            //tb1Model.removeRow(jTable1.getSelectedRow());
+//            //change status to confirm
+//            row_noo = row_noo+1;
+//            try {
+//                ResultSet rs;
+//                System.out.println("update  AnimalsForAdoption set Status = '"+ WorkFlowStatus.CANCELLED+"' where id ="+id);
+//                DatabaseConnection.getData("update  AnimalsForAdoption set Status = '"+ WorkFlowStatus.CANCELLED+"' where id ="+id, true);
+//                JOptionPane.showMessageDialog(this, "Cancelled the adoption!");
+//                tb1Model.removeRow(jTable1.getSelectedRow());
+//            } catch (SQLException ex) {
+//                ex.printStackTrace();
+//                JOptionPane.showMessageDialog(this, "Error!!");
+//            }
+//            
+//            
+//        }else{
+//            if(jTable1.getRowCount()==0){
+//                // if Table1 is empty (no data) then display message
+//                JOptionPane.showMessageDialog(this, "Table is empty");
+//                
+//            }else{
+//                JOptionPane.showMessageDialog(this, "Please select a single row for delete");
+//            }
+//        }
+    }//GEN-LAST:event_cancelRequestActionPerformed
 
     /**
      * @param args the command line arguments
@@ -122,9 +276,45 @@ public class PendingRequests extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelRequest;
+    private javax.swing.JButton confirmRequest;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton showAll;
     // End of variables declaration//GEN-END:variables
+
+    
+    private void animalForAdoption(WorkFlowStatus status) {
+        try {
+            if(jTable1.getSelectedRowCount()==1){
+                int row_no = jTable1.getSelectedRow();
+                int id = (int) jTable1.getValueAt(row_no, 0);
+                System.out.println("id:"+id);
+                String updateSt = "update  AnimalsForAdoption set Status = '"+status +"' where id ="+id;
+                System.out.println("update statement :" + updateSt);
+                DatabaseConnection.getData(updateSt, true);
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, status+ " THE ADOPTION!");
+            }else{
+            if(jTable1.getRowCount()==0){
+                // if Table1 is empty (no data) then display message
+                JOptionPane.showMessageDialog(this, "Table is empty");
+                
+            }else{
+                JOptionPane.showMessageDialog(this, "Please select a single row for delete");
+            }
+        }
+            
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Status changed failed. Please try again!");
+
+        }
+
+    }
 }

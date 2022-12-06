@@ -28,9 +28,6 @@ public class AnimalDetails {
         this.animalOwnerID = animalOwnerID;
     }
 
- 
-
-   
 
     public String getAnimalType() {
         return animalType;
