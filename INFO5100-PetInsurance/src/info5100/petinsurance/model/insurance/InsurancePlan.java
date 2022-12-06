@@ -15,7 +15,31 @@ public class InsurancePlan {
     int validity;
     int planPremium;
     int planCoverage;
-    int validity;
+
+    public int getValidity() {
+        return validity;
+    }
+
+    public void setValidity(int validity) {
+        this.validity = validity;
+    }
+
+    public int getPlanPremium() {
+        return planPremium;
+    }
+
+    public void setPlanPremium(int planPremium) {
+        this.planPremium = planPremium;
+    }
+
+    public int getPlanCoverage() {
+        return planCoverage;
+    }
+
+    public void setPlanCoverage(int planCoverage) {
+        this.planCoverage = planCoverage;
+    }
+    
 
     public int getId() {
         return id;

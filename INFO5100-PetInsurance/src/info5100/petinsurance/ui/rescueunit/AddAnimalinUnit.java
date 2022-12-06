@@ -2,7 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package info5100.petinsurance.model.shelterhomes;
+package info5100.petinsurance.ui.rescueunit;
+
+import info5100.petinsurance.utilities.DatabaseConnection;
+import java.awt.HeadlessException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,7 +43,7 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
         animalId = new javax.swing.JTextField();
         wasRescued = new javax.swing.JComboBox<>();
         placeOfRescue = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        rescueDate = new com.toedter.calendar.JDateChooser();
         addAnimal = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -50,9 +58,12 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
         gender = new javax.swing.JTextField();
         animalOwnerId = new javax.swing.JTextField();
         medicalHistoryId = new javax.swing.JTextField();
-        BloodType = new javax.swing.JTextField();
+        bloodType = new javax.swing.JTextField();
+        backBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 189, 50));
 
         jLabel1.setText("Add Animal to the family");
 
@@ -87,6 +98,13 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
 
         jLabel12.setText("Blood Type:");
 
+        backBtn.setText("Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -116,20 +134,23 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
                             .addComponent(breed)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(BloodType, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(bloodType, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(animalOwnerId, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(gender, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(age)
                                     .addComponent(medicalHistoryId, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(7, 7, 7))
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(rescueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(197, 197, 197)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(214, 214, 214)
-                        .addComponent(addAnimal)))
-                .addContainerGap(87, Short.MAX_VALUE))
+                        .addGap(228, 228, 228)
+                        .addComponent(addAnimal))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(backBtn)))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +168,7 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rescueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -177,7 +198,7 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(BloodType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(bloodType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(animalOwnerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,23 +206,22 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
                         .addComponent(medicalHistoryId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(addAnimal)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(backBtn)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -209,9 +229,35 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
 
     private void addAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAnimalActionPerformed
         // TODO add your handling code here:
-        
+        try {
+            ResultSet rs = DatabaseConnection.getData("select * from RescueUnit", false);
+            ResultSet insertResultSet;
+            if (!rs.next()) {
+                addNewAnimalToRescue();
+            } else {
+
+                while (rs.next()) {
+                    if (rs.getString(2).equalsIgnoreCase(animalId.getText())) {
+                        JFrame jFrame = new JFrame();
+                        JOptionPane.showMessageDialog(jFrame, "There's already a animal with same id, Please enter a new id!");
+
+                    } else {
+                        addNewAnimalToRescue();
+                    }
+                }
+            }
+        } catch (HeadlessException | SQLException e) {
+
+        }
         
     }//GEN-LAST:event_addAnimalActionPerformed
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+        
+        new AnimalRescue().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_backBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -249,15 +295,15 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField BloodType;
     private javax.swing.JButton addAnimal;
     private javax.swing.JTextField age;
     private javax.swing.JTextField animalId;
     private javax.swing.JTextField animalOwnerId;
     private javax.swing.JTextField animalType;
+    private javax.swing.JButton backBtn;
+    private javax.swing.JTextField bloodType;
     private javax.swing.JTextField breed;
     private javax.swing.JTextField gender;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -273,6 +319,71 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField medicalHistoryId;
     private javax.swing.JTextField placeOfRescue;
+    private com.toedter.calendar.JDateChooser rescueDate;
     private javax.swing.JComboBox<String> wasRescued;
     // End of variables declaration//GEN-END:variables
+
+    private String addNewAnimalInsertStatement() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        return new StringBuilder().append("insert into RescueUnit Values (\'")
+               
+                .append(wasRescued.getSelectedItem().toString())
+                .append("','")
+                .append(formatter.format(rescueDate.getDate()))
+                .append("','")
+                .append(placeOfRescue.getText())
+                .append("',") 
+                .append(Integer.valueOf(animalId.getText()))
+                .append(")")
+                .toString();
+        
+    }
+    
+     private String createNewAnimalDetailsInsertStatement() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        return new StringBuilder().append("insert into AnimalDetails Values (\'")
+//                .append(Integer.valueOf(animalId.getText()))
+//                .append("','")
+                .append(animalType.getText())
+                .append("','")
+                .append(breed.getText())
+                .append("',")
+                .append(Integer.valueOf(age.getText()))
+                .append(",'") 
+                .append(gender.getText())
+                .append("',") 
+                .append(Integer.valueOf(animalOwnerId.getText()))
+                .append(",") 
+                .append(Integer.valueOf(medicalHistoryId.getText()))
+                .append(",'") 
+                .append(bloodType.getText())
+                .append("')")
+                .toString();
+        
+    }
+    
+    private void addNewAnimalToRescue() {
+        try {
+            
+            
+            String insertAnimalDetails = createNewAnimalDetailsInsertStatement();
+            System.out.println("Insert statement :" + insertAnimalDetails);
+            String insertPlan = addNewAnimalInsertStatement();
+            System.out.println("Insert statement :" + insertPlan);
+            DatabaseConnection.getData(insertAnimalDetails, true);
+            DatabaseConnection.getData(insertPlan, true);
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Animal added to rescue unit!");
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Adding animal to rescue unit failed. Please try again!");
+
+        }
+
+    }
 }
