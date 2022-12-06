@@ -4,6 +4,11 @@
  */
 package info5100.petinsurance.ui;
 
+import info5100.petinsurance.utilities.DatabaseConnection;
+import java.sql.ResultSet;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ashit
@@ -31,11 +36,11 @@ public class SignIn extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        userNameField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        passwordField1 = new javax.swing.JPasswordField();
+        roleComboBox = new javax.swing.JComboBox<>();
+        signInButton = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -59,10 +64,15 @@ public class SignIn extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Role");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Insurance Provider Admin", "Hospital Admin", "Veterinary Admin", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Abuse Report Support Representative", "System Admin" }));
+        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Insurance Provider Admin", "Hospital Admin", "Veterinary Admin", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Abuse Report Support Representative", "System Admin" }));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setText("Sign In");
+        signInButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        signInButton.setText("Sign In");
+        signInButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signInButtonActionPerformed(evt);
+            }
+        });
 
         backBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         backBtn.setText("Back");
@@ -92,9 +102,9 @@ public class SignIn extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPasswordField1)
+                            .addComponent(passwordField1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(roleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 38, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -102,8 +112,8 @@ public class SignIn extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(83, 83, 83)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(signInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(userNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(116, 116, 116))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -117,18 +127,18 @@ public class SignIn extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(roleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(61, 61, 61)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(signInButton)
                     .addComponent(backBtn))
                 .addContainerGap(92, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,6 +166,45 @@ public class SignIn extends javax.swing.JFrame {
         new WelcomeFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
+
+    private void signInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+            ResultSet rs;
+            String selectStatement = selectCountUserString();
+            System.out.print("Select statment :"+ selectStatement);
+            rs = DatabaseConnection.getData(selectStatement, false);
+
+            rs.next();
+            if (rs.getInt(1) == 0) {
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Wrong username-password. Please try again!");
+            } else {
+                String selectStmt = selectUserString();
+                rs = DatabaseConnection.getData(selectStmt, false);
+                boolean login = false;
+                while (rs.next()) {
+                    System.out.print("Role1:" + rs.getString(5));
+                    if (rs.getString(5).equalsIgnoreCase(roleComboBox.getSelectedItem().toString())){
+                      JFrame jFrame = new JFrame();
+                      JOptionPane.showMessageDialog(jFrame, "Sign Up Successful!");
+                      login = true;
+                    }
+                    
+                    
+                }
+                if(!login){
+                        JFrame jFrame = new JFrame();
+                        JOptionPane.showMessageDialog(jFrame, "Wrong role selected. Please try again!");
+
+                    }
+                 
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_signInButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,15 +244,31 @@ public class SignIn extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField passwordField1;
+    private javax.swing.JComboBox<String> roleComboBox;
+    private javax.swing.JButton signInButton;
+    private javax.swing.JTextField userNameField;
     // End of variables declaration//GEN-END:variables
+
+    private String selectUserString() {
+        return new StringBuilder().append("select * from Useraccount where username = '")
+                .append(userNameField.getText()).append("' and password = '")
+                .append(passwordField1.getText()).append("'")
+                .toString();
+
+    }
+
+    private String selectCountUserString() {
+        return new StringBuilder().append("select count(*) AS countofusers from Useraccount where username = '")
+                .append(userNameField.getText()).append("' and password = '")
+                .append(passwordField1.getText()).append("'")
+                .toString();
+    }
+
 }
