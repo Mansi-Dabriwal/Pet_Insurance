@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package info5100.petinsurance.model.shelterhomes;
+package info5100.petinsurance.ui.rescueunit;
 
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.WorkFlowStatus;
@@ -137,41 +137,7 @@ public class PendingRequests extends javax.swing.JFrame {
     private void confirmRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmRequestActionPerformed
         // TODO add your handling code here:
         animalForAdoption(WorkFlowStatus.COMPLETED);
-//        int row_noo;
-//        DefaultTableModel tb1Model = (DefaultTableModel) jTable1.getModel();
-//        
-//        
-//        
-//        if(jTable1.getSelectedRowCount()==1){
-//            
-//            row_noo = jTable1.getSelectedRow();
-//            System.out.println(jTable1.getValueAt(row_noo, 0));
-//            int id = (int) jTable1.getValueAt(row_noo, 0);
-//            System.out.println("id:"+id);
-//            //tb1Model.removeRow(jTable1.getSelectedRow());
-//            //change status to confirm
-//            row_noo = row_noo+1;
-//            try {
-//                ResultSet rs;
-//                System.out.println("update  AnimalsForAdoption set Status = '"+ WorkFlowStatus.COMPLETED+"' where id ="+id);
-//                DatabaseConnection.getData("update  AnimalsForAdoption set Status = '"+ WorkFlowStatus.COMPLETED+"' where id ="+id, true);
-//                JOptionPane.showMessageDialog(this, "Confirmed the adoption!");
-//                tb1Model.removeRow(jTable1.getSelectedRow());
-//            } catch (SQLException ex) {
-//                ex.printStackTrace();
-//                JOptionPane.showMessageDialog(this, "Error!!");
-//            }
-//            
-//            
-//        }else{
-//            if(jTable1.getRowCount()==0){
-//                // if Table1 is empty (no data) then display message
-//                JOptionPane.showMessageDialog(this, "Table is empty");
-//                
-//            }else{
-//                JOptionPane.showMessageDialog(this, "Please select a single row for delete");
-//            }
-//        }
+
     }//GEN-LAST:event_confirmRequestActionPerformed
 
     private void showAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllActionPerformed
@@ -183,14 +149,8 @@ public class PendingRequests extends javax.swing.JFrame {
         try {
             rs = DatabaseConnection.getData("select * from AnimalsForAdoption where Status='PENDING'", false);
             while (rs.next()) {
-            int animalId = rs.getInt("id");
-            String animalType = rs.getString("animalType");
-            String gender = rs.getString("gender");
-            String breed = rs.getString("breed");
-            int age = rs.getInt("age");
-            System.out.println(animalType + gender + breed + age);
             
-            model.addRow(new Object[]{animalId,animalType, gender, breed, age});
+            model.addRow(new Object[]{rs.getInt("id"),rs.getString("animalType"), rs.getString("gender"), rs.getString("breed"), rs.getInt("age")});
         }
         } catch (SQLException ex) {
             Logger.getLogger(PendingRequests.class.getName()).log(Level.SEVERE, null, ex);
@@ -203,41 +163,8 @@ public class PendingRequests extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         animalForAdoption(WorkFlowStatus.CANCELLED);
-//        int row_noo;
-//        DefaultTableModel tb1Model = (DefaultTableModel) jTable1.getModel();
-//        
-//        
-//        
-//        if(jTable1.getSelectedRowCount()==1){
-//            
-//            row_noo = jTable1.getSelectedRow();
-////            System.out.println("row no."+row_noo);
-//            int id = (int) jTable1.getValueAt(row_noo, 0);
-//            System.out.println("id:"+id);
-//            //tb1Model.removeRow(jTable1.getSelectedRow());
-//            //change status to confirm
-//            row_noo = row_noo+1;
-//            try {
-//                ResultSet rs;
-//                System.out.println("update  AnimalsForAdoption set Status = '"+ WorkFlowStatus.CANCELLED+"' where id ="+id);
-//                DatabaseConnection.getData("update  AnimalsForAdoption set Status = '"+ WorkFlowStatus.CANCELLED+"' where id ="+id, true);
-//                JOptionPane.showMessageDialog(this, "Cancelled the adoption!");
-//                tb1Model.removeRow(jTable1.getSelectedRow());
-//            } catch (SQLException ex) {
-//                ex.printStackTrace();
-//                JOptionPane.showMessageDialog(this, "Error!!");
-//            }
-//            
-//            
-//        }else{
-//            if(jTable1.getRowCount()==0){
-//                // if Table1 is empty (no data) then display message
-//                JOptionPane.showMessageDialog(this, "Table is empty");
-//                
-//            }else{
-//                JOptionPane.showMessageDialog(this, "Please select a single row for delete");
-//            }
-//        }
+
+
     }//GEN-LAST:event_cancelRequestActionPerformed
 
     /**
@@ -300,10 +227,10 @@ public class PendingRequests extends javax.swing.JFrame {
             }else{
             if(jTable1.getRowCount()==0){
                 // if Table1 is empty (no data) then display message
-                JOptionPane.showMessageDialog(this, "Table is empty");
-                
+                JOptionPane.showMessageDialog(this, "There is no pending request!");
+               
             }else{
-                JOptionPane.showMessageDialog(this, "Please select a single row for delete");
+                JOptionPane.showMessageDialog(this, "Please select a single row for changing the request status!");
             }
         }
             
@@ -312,7 +239,7 @@ public class PendingRequests extends javax.swing.JFrame {
             e.printStackTrace();
 
             JFrame jFrame = new JFrame();
-            JOptionPane.showMessageDialog(jFrame, "Status changed failed. Please try again!");
+            JOptionPane.showMessageDialog(jFrame, " Failed to change the pending request status. Please try again!");
 
         }
 

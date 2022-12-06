@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-package info5100.petinsurance.model.shelterhomes;
+package info5100.petinsurance.ui.rescueunit;
 
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.WorkFlowStatus;

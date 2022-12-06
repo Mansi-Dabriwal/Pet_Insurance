@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package info5100.petinsurance.model.shelterhomes;
+package info5100.petinsurance.ui.rescueunit;
 
 import info5100.petinsurance.utilities.DatabaseConnection;
 import java.awt.HeadlessException;
@@ -226,8 +226,6 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
                 addNewAnimalToRescue();
             } else {
 
-                rs = DatabaseConnection.getData("select * from RescueUnit", false);
-
                 while (rs.next()) {
                     if (rs.getString(2).equalsIgnoreCase(animalId.getText())) {
                         JFrame jFrame = new JFrame();
@@ -324,7 +322,7 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
         
     }
     
-     private String addNewAnimalDetailsInsertStatement() {
+     private String createNewAnimalDetailsInsertStatement() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
         return new StringBuilder().append("insert into AnimalDetails Values (\'")
@@ -352,7 +350,7 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
         try {
             
             
-            String insertAnimalDetails = addNewAnimalDetailsInsertStatement();
+            String insertAnimalDetails = createNewAnimalDetailsInsertStatement();
             System.out.println("Insert statement :" + insertAnimalDetails);
             String insertPlan = addNewAnimalInsertStatement();
             System.out.println("Insert statement :" + insertPlan);
