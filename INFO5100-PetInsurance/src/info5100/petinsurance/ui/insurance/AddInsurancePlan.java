@@ -219,14 +219,18 @@ public class AddInsurancePlan extends javax.swing.JFrame {
 
     }
 
-    private void createNewPlan() {
+    private int createNewPlan() {
+        int generatedID = 0;
         try {
 
             String insertPlan = createNewPlanInsertStatement();
-            DatabaseConnection.getData(insertPlan, true);
+            ResultSet rs = DatabaseConnection.getData(insertPlan, true);
+            while (rs.next()) {
+                generatedID = rs.getInt(1);
+            }
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Plan created!");
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
 
             e.printStackTrace();
 
@@ -234,6 +238,7 @@ public class AddInsurancePlan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(jFrame, "Creation of insurance plan failed. Please try again!");
 
         }
+        return generatedID;
 
     }
 

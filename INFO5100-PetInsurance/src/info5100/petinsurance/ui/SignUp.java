@@ -291,31 +291,41 @@ public class SignUp extends javax.swing.JFrame {
         if (!allowSignUp) {
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
-        }
-        else {
-           //  performValidation();
-           // registerUser();
-        
+        } else {
+             // performValidation();
+             registerUser();
+
         }
     }//GEN-LAST:event_signUpButtonActionPerformed
 
     private void verifyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verifyBtnActionPerformed
         // TODO add your handling code here:
-       /* try {
-            ResultSet rs = DatabaseConnection.getData("select username from UserAccount", false);
-            while (rs.next()) {
-                if (rs.getString(1).equalsIgnoreCase(usernameTextField.getText())) {
-                    JFrame jFrame = new JFrame();
-                    JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
+        try {
+            ResultSet rs = DatabaseConnection.getData("select username from UserAccount ", false);
+            if (!rs.next()) {
+                allowSignUp = true;
+            } else {
+                while (rs.next()) {
+                    if (rs.getString(1).equalsIgnoreCase(usernameTextField.getText())) {
+                        JFrame jFrame = new JFrame();
+                        JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
 
-                } else {
-                    allowSignUp = true;
+                    } else {
+                        allowSignUp = true;
 
+                    }
                 }
             }
+
+            if (allowSignUp) {
+                System.out.print("Proceed for signup");
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Username exists, proceed for signup!");
+            }
         } catch (SQLException ex) {
+            ex.printStackTrace();
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     }//GEN-LAST:event_verifyBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
@@ -391,49 +401,83 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JButton verifyBtn;
     private javax.swing.JTextField zipCodeTextField;
     // End of variables declaration//GEN-END:variables
-//    public void registerUser(){
-//       try {
-//
-//            String insertPlan = createNewSignUpInsertStatement();
-//            DatabaseConnection.getData(insertPlan, true);
-//            JFrame jFrame = new JFrame();
-//            JOptionPane.showMessageDialog(jFrame, "Plan created!");
-//        } catch (Exception e) {
-//
-//            e.printStackTrace();
-//
-//            JFrame jFrame = new JFrame();
-//            JOptionPane.showMessageDialog(jFrame, "Creation of insurance plan failed. Please try again!");
-//
-//        }
-//    }
-    
-    
-//    private String createNewSignUpInsertStatement() {
-//
-//        return new StringBuilder().append("insert into InsurancePlan Values (\'")
-//                .append(planName.getText()).append("\' , ")
-//                .append(" \' \', ")
-//                .append(Integer.valueOf(premiumAmount.getText()))
-//                .append(",")
-//                .append(Integer.valueOf(planCoverage.getText()))
-//                .append(",")
-//                .append(Integer.valueOf(validity.getSelectedItem().toString()))
-//                .append(")")
-//                .toString();
-//
-//    }
-    
-//    private String createNewAddressInsertStatement(){
-//        return new StringBuilder().append("insert into InsurancePlan Values (\'")
-//                .append(planName.getText()).append("\' , ")
-//                .append(" \' \', ")
-//                .append(Integer.valueOf(premiumAmount.getText()))
-//                .append(",")
-//                .append(Integer.valueOf(planCoverage.getText()))
-//                .append(",")
-//                .append(Integer.valueOf(validity.getSelectedItem().toString()))
-//                .append(")")
-//                .toString();
-//    }
+    public void registerUser() {
+        try {
+            int addressID = 0;
+
+            //Create Address
+            ResultSet rs;
+            String createAddress = createNewAddressInsertStatement();
+            rs = DatabaseConnection.getData(createAddress, true);
+            while (rs.next()) {
+                addressID = rs.getInt(1);
+            }
+
+            //Create Person
+            int personID = 0;
+            String insertPerson = createNewPersonInsertStatement(addressID);
+            rs = DatabaseConnection.getData(insertPerson, true);
+            while (rs.next()) {
+                personID = rs.getInt(1);
+            }
+            
+            //Create User Account
+            String insertUserAccount = createNewUserAccount(personID);
+            rs = DatabaseConnection.getData(insertUserAccount, true);
+            
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Sign up completed!");
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Sign up failed. Please try again!");
+
+        }
+    }
+
+    private String createNewPersonInsertStatement(int addressID) {
+
+        return new StringBuilder().append("insert into Person Values ('")
+                .append(firstNameTextField.getText()).append("' , '")
+                .append(lastNameTextField.getText()).append("' , ")
+                .append(" null ")
+                .append(",'")
+                .append(emailTextField.getText())
+                .append("',")
+                .append(addressID)
+                .append(")")
+                .toString();
+
+    }
+
+    private String createNewAddressInsertStatement() {
+        return new StringBuilder().append("insert into Address Values (\'")
+                .append(addressLine1TextField.getText()).append("\' , ")
+                
+                .append(null == addresslLine2TextField.getText() ? null : ("\'" + addresslLine2TextField.getText() + "\'"))
+                .append(",'")
+                .append(cityTextField.getText())
+                .append("','")
+                .append(stateTextField.getText())
+                .append("','")
+                .append(countryTextField.getText())
+                .append("',")
+                .append(Integer.valueOf(zipCodeTextField.getText()))
+                .append(")")
+                .toString();
+    }
+
+    private String createNewUserAccount(int personID) {
+         return new StringBuilder().append("insert into useraccount Values (\'")
+                .append(usernameTextField.getText()).append("\' , '")
+                .append(PasswordField.getText())
+                .append("',")
+                .append(personID)
+                .append(",'")
+                .append(roleComboBox.getSelectedItem().toString())
+                .append("')")
+                .toString();
+    }
 }

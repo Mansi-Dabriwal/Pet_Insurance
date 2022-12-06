@@ -17,12 +17,11 @@ import java.sql.Statement;
  */
 public class DatabaseConnection {
 
-    private static Statement statement;
+    private static Connection connection;
 
     private static void setConnection() throws SQLException {
         try {
-            Connection connection = DriverManager.getConnection(Constants.connectionUrl);
-            statement = connection.createStatement();
+            connection = DriverManager.getConnection(Constants.connectionUrl);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -32,12 +31,18 @@ public class DatabaseConnection {
 
     public static ResultSet getData(String query, boolean isDml) throws SQLException {
         setConnection();
+        
+        PreparedStatement ps;
 
         ResultSet resultSet = null;
         if (isDml) {
-            statement.executeUpdate(query);
-            return null;
+            ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            int affectedTrue = ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+            return resultSet;
         }
+        Statement statement;
+        statement = connection.createStatement();
         resultSet = statement.executeQuery(query);
 
         return resultSet;
