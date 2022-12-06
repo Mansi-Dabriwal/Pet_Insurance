@@ -30,12 +30,14 @@ public class DatabaseConnection {
 
     }
 
-    public static ResultSet getData(String query) throws SQLException {
+    public static ResultSet getData(String query, boolean isDml) throws SQLException {
         setConnection();
 
         ResultSet resultSet = null;
-        // Create and execute a SELECT SQL statement.
-        query = "SELECT * from demo";
+        if (isDml) {
+            statement.executeUpdate(query);
+            return null;
+        }
         resultSet = statement.executeQuery(query);
 
         return resultSet;
