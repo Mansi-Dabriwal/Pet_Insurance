@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  *
  * @author rakshaisrani
  */
-public class EmailValidationService {
+public class ValidationService {
     
     public static boolean validateEmail(String email){
      return Pattern.compile(Constants.EmailRegex)
@@ -18,4 +18,19 @@ public class EmailValidationService {
       .matches();
     }
     
+    public static boolean validateAge(String age){
+     return Pattern.compile(Constants.numRegex)
+      .matcher(age)
+      .matches();
+    }
+
+    public static boolean validateNumber(String number){
+     if (number.length() != 10)
+         return false;
+     else
+     return Pattern.compile(Constants.numRegex)
+      .matcher(number)
+      .matches();
+    }
+
 }
