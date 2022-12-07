@@ -492,8 +492,8 @@
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jComboBox2" min="-2" pref="161" max="-2" attributes="0"/>
-                                          <Component id="anmlIDTextField1" min="-2" pref="240" max="-2" attributes="0"/>
+                                          <Component id="existingMedicalConditions" min="-2" pref="161" max="-2" attributes="0"/>
+                                          <Component id="animalIDTextField1" min="-2" pref="240" max="-2" attributes="0"/>
                                           <Component id="planComboBox" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -518,7 +518,7 @@
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel10" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="anmlIDTextField1" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="animalIDTextField1" min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -533,7 +533,7 @@
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel13" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="jComboBox2" min="-2" max="-2" attributes="0"/>
+                          <Component id="existingMedicalConditions" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
                       <Component id="purchaseButton" min="-2" max="-2" attributes="0"/>
@@ -575,7 +575,7 @@
                 <Property name="text" type="java.lang.String" value="Existing Medical Conditions"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox2">
+            <Component class="javax.swing.JComboBox" name="existingMedicalConditions">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="18" style="1"/>
@@ -605,7 +605,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JTextField" name="anmlIDTextField1">
+            <Component class="javax.swing.JTextField" name="animalIDTextField1">
             </Component>
             <Component class="javax.swing.JButton" name="purchaseButton">
               <Properties>

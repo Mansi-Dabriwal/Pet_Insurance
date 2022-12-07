@@ -10,6 +10,7 @@ import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
 import info5100.petinsurance.model.insurance.InsuranceDetails;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -67,7 +68,6 @@ public class DatabaseConnection {
             ps.setInt(3, ua.getPersonID());
             ps.setString(4, ua.getRole());
             int affectedTrue = ps.executeUpdate();
-            connection.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -82,7 +82,7 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO AnimalDetails VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO AnimalDetails VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, ad.getAnimalType());
             ps.setString(2, ad.getBreed());
             ps.setInt(3, ad.getAge());
@@ -91,7 +91,6 @@ public class DatabaseConnection {
             ps.setString(6, ad.getBloodType());
             int affectedTrue = ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
-            connection.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -102,10 +101,29 @@ public class DatabaseConnection {
     }
     
     
-//    public static int storeData(InsuranceDetails insurance){
-//        
-//    
-//    }
+    public static ResultSet storeData(InsuranceDetails insurance){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO InsuranceDetails VALUES ( ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, insurance.getAnimalId());
+            ps.setDate(2,  new Date(insurance.getDateOfInsurance().getTime()));
+            ps.setString(3, insurance.getExistingMedicalConditions());
+            ps.setInt(4, insurance.getPlanId());
+            
+            int affectedTrue = ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;   
+    }
     
     
     public static ResultSet storeData(Address address){
@@ -125,7 +143,6 @@ public class DatabaseConnection {
             
             int affectedTrue = ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
-            connection.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -153,7 +170,6 @@ public class DatabaseConnection {
             
             int affectedTrue = ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
-            connection.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -6,9 +6,12 @@ package info5100.petinsurance.ui;
 
 import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
+import info5100.petinsurance.model.insurance.InsuranceDetails;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -24,6 +27,8 @@ public class PetOwner extends javax.swing.JFrame {
      * Creates new form AnimalOwner
      */
     UserAccount ua;
+    ResultSet plan;
+    Map<String, Integer> planLookup = new HashMap<String, Integer>();
 
     public PetOwner() {
         initComponents();
@@ -31,10 +36,11 @@ public class PetOwner extends javax.swing.JFrame {
         String[] plans = new String[15];
 
         try {
-            ResultSet rs = DatabaseConnection.getData("Select planName from InsurancePlan", false);
+            plan = DatabaseConnection.getData("Select * from InsurancePlan", false);
             int i = 0;
-            while (rs.next()) {
-                plans[i] = rs.getString("planName");
+            while (plan.next()) {
+                plans[i] = plan.getString("planName");
+                planLookup.put(plan.getString("planName"), plan.getInt("id"));
             }
 
         } catch (SQLException e) {
@@ -87,9 +93,9 @@ public class PetOwner extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        existingMedicalConditions = new javax.swing.JComboBox<>();
         planComboBox = new javax.swing.JComboBox<>();
-        anmlIDTextField1 = new javax.swing.JTextField();
+        animalIDTextField1 = new javax.swing.JTextField();
         purchaseButton = new javax.swing.JButton();
         startDateChooser = new com.toedter.calendar.JDateChooser();
         cancelInsurancePanel = new javax.swing.JPanel();
@@ -371,8 +377,8 @@ public class PetOwner extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel13.setText("Existing Medical Conditions");
 
-        jComboBox2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Yes", "No" }));
+        existingMedicalConditions.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        existingMedicalConditions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Yes", "No" }));
 
         planComboBox.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
@@ -401,8 +407,8 @@ public class PetOwner extends javax.swing.JFrame {
                             .addGroup(purchaseInsurancePanelLayout.createSequentialGroup()
                                 .addGap(36, 36, 36)
                                 .addGroup(purchaseInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(anmlIDTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(existingMedicalConditions, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(animalIDTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(planComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(purchaseInsurancePanelLayout.createSequentialGroup()
                                 .addGap(45, 45, 45)
@@ -418,7 +424,7 @@ public class PetOwner extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(purchaseInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(anmlIDTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(animalIDTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(purchaseInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -430,7 +436,7 @@ public class PetOwner extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(purchaseInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(existingMedicalConditions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(91, 91, 91)
                 .addComponent(purchaseButton)
                 .addContainerGap(155, Short.MAX_VALUE))
@@ -652,11 +658,10 @@ public class PetOwner extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(jFrame, "Sorry the registration couldn't be completed. Please try again!");
         } else {
             try {
-
                 while (rs.next()) {
                     JFrame jFrame = new JFrame();
                     String pronoun = gender.equals("male") ? "him" : "her";
-                    JOptionPane.showMessageDialog(jFrame, "Your pet is Registered. We wish " + pronoun + "a good health");
+                    JOptionPane.showMessageDialog(jFrame, "Your pet is Registered. We wish " + pronoun + " a good health");
 
                 }
 
@@ -670,6 +675,20 @@ public class PetOwner extends javax.swing.JFrame {
 
     private void purchaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseButtonActionPerformed
         // TODO add your handling code here:
+
+        InsuranceDetails insurance = new InsuranceDetails(Integer.valueOf(animalIDTextField1.getText()),
+                startDateChooser.getDate(), existingMedicalConditions.getSelectedItem().toString(),
+                planLookup.get(planComboBox.getSelectedItem().toString()));
+
+        ResultSet rs = DatabaseConnection.storeData(insurance);
+
+        if (null == rs) {
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "failed to purchase insurance. Please try again");
+        } else {
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Insurance purchased for " + animalIDTextField.getText() + "with Start Date as :" + startDateChooser.getDate());
+        }
 
     }//GEN-LAST:event_purchaseButtonActionPerformed
 
@@ -712,18 +731,18 @@ public class PetOwner extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ageTextField;
     private javax.swing.JTextField animalIDTextField;
+    private javax.swing.JTextField animalIDTextField1;
     private javax.swing.JTextField anmlIDCancelTextField;
-    private javax.swing.JTextField anmlIDTextField1;
     private javax.swing.JButton backButton;
     private javax.swing.JTextField bloodTypeTextField;
     private javax.swing.JTextField breedTextField;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton cancelInsuranceButton;
     private javax.swing.JPanel cancelInsurancePanel;
+    private javax.swing.JComboBox<String> existingMedicalConditions;
     private javax.swing.JRadioButton femaleRadioButton;
     private javax.swing.JPanel homePanel;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
