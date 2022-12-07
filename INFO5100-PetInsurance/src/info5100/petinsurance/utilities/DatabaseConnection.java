@@ -5,10 +5,6 @@
 package info5100.petinsurance.utilities;
 
 import info5100.petinsurance.model.UserAccount;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -38,7 +34,7 @@ public class DatabaseConnection {
 
     public static ResultSet getData(String query, boolean isDml) throws SQLException {
         setConnection();
-        
+
         PreparedStatement ps;
 
         ResultSet resultSet = null;
@@ -54,30 +50,25 @@ public class DatabaseConnection {
 
         return resultSet;
     }
-    
-    
-    public static void storeData() {
-        try{
-            setConnection();
-        UserAccount u = new UserAccount(1, "ppp", 
-        "ppp", 7, Roles.InsuranceProviderAdmin);
-        PreparedStatement ps;
 
-        ResultSet resultSet = null;
+    public static void storeData(UserAccount ua) {
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ResultSet resultSet = null;
             ps = connection.prepareStatement("INSERT INTO USERACCOUNT (Username, Password, PersonID, RoleName) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, u.getUsername());
-            ps.setString(2, u.getPassword());
+            ps.setString(1, ua.getUsername());
+            ps.setString(2, ua.getPassword());
             ps.setInt(3, 7);
             ps.setString(4, Roles.InsuranceProviderAdmin.getDisplayVal());
             int affectedTrue = ps.executeUpdate();
-            System.out.print("Rows updated: "+ affectedTrue);
-          
-        }
-        catch (Exception ex) {
+            connection.close();
+
+        } catch (Exception ex) {
             ex.printStackTrace();
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }   
+    }
 
 }
