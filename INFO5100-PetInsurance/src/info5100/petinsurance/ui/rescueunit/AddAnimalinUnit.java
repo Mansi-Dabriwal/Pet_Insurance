@@ -46,7 +46,10 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
         animalId = new javax.swing.JTextField();
         wasRescued = new javax.swing.JComboBox<>();
         placeOfRescue = new javax.swing.JTextField();
+<<<<<<< HEAD:INFO5100-PetInsurance/src/info5100/petinsurance/ui/rescueunit/AddAnimalinUnit.java
         rescueDate = new com.toedter.calendar.JDateChooser();
+=======
+>>>>>>> ashi:INFO5100-PetInsurance/src/info5100/petinsurance/model/shelterhomes/AddAnimalinUnit.java
         addAnimal = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -142,8 +145,12 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
                                     .addComponent(gender, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(age)
                                     .addComponent(medicalHistoryId, javax.swing.GroupLayout.Alignment.LEADING))
+<<<<<<< HEAD:INFO5100-PetInsurance/src/info5100/petinsurance/ui/rescueunit/AddAnimalinUnit.java
                                 .addGap(7, 7, 7))
                             .addComponent(rescueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
+=======
+                                .addGap(7, 7, 7))))
+>>>>>>> ashi:INFO5100-PetInsurance/src/info5100/petinsurance/model/shelterhomes/AddAnimalinUnit.java
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(197, 197, 197)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -168,10 +175,15 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(wasRescued, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+<<<<<<< HEAD:INFO5100-PetInsurance/src/info5100/petinsurance/ui/rescueunit/AddAnimalinUnit.java
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
                     .addComponent(rescueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+=======
+                .addGap(22, 22, 22)
+                .addComponent(jLabel4)
+>>>>>>> ashi:INFO5100-PetInsurance/src/info5100/petinsurance/model/shelterhomes/AddAnimalinUnit.java
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)

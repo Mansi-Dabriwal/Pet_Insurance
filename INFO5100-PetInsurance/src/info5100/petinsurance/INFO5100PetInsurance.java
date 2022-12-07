@@ -24,7 +24,7 @@ public class INFO5100PetInsurance {
 //                  System.out.print(rs.getInt(1)+"\n"); 
 //                  }
 
-        DatabaseConnection.storeData();
+        //DatabaseConnection.storeData();
         } catch(Exception e){
         
         }
