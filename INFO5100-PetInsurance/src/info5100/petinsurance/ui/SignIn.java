@@ -4,7 +4,12 @@
  */
 package info5100.petinsurance.ui;
 
+import info5100.petinsurance.model.UserAccount;
+import info5100.petinsurance.model.support.SupportRepresentative;
+import info5100.petinsurance.ui.insurance.InsuranceAdminWorkFlow;
+import info5100.petinsurance.ui.support.SupportRepresentativeWorkflow;
 import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.Roles;
 import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -64,7 +69,7 @@ public class SignIn extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Role");
 
-        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Insurance Provider Admin", "Hospital Admin", "Veterinary Admin", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Abuse Report Support Representative", "System Admin" }));
+        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Insurance Provider Admin", "Hospital Admin", "Veterinary Admin", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Support Representative", "System Admin" }));
 
         signInButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         signInButton.setText("Sign In");
@@ -105,7 +110,7 @@ public class SignIn extends javax.swing.JFrame {
                             .addComponent(passwordField1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(roleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 38, Short.MAX_VALUE))))
+                                .addGap(0, 110, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -172,7 +177,7 @@ public class SignIn extends javax.swing.JFrame {
         try {
             ResultSet rs;
             String selectStatement = selectCountUserString();
-            System.out.print("Select statment :"+ selectStatement);
+            System.out.print("Select statment :" + selectStatement);
             rs = DatabaseConnection.getData(selectStatement, false);
 
             rs.next();
@@ -184,22 +189,55 @@ public class SignIn extends javax.swing.JFrame {
                 rs = DatabaseConnection.getData(selectStmt, false);
                 boolean login = false;
                 while (rs.next()) {
-                    System.out.print("Role1:" + rs.getString(5));
-                    if (rs.getString(5).equalsIgnoreCase(roleComboBox.getSelectedItem().toString())){
-                      JFrame jFrame = new JFrame();
-                      JOptionPane.showMessageDialog(jFrame, "Sign Up Successful!");
-                      login = true;
-                    }
-                    
-                    
-                }
-                if(!login){
+                    if (rs.getString(5).equalsIgnoreCase(roleComboBox.getSelectedItem().toString())) {
                         JFrame jFrame = new JFrame();
-                        JOptionPane.showMessageDialog(jFrame, "Wrong role selected. Please try again!");
+                        JOptionPane.showMessageDialog(jFrame, "Sign Up Successful!");
+                        login = true;
 
+                        Roles r = null;
+                        
+                        for(Roles ri : Roles.values()){
+                           if(ri.getDisplayVal().equals(rs.getString("RoleName")))
+                               r = ri;
+                        }
+
+                        UserAccount ua = new UserAccount(rs.getInt("id"),
+                                rs.getString("username"), rs.getString("password"),
+                                 rs.getInt("PersonID"), r
+                        );
+
+                        switch (r) {
+                            case InsuranceProviderAdmin:
+                                new InsuranceAdminWorkFlow(ua).setVisible(true);
+                                this.dispose();
+                                break;
+                            case BloodBankAdmin:
+                                break;
+                            case HospitalAdmin:
+                                break;
+                            case PetOwner:
+                                break;
+                            case RescueUnitManager:
+                                break;
+                            case SystemAdmin:
+                                break;
+                            case SupportRepresentative:
+                                new SupportRepresentativeWorkflow(ua).setVisible(true);
+                                this.dispose();
+                                break;
+                            case VeterinaryAdmin:
+                                break;
+
+                        }
                     }
-                 
-                
+
+                }
+                if (!login) {
+                    JFrame jFrame = new JFrame();
+                    JOptionPane.showMessageDialog(jFrame, "Wrong role selected. Please try again!");
+
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();

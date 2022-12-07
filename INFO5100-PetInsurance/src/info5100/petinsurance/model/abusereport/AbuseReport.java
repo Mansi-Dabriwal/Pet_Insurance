@@ -4,6 +4,7 @@
  */
 package info5100.petinsurance.model.abusereport;
 
+import info5100.petinsurance.utilities.WorkFlowStatus;
 import java.util.Date;
 
 /**
@@ -17,8 +18,11 @@ public class AbuseReport {
     int supportPersonID;
     int supportPersonName;
     Date reportDate;
-    String status; //-- need from Mansi's code
+    WorkFlowStatus status; //-- need from Mansi's code
     String comments;
+    String reporterName;
+    String reporterEmail;
+    String reporterPhone;
 
     public int getId() {
         return id;
@@ -60,11 +64,11 @@ public class AbuseReport {
         this.reportDate = reportDate;
     }
 
-    public String getStatus() {
+    public WorkFlowStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(WorkFlowStatus status) {
         this.status = status;
     }
 
@@ -75,7 +79,28 @@ public class AbuseReport {
     public void setComments(String comments) {
         this.comments = comments;
     }
-    
-    
-    
+
+    public String getReporterName() {
+        return reporterName;
+    }
+
+    public void setReporterName(String reporterName) {
+        this.reporterName = reporterName;
+    }
+
+    public String getReporterEmail() {
+        return reporterEmail;
+    }
+
+    public void setReporterEmail(String reporterEmail) {
+        this.reporterEmail = reporterEmail;
+    }
+
+    public String getReporterPhone() {
+        return reporterPhone;
+    }
+
+    public void setReporterPhone(String reporterPhone) {
+        this.reporterPhone = reporterPhone;
+    }
 }
