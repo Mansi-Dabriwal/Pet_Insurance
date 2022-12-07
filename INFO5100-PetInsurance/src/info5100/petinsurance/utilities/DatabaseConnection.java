@@ -4,12 +4,19 @@
  */
 package info5100.petinsurance.utilities;
 
+import info5100.petinsurance.model.UserAccount;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -47,5 +54,30 @@ public class DatabaseConnection {
 
         return resultSet;
     }
+    
+    
+    public static void storeData() {
+        try{
+            setConnection();
+        UserAccount u = new UserAccount(1, "ppp", 
+        "ppp", 7, Roles.InsuranceProviderAdmin);
+        PreparedStatement ps;
+
+        ResultSet resultSet = null;
+            ps = connection.prepareStatement("INSERT INTO USERACCOUNT (Username, Password, PersonID, RoleName) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, u.getUsername());
+            ps.setString(2, u.getPassword());
+            ps.setInt(3, 7);
+            ps.setString(4, Roles.InsuranceProviderAdmin.getDisplayVal());
+            int affectedTrue = ps.executeUpdate();
+            System.out.print("Rows updated: "+ affectedTrue);
+          
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }   
 
 }

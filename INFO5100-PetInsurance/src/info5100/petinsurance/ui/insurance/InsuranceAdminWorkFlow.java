@@ -5,6 +5,8 @@
 package info5100.petinsurance.ui.insurance;
 
 import info5100.petinsurance.model.UserAccount;
+import info5100.petinsurance.ui.SignIn;
+import info5100.petinsurance.ui.WelcomeFrame;
 
 /**
  *
@@ -35,6 +37,7 @@ public class InsuranceAdminWorkFlow extends javax.swing.JFrame {
         addInsurancePlan = new javax.swing.JButton();
         modifyInsurancePlan = new javax.swing.JButton();
         updateInsuranceDetails = new javax.swing.JButton();
+        back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,6 +66,13 @@ public class InsuranceAdminWorkFlow extends javax.swing.JFrame {
             }
         });
 
+        back.setText("Back");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,7 +91,10 @@ public class InsuranceAdminWorkFlow extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(modifyInsurancePlan)
                             .addComponent(addInsurancePlan)
-                            .addComponent(updateInsuranceDetails))))
+                            .addComponent(updateInsuranceDetails)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(back)))
                 .addContainerGap(121, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -97,7 +110,9 @@ public class InsuranceAdminWorkFlow extends javax.swing.JFrame {
                 .addComponent(modifyInsurancePlan)
                 .addGap(18, 18, 18)
                 .addComponent(updateInsuranceDetails)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(back)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         pack();
@@ -116,6 +131,12 @@ public class InsuranceAdminWorkFlow extends javax.swing.JFrame {
     private void updateInsuranceDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateInsuranceDetailsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_updateInsuranceDetailsActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        // TODO add your handling code here:
+        new WelcomeFrame().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -154,6 +175,7 @@ public class InsuranceAdminWorkFlow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addInsurancePlan;
+    private javax.swing.JButton back;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton modifyInsurancePlan;

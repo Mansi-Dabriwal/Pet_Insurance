@@ -16,9 +16,14 @@ public class UserAccount {
     String username;
     String password;
     int personID;
-    Roles role;
+    String role;
     
     public UserAccount(int id, String username, String password, int personID, Roles role){
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.personID = personID; 
+        this.role = role.getDisplayVal();
        
     }
 
@@ -46,11 +51,11 @@ public class UserAccount {
         this.password = password;
     }
 
-    public Roles getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Roles role) {
+    public void setRole(String role) {
         this.role = role;
     }
     
