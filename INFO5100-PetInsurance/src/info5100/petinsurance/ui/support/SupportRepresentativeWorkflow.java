@@ -2,23 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package info5100.petinsurance.ui.insurance;
+package info5100.petinsurance.ui.support;
 
 import info5100.petinsurance.model.UserAccount;
-import info5100.petinsurance.ui.SignIn;
-import info5100.petinsurance.ui.WelcomeFrame;
+
 
 /**
  *
  * @author rakshaisrani
  */
-public class InsuranceAdminWorkFlow extends javax.swing.JFrame {
+public class SupportRepresentativeWorkflow extends javax.swing.JFrame {
 
     /**
-     * Creates new form InsuranceAdminWorkFlow
+     * Creates new form AbuseReportWorkflow
      */
     UserAccount ua;
-    public InsuranceAdminWorkFlow(UserAccount ua) {
+    
+    public SupportRepresentativeWorkflow(UserAccount ua) {
         this.ua = ua;
         initComponents();
     }
@@ -33,36 +33,33 @@ public class InsuranceAdminWorkFlow extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        addInsurancePlan = new javax.swing.JButton();
-        modifyInsurancePlan = new javax.swing.JButton();
-        updateInsuranceDetails = new javax.swing.JButton();
+        registerAbuse = new javax.swing.JButton();
+        updateDetails = new javax.swing.JButton();
+        bloodCollectionReq = new javax.swing.JButton();
         back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Welcome !!");
 
-        jLabel2.setText("Select an Action ");
-
-        addInsurancePlan.setText("Add a new Insurance Plan");
-        addInsurancePlan.addActionListener(new java.awt.event.ActionListener() {
+        registerAbuse.setText("Register Abuse Complaint Request");
+        registerAbuse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addInsurancePlanActionPerformed(evt);
+                registerAbuseActionPerformed(evt);
             }
         });
 
-        modifyInsurancePlan.setText("Modify an Existing Plan");
-        modifyInsurancePlan.addActionListener(new java.awt.event.ActionListener() {
+        updateDetails.setText("Update owner or animal details ");
+        updateDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modifyInsurancePlanActionPerformed(evt);
+                updateDetailsActionPerformed(evt);
             }
         });
 
-        updateInsuranceDetails.setText("Update Insurance Details ");
-        updateInsuranceDetails.addActionListener(new java.awt.event.ActionListener() {
+        bloodCollectionReq.setText("Raise blood collection request");
+        bloodCollectionReq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateInsuranceDetailsActionPerformed(evt);
+                bloodCollectionReqActionPerformed(evt);
             }
         });
 
@@ -80,62 +77,60 @@ public class InsuranceAdminWorkFlow extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(21, 21, 21))
+                .addGap(58, 58, 58))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel2))
+                        .addGap(63, 63, 63)
+                        .addComponent(registerAbuse))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
+                        .addGap(73, 73, 73)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(modifyInsurancePlan)
-                            .addComponent(addInsurancePlan)
-                            .addComponent(updateInsuranceDetails)))
+                            .addComponent(bloodCollectionReq)
+                            .addComponent(updateDetails)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
+                        .addGap(137, 137, 137)
                         .addComponent(back)))
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(addInsurancePlan)
-                .addGap(18, 18, 18)
-                .addComponent(modifyInsurancePlan)
-                .addGap(18, 18, 18)
-                .addComponent(updateInsuranceDetails)
+                .addGap(43, 43, 43)
+                .addComponent(registerAbuse)
+                .addGap(27, 27, 27)
+                .addComponent(updateDetails)
+                .addGap(27, 27, 27)
+                .addComponent(bloodCollectionReq)
                 .addGap(18, 18, 18)
                 .addComponent(back)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addInsurancePlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addInsurancePlanActionPerformed
+    private void registerAbuseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerAbuseActionPerformed
         // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_addInsurancePlanActionPerformed
+        new AbuseReportForm(ua).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_registerAbuseActionPerformed
 
-    private void modifyInsurancePlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyInsurancePlanActionPerformed
+    private void updateDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDetailsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_modifyInsurancePlanActionPerformed
+    }//GEN-LAST:event_updateDetailsActionPerformed
 
-    private void updateInsuranceDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateInsuranceDetailsActionPerformed
+    private void bloodCollectionReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloodCollectionReqActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_updateInsuranceDetailsActionPerformed
+        new BloodCollectionRequest(ua).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_bloodCollectionReqActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-        new WelcomeFrame().setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_backActionPerformed
 
 //    /**
@@ -155,30 +150,30 @@ public class InsuranceAdminWorkFlow extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(InsuranceAdminWorkFlow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(SupportRepresentativeWorkflow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(InsuranceAdminWorkFlow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(SupportRepresentativeWorkflow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(InsuranceAdminWorkFlow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(SupportRepresentativeWorkflow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(InsuranceAdminWorkFlow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(SupportRepresentativeWorkflow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
+//        //</editor-fold>
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new InsuranceAdminWorkFlow().setVisible(true);
+//                new SupportRepresentativeWorkflow().setVisible(true);
 //            }
 //        });
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addInsurancePlan;
     private javax.swing.JButton back;
+    private javax.swing.JButton bloodCollectionReq;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JButton modifyInsurancePlan;
-    private javax.swing.JButton updateInsuranceDetails;
+    private javax.swing.JButton registerAbuse;
+    private javax.swing.JButton updateDetails;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,12 +4,15 @@
  */
 package info5100.petinsurance.utilities;
 
+import info5100.petinsurance.model.UserAccount;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,12 +20,11 @@ import java.sql.Statement;
  */
 public class DatabaseConnection {
 
-    private static Statement statement;
+    private static Connection connection;
 
     private static void setConnection() throws SQLException {
         try {
-            Connection connection = DriverManager.getConnection(Constants.connectionUrl);
-            statement = connection.createStatement();
+            connection = DriverManager.getConnection(Constants.connectionUrl);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -33,14 +35,40 @@ public class DatabaseConnection {
     public static ResultSet getData(String query, boolean isDml) throws SQLException {
         setConnection();
 
+        PreparedStatement ps;
+
         ResultSet resultSet = null;
         if (isDml) {
-            statement.executeUpdate(query);
-            return null;
+            ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            int affectedTrue = ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+            return resultSet;
         }
+        Statement statement;
+        statement = connection.createStatement();
         resultSet = statement.executeQuery(query);
 
         return resultSet;
+    }
+
+    public static void storeData(UserAccount ua) {
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ResultSet resultSet = null;
+            ps = connection.prepareStatement("INSERT INTO USERACCOUNT (Username, Password, PersonID, RoleName) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, ua.getUsername());
+            ps.setString(2, ua.getPassword());
+            ps.setInt(3, 7);
+            ps.setString(4, Roles.InsuranceProviderAdmin.getDisplayVal());
+            int affectedTrue = ps.executeUpdate();
+            connection.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
