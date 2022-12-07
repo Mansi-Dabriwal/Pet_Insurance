@@ -696,7 +696,15 @@ public class PetOwner extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_purchaseButtonActionPerformed
-
+     
+    
+    private void submitclaimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitclaimButtonActionPerformed
+        // TODO add your handling code here:
+        parentPanel.removeAll();
+        parentPanel.add(submitClaimPanel);
+        parentPanel.repaint();
+        parentPanel.revalidate();
+    }
     /**
      * @param args the command line arguments
      */
