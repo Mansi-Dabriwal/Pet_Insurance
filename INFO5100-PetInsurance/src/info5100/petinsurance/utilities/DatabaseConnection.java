@@ -4,7 +4,11 @@
  */
 package info5100.petinsurance.utilities;
 
+import info5100.petinsurance.model.Address;
+import info5100.petinsurance.model.Person;
 import info5100.petinsurance.model.UserAccount;
+import info5100.petinsurance.model.animal.AnimalDetails;
+import info5100.petinsurance.model.insurance.InsuranceDetails;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -60,8 +64,8 @@ public class DatabaseConnection {
             ps = connection.prepareStatement("INSERT INTO USERACCOUNT (Username, Password, PersonID, RoleName) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, ua.getUsername());
             ps.setString(2, ua.getPassword());
-            ps.setInt(3, 7);
-            ps.setString(4, Roles.InsuranceProviderAdmin.getDisplayVal());
+            ps.setInt(3, ua.getPersonID());
+            ps.setString(4, ua.getRole());
             int affectedTrue = ps.executeUpdate();
             connection.close();
 
@@ -69,6 +73,95 @@ public class DatabaseConnection {
             ex.printStackTrace();
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static ResultSet storeData(AnimalDetails ad) {
+        
+         ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO AnimalDetails VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, ad.getAnimalType());
+            ps.setString(2, ad.getBreed());
+            ps.setInt(3, ad.getAge());
+            ps.setString(4, ad.getGender());
+            ps.setInt(5, ad.getAnimalOwnerID());
+            ps.setString(6, ad.getBloodType());
+            int affectedTrue = ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+            connection.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    }
+    
+    
+//    public static int storeData(InsuranceDetails insurance){
+//        
+//    
+//    }
+    
+    
+    public static ResultSet storeData(Address address){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO Address VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, address.getAddressLine1());
+            ps.setString(2, address.getAddressLine2());
+            ps.setString(3, address.getCity());
+            ps.setString(4, address.getState());
+            ps.setString(5, address.getCountry());
+            ps.setInt(6, address.getZipCode());
+            
+            int affectedTrue = ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+            connection.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+    
+    
+    public static ResultSet storeData(Person person){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO Person VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, person.getfName());
+            ps.setString(2, person.getlName());
+            ps.setString(3, person.getPhone());
+            ps.setString(4, person.getEmail());
+            ps.setInt(5, person.getAddressID());
+            
+            int affectedTrue = ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+            connection.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
     }
 
 }

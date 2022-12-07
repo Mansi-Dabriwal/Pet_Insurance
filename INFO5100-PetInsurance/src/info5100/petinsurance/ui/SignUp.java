@@ -4,7 +4,12 @@
  */
 package info5100.petinsurance.ui;
 
+import info5100.petinsurance.model.Address;
+import info5100.petinsurance.model.Person;
+import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.Roles;
+import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -404,30 +409,35 @@ public class SignUp extends javax.swing.JFrame {
     public void registerUser() {
         try {
             int addressID = 0;
-
+            
+            Address address = new Address(addressLine1TextField.getText(), addresslLine2TextField.getText() ,
+                    cityTextField.getText(), stateTextField.getText(), countryTextField.getText(), Integer.valueOf(zipCodeTextField.getText()));
+            
             //Create Address
             ResultSet rs;
-            String createAddress = createNewAddressInsertStatement();
-            rs = DatabaseConnection.getData(createAddress, true);
+            rs = DatabaseConnection.storeData(address);
             while (rs.next()) {
                 addressID = rs.getInt(1);
             }
 
             //Create Person
             int personID = 0;
-            String insertPerson = createNewPersonInsertStatement(addressID);
-            rs = DatabaseConnection.getData(insertPerson, true);
+            Person person = new Person(firstNameTextField.getText(), lastNameTextField.getText(), emailTextField.getText(),
+                           null, Integer.valueOf(zipCodeTextField.getText())  );
+            
+            rs = DatabaseConnection.storeData(person);
             while (rs.next()) {
                 personID = rs.getInt(1);
             }
             
             //Create User Account
-            String insertUserAccount = createNewUserAccount(personID);
-            rs = DatabaseConnection.getData(insertUserAccount, true);
+            UserAccount ua = new UserAccount(usernameTextField.getText(), PasswordField.getText()
+            , personID, Roles.valueOf(roleComboBox.getSelectedItem().toString() ));
+            DatabaseConnection.storeData(ua);
             
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Sign up completed!");
-        } catch (Exception e) {
+        } catch (HeadlessException | NumberFormatException | SQLException e) {
 
             e.printStackTrace();
 
@@ -435,49 +445,5 @@ public class SignUp extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(jFrame, "Sign up failed. Please try again!");
 
         }
-    }
-
-    private String createNewPersonInsertStatement(int addressID) {
-
-        return new StringBuilder().append("insert into Person Values ('")
-                .append(firstNameTextField.getText()).append("' , '")
-                .append(lastNameTextField.getText()).append("' , ")
-                .append(" null ")
-                .append(",'")
-                .append(emailTextField.getText())
-                .append("',")
-                .append(addressID)
-                .append(")")
-                .toString();
-
-    }
-
-    private String createNewAddressInsertStatement() {
-        return new StringBuilder().append("insert into Address Values (\'")
-                .append(addressLine1TextField.getText()).append("\' , ")
-                
-                .append(null == addresslLine2TextField.getText() ? null : ("\'" + addresslLine2TextField.getText() + "\'"))
-                .append(",'")
-                .append(cityTextField.getText())
-                .append("','")
-                .append(stateTextField.getText())
-                .append("','")
-                .append(countryTextField.getText())
-                .append("',")
-                .append(Integer.valueOf(zipCodeTextField.getText()))
-                .append(")")
-                .toString();
-    }
-
-    private String createNewUserAccount(int personID) {
-         return new StringBuilder().append("insert into useraccount Values (\'")
-                .append(usernameTextField.getText()).append("\' , '")
-                .append(PasswordField.getText())
-                .append("',")
-                .append(personID)
-                .append(",'")
-                .append(roleComboBox.getSelectedItem().toString())
-                .append("')")
-                .toString();
     }
 }

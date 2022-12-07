@@ -4,6 +4,16 @@
  */
 package info5100.petinsurance.ui;
 
+import info5100.petinsurance.model.UserAccount;
+import info5100.petinsurance.model.animal.AnimalDetails;
+import info5100.petinsurance.utilities.DatabaseConnection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ashit
@@ -13,8 +23,25 @@ public class PetOwner extends javax.swing.JFrame {
     /**
      * Creates new form AnimalOwner
      */
+    UserAccount ua;
+
     public PetOwner() {
         initComponents();
+
+        String[] plans = new String[15];
+
+        try {
+            ResultSet rs = DatabaseConnection.getData("Select planName from InsurancePlan", false);
+            int i = 0;
+            while (rs.next()) {
+                plans[i] = rs.getString("planName");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        planComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(plans));
     }
 
     /**
@@ -61,9 +88,10 @@ public class PetOwner extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        planComboBox = new javax.swing.JComboBox<>();
         anmlIDTextField1 = new javax.swing.JTextField();
         purchaseButton = new javax.swing.JButton();
+        startDateChooser = new com.toedter.calendar.JDateChooser();
         cancelInsurancePanel = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         anmlIDCancelTextField = new javax.swing.JTextField();
@@ -234,6 +262,11 @@ public class PetOwner extends javax.swing.JFrame {
 
         registerAnimalButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         registerAnimalButton.setText("Register");
+        registerAnimalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerAnimalButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout registerAnimalPanelLayout = new javax.swing.GroupLayout(registerAnimalPanel);
         registerAnimalPanel.setLayout(registerAnimalPanelLayout);
@@ -341,10 +374,15 @@ public class PetOwner extends javax.swing.JFrame {
         jComboBox2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Yes", "No" }));
 
-        jComboBox3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        planComboBox.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         purchaseButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         purchaseButton.setText("Purchase");
+        purchaseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                purchaseButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout purchaseInsurancePanelLayout = new javax.swing.GroupLayout(purchaseInsurancePanel);
         purchaseInsurancePanel.setLayout(purchaseInsurancePanelLayout);
@@ -359,11 +397,16 @@ public class PetOwner extends javax.swing.JFrame {
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13))
-                        .addGap(36, 36, 36)
                         .addGroup(purchaseInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(anmlIDTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(purchaseInsurancePanelLayout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addGroup(purchaseInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(anmlIDTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(planComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(purchaseInsurancePanelLayout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addComponent(startDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(purchaseInsurancePanelLayout.createSequentialGroup()
                         .addGap(251, 251, 251)
                         .addComponent(purchaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -379,16 +422,18 @@ public class PetOwner extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(purchaseInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(planComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(purchaseInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(startDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(purchaseInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(91, 91, 91)
                 .addComponent(purchaseButton)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         parentPanel.add(purchaseInsurancePanel, "card4");
@@ -593,6 +638,41 @@ public class PetOwner extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
+    private void registerAnimalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerAnimalButtonActionPerformed
+        // TODO add your handling code here:
+        String gender = maleRadioButton.isSelected() ? "male" : "female";
+        AnimalDetails animal = new AnimalDetails(typeTextField.getText(), breedTextField.getText(),
+                Integer.valueOf(ageTextField.getText()),
+                gender, 1, bloodTypeTextField.getText());
+
+        ResultSet rs = DatabaseConnection.storeData(animal);
+
+        if (rs == null) {
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Sorry the registration couldn't be completed. Please try again!");
+        } else {
+            try {
+
+                while (rs.next()) {
+                    JFrame jFrame = new JFrame();
+                    String pronoun = gender.equals("male") ? "him" : "her";
+                    JOptionPane.showMessageDialog(jFrame, "Your pet is Registered. We wish " + pronoun + "a good health");
+
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(PetOwner.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
+    }//GEN-LAST:event_registerAnimalButtonActionPerformed
+
+    private void purchaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseButtonActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_purchaseButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -644,7 +724,6 @@ public class PetOwner extends javax.swing.JFrame {
     private javax.swing.JPanel homePanel;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -677,12 +756,14 @@ public class PetOwner extends javax.swing.JFrame {
     private javax.swing.JRadioButton maleRadioButton;
     private javax.swing.JTextField pOwnerTextField;
     private javax.swing.JPanel parentPanel;
+    private javax.swing.JComboBox<String> planComboBox;
     private javax.swing.JButton purchaseButton;
     private javax.swing.JButton purchaseInsuranceButton2;
     private javax.swing.JPanel purchaseInsurancePanel;
     private javax.swing.JButton registerAnimalButton;
     private javax.swing.JPanel registerAnimalPanel;
     private javax.swing.JButton registerButton;
+    private com.toedter.calendar.JDateChooser startDateChooser;
     private javax.swing.JPanel submitClaimPanel;
     private javax.swing.JButton submitclaimButton;
     private javax.swing.JTextField typeTextField;

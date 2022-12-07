@@ -201,10 +201,9 @@ public class SignIn extends javax.swing.JFrame {
                                r = ri;
                         }
 
-                        UserAccount ua = new UserAccount(rs.getInt("id"),
+                        UserAccount ua = new UserAccount(
                                 rs.getString("username"), rs.getString("password"),
-                                 rs.getInt("PersonID"), r
-                        );
+                                 rs.getInt("PersonID"), r);
 
                         switch (r) {
                             case InsuranceProviderAdmin:
