@@ -4,6 +4,17 @@
  */
 package info5100.petinsurance.ui.insurance;
 
+import info5100.petinsurance.model.insurance.InsurancePlan;
+import info5100.petinsurance.utilities.DatabaseConnection;
+import java.awt.HeadlessException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ashit
@@ -13,7 +24,9 @@ public class InsuranceAdmin extends javax.swing.JFrame {
     /**
      * Creates new form InsuranceAdmin
      */
+    String planNameSelected;
     public InsuranceAdmin() {
+        planNameSelected = "";
         initComponents();
     }
 
@@ -52,30 +65,29 @@ public class InsuranceAdmin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         modifyPlanPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
+        modifyPlanPanelTable = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton5 = new javax.swing.JButton();
+        premiumAmountModify = new javax.swing.JTextField();
+        inclusionModify = new javax.swing.JTextField();
+        planCoverageModify = new javax.swing.JTextField();
+        validityModify = new javax.swing.JComboBox<>();
+        updatePlan = new javax.swing.JButton();
+        updateSelectedPlan = new javax.swing.JButton();
         createPlan = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        amountTextField = new javax.swing.JTextField();
-        inclusionTextField = new javax.swing.JTextField();
+        planName = new javax.swing.JTextField();
+        planCoverage = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        amountTextField4 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        premiumAmount = new javax.swing.JTextField();
+        validity = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        inclusionTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        inclusionTextField = new javax.swing.JTextField();
+        savePlanButton = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -270,7 +282,7 @@ public class InsuranceAdmin extends javax.swing.JFrame {
 
         modifyPlanPanel.setBackground(new java.awt.Color(255, 255, 153));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        modifyPlanPanelTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -278,10 +290,7 @@ public class InsuranceAdmin extends javax.swing.JFrame {
                 "Plan Name", "Premium Amount", "Validity", "Inclusions", "Coverage Amount"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setText("Plan Name");
+        jScrollPane1.setViewportView(modifyPlanPanelTable);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("Premium Amount");
@@ -295,10 +304,22 @@ public class InsuranceAdmin extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setText("Plan Coverage Amount");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        validityModify.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton5.setText("Save");
+        updatePlan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        updatePlan.setText("Save");
+        updatePlan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatePlanActionPerformed(evt);
+            }
+        });
+
+        updateSelectedPlan.setText("Update Selected Plan");
+        updateSelectedPlan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateSelectedPlanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout modifyPlanPanelLayout = new javax.swing.GroupLayout(modifyPlanPanel);
         modifyPlanPanel.setLayout(modifyPlanPanelLayout);
@@ -312,56 +333,52 @@ public class InsuranceAdmin extends javax.swing.JFrame {
                         .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(modifyPlanPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                                .addComponent(planCoverageModify, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifyPlanPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifyPlanPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(97, 97, 97)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(inclusionModify, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifyPlanPanelLayout.createSequentialGroup()
                                 .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel9))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(premiumAmountModify, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(validityModify, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(modifyPlanPanelLayout.createSequentialGroup()
                         .addGap(197, 197, 197)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(updatePlan, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(modifyPlanPanelLayout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(updateSelectedPlan)))
                 .addContainerGap(193, Short.MAX_VALUE))
         );
         modifyPlanPanelLayout.setVerticalGroup(
             modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(modifyPlanPanelLayout.createSequentialGroup()
-                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(modifyPlanPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel8))
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(updateSelectedPlan)
+                .addGap(32, 32, 32)
+                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(premiumAmountModify, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(validityModify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(inclusionModify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(planCoverageModify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
-                .addComponent(jButton5)
+                .addComponent(updatePlan)
                 .addGap(150, 150, 150))
         );
 
@@ -381,13 +398,18 @@ public class InsuranceAdmin extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Plan Name");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        validity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Inclusion");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setText("Save");
+        savePlanButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        savePlanButton.setText("Save");
+        savePlanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                savePlanButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout createPlanLayout = new javax.swing.GroupLayout(createPlan);
         createPlan.setLayout(createPlanLayout);
@@ -397,7 +419,7 @@ public class InsuranceAdmin extends javax.swing.JFrame {
                 .addGroup(createPlanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(createPlanLayout.createSequentialGroup()
                         .addGap(179, 179, 179)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(savePlanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(createPlanLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(createPlanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -409,11 +431,11 @@ public class InsuranceAdmin extends javax.swing.JFrame {
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
                         .addGroup(createPlanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(amountTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-                            .addComponent(amountTextField4)
-                            .addComponent(inclusionTextField)
-                            .addComponent(inclusionTextField3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(planName, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                            .addComponent(premiumAmount)
+                            .addComponent(planCoverage)
+                            .addComponent(inclusionTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(validity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(0, 318, Short.MAX_VALUE))
         );
         createPlanLayout.setVerticalGroup(
@@ -422,29 +444,28 @@ public class InsuranceAdmin extends javax.swing.JFrame {
                 .addGap(84, 84, 84)
                 .addGroup(createPlanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(amountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(planName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(createPlanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(amountTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(premiumAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(createPlanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(validity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(11, 11, 11)
                 .addGroup(createPlanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(createPlanLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(createPlanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(inclusionTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(inclusionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addGroup(createPlanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inclusionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(planCoverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(createPlanLayout.createSequentialGroup()
                         .addGap(189, 189, 189)
-                        .addComponent(jButton1)))
+                        .addComponent(savePlanButton)))
                 .addContainerGap(306, Short.MAX_VALUE))
         );
 
@@ -489,6 +510,9 @@ public class InsuranceAdmin extends javax.swing.JFrame {
         parentPanel.add(modifyPlanPanel);
         parentPanel.repaint();
         parentPanel.revalidate();
+        
+        populateModifyPlanTable();
+            
     }//GEN-LAST:event_modifyPlanButtonActionPerformed
 
     private void updateInsuranceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateInsuranceButtonActionPerformed
@@ -498,6 +522,70 @@ public class InsuranceAdmin extends javax.swing.JFrame {
         parentPanel.repaint();
         parentPanel.revalidate();
     }//GEN-LAST:event_updateInsuranceButtonActionPerformed
+
+    
+    private void savePlanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePlanButtonActionPerformed
+        // TODO add your handling code here:
+        InsurancePlan plan = new InsurancePlan(planName.getText(), inclusionTextField.getText(), 
+                Integer.valueOf(validity.getSelectedItem().toString()),         
+                Integer.valueOf(premiumAmount.getText()), Integer.valueOf(planCoverage.getText()));
+        
+        try {
+            ResultSet rs = DatabaseConnection.getData("select * from InsurancePlan", false);
+            ResultSet insertResultSet;
+            if (!rs.next()) {
+                DatabaseConnection.storeData(plan);
+                JFrame jFrame = new JFrame();
+                        JOptionPane.showMessageDialog(jFrame, "Plan Created!");
+            } else {
+
+                rs = DatabaseConnection.getData("select * from InsurancePlan", false);
+                boolean flag = true;
+                while (rs.next()) {
+                    if (rs.getString(2).equalsIgnoreCase(planName.getText())) {
+                        JFrame jFrame = new JFrame();
+                        JOptionPane.showMessageDialog(jFrame, "There's already a plan with same name, Please enter a new name!");
+                        flag = false;
+
+                    }
+                }
+                if(flag) {
+                        DatabaseConnection.storeData(plan);
+                        JFrame jFrame = new JFrame();
+                        JOptionPane.showMessageDialog(jFrame, "Plan Created!");
+                    }
+            }
+        } catch (HeadlessException | SQLException e) {
+             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_savePlanButtonActionPerformed
+
+    private void updatePlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePlanActionPerformed
+        // TODO add your handling code here:
+        InsurancePlan plan = new InsurancePlan(planNameSelected,
+              inclusionModify.getText(),
+       Integer.valueOf(validityModify.getSelectedItem().toString()),
+              Integer.valueOf(premiumAmountModify.getText()),
+              Integer.valueOf(planCoverageModify.getText()));
+      
+      DatabaseConnection.updatePlan(plan);
+      
+      JFrame jFrame = new JFrame();
+      JOptionPane.showMessageDialog(jFrame, planNameSelected + "Plan Updated!");
+      populateModifyPlanTable();
+    }//GEN-LAST:event_updatePlanActionPerformed
+
+    private void updateSelectedPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateSelectedPlanActionPerformed
+        // TODO add your handling code here:
+      int selectedRow =   modifyPlanPanelTable.getSelectedRow();
+      premiumAmountModify.setText(modifyPlanPanelTable.getValueAt(selectedRow, 1).toString());
+      planCoverageModify.setText(modifyPlanPanelTable.getValueAt(selectedRow, 4).toString());
+      inclusionModify.setText(modifyPlanPanelTable.getValueAt(selectedRow, 3).toString());
+      validityModify.setSelectedItem(modifyPlanPanelTable.getValueAt(selectedRow, 4).toString());
+      
+      planNameSelected = modifyPlanPanelTable.getValueAt(selectedRow, 0).toString();
+        
+    }//GEN-LAST:event_updateSelectedPlanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -535,19 +623,13 @@ public class InsuranceAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField amountTextField;
-    private javax.swing.JTextField amountTextField4;
     private javax.swing.JTextField anmlIDTextField1;
     private javax.swing.JTextField anmlIDTextField2;
     private javax.swing.JPanel createPlan;
     private javax.swing.JButton createPlanButton;
     private javax.swing.JPanel homePanel;
+    private javax.swing.JTextField inclusionModify;
     private javax.swing.JTextField inclusionTextField;
-    private javax.swing.JTextField inclusionTextField3;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
@@ -563,7 +645,6 @@ public class InsuranceAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -571,19 +652,43 @@ public class InsuranceAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JButton modifyPlanButton;
     private javax.swing.JPanel modifyPlanPanel;
+    private javax.swing.JTable modifyPlanPanelTable;
     private javax.swing.JPanel parentPanel;
+    private javax.swing.JTextField planCoverage;
+    private javax.swing.JTextField planCoverageModify;
+    private javax.swing.JTextField planName;
+    private javax.swing.JTextField premiumAmount;
+    private javax.swing.JTextField premiumAmountModify;
     private javax.swing.JButton purchaseButton;
+    private javax.swing.JButton savePlanButton;
     private javax.swing.JTextField searchTextField;
     private javax.swing.JButton updateInsuranceButton;
     private javax.swing.JPanel updateInsurancePanel;
+    private javax.swing.JButton updatePlan;
+    private javax.swing.JButton updateSelectedPlan;
+    private javax.swing.JComboBox<String> validity;
+    private javax.swing.JComboBox<String> validityModify;
     // End of variables declaration//GEN-END:variables
+   private void populateModifyPlanTable(){
+   DefaultTableModel model = (DefaultTableModel) modifyPlanPanelTable.getModel();
+        model.setRowCount(0);
+        try{
+        
+        ResultSet rs = DatabaseConnection.getData("select * from InsurancePlan", false);
+        while (rs.next()){
+        Object[] row = {rs.getString("planName"), rs.getInt("planPremium"), rs.getInt("validity"), rs.getString("inclusions"), rs.getInt("planCoverage") };
+            model.addRow(row);
+        }
+        }
+        catch (HeadlessException | SQLException e) {
+             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
+        }
+   
+   }
+
+
 }

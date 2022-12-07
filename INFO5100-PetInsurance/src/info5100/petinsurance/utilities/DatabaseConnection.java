@@ -9,6 +9,7 @@ import info5100.petinsurance.model.Person;
 import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
 import info5100.petinsurance.model.insurance.InsuranceDetails;
+import info5100.petinsurance.model.insurance.InsurancePlan;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -162,6 +163,56 @@ public class DatabaseConnection {
             ps.setString(3, person.getPhone());
             ps.setString(4, person.getEmail());
             ps.setInt(5, person.getAddressID());
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+    
+    public static ResultSet storeData(InsurancePlan insurancePlan){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO InsurancePlan VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, insurancePlan.getPlanName());
+            ps.setString(2, insurancePlan.getInclusions());
+            ps.setInt(3, insurancePlan.getPlanPremium());
+            ps.setInt(4, insurancePlan.getPlanCoverage());
+            ps.setInt(5, insurancePlan.getValidity());
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+    
+     public static ResultSet updatePlan(InsurancePlan insurancePlan){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("Update InsurancePlan SET validity =?, planPremium =?, planCoverage = ? where planName = ?", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setInt(1, insurancePlan.getValidity());
+            ps.setInt(2, insurancePlan.getPlanPremium());
+            ps.setInt(3, insurancePlan.getPlanCoverage());
+            ps.setString(4, insurancePlan.getPlanName());
             
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
