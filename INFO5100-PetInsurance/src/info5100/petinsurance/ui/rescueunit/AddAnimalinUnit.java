@@ -229,26 +229,7 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
 
     private void addAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAnimalActionPerformed
         // TODO add your handling code here:
-        try {
-            ResultSet rs = DatabaseConnection.getData("select * from RescueUnit", false);
-            ResultSet insertResultSet;
-            if (!rs.next()) {
-                addNewAnimalToRescue();
-            } else {
-
-                while (rs.next()) {
-                    if (rs.getString(2).equalsIgnoreCase(animalId.getText())) {
-                        JFrame jFrame = new JFrame();
-                        JOptionPane.showMessageDialog(jFrame, "There's already a animal with same id, Please enter a new id!");
-
-                    } else {
-                        addNewAnimalToRescue();
-                    }
-                }
-            }
-        } catch (HeadlessException | SQLException e) {
-
-        }
+        addNewAnimalToRescue();
         
     }//GEN-LAST:event_addAnimalActionPerformed
 
