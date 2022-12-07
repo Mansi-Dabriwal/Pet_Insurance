@@ -4,7 +4,12 @@
  */
 package info5100.petinsurance.ui;
 
+import info5100.petinsurance.model.Address;
+import info5100.petinsurance.model.Person;
+import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.Roles;
+import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -291,31 +296,41 @@ public class SignUp extends javax.swing.JFrame {
         if (!allowSignUp) {
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
-        }
-        else {
-           //  performValidation();
-           // registerUser();
-        
+        } else {
+             // performValidation();
+             registerUser();
+
         }
     }//GEN-LAST:event_signUpButtonActionPerformed
 
     private void verifyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verifyBtnActionPerformed
         // TODO add your handling code here:
-       /* try {
-            ResultSet rs = DatabaseConnection.getData("select username from UserAccount", false);
-            while (rs.next()) {
-                if (rs.getString(1).equalsIgnoreCase(usernameTextField.getText())) {
-                    JFrame jFrame = new JFrame();
-                    JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
+        try {
+            ResultSet rs = DatabaseConnection.getData("select username from UserAccount ", false);
+            if (!rs.next()) {
+                allowSignUp = true;
+            } else {
+                while (rs.next()) {
+                    if (rs.getString(1).equalsIgnoreCase(usernameTextField.getText())) {
+                        JFrame jFrame = new JFrame();
+                        JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
 
-                } else {
-                    allowSignUp = true;
+                    } else {
+                        allowSignUp = true;
 
+                    }
                 }
             }
+
+            if (allowSignUp) {
+                System.out.print("Proceed for signup");
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Username exists, proceed for signup!");
+            }
         } catch (SQLException ex) {
+            ex.printStackTrace();
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     }//GEN-LAST:event_verifyBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
@@ -391,49 +406,44 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JButton verifyBtn;
     private javax.swing.JTextField zipCodeTextField;
     // End of variables declaration//GEN-END:variables
-//    public void registerUser(){
-//       try {
-//
-//            String insertPlan = createNewSignUpInsertStatement();
-//            DatabaseConnection.getData(insertPlan, true);
-//            JFrame jFrame = new JFrame();
-//            JOptionPane.showMessageDialog(jFrame, "Plan created!");
-//        } catch (Exception e) {
-//
-//            e.printStackTrace();
-//
-//            JFrame jFrame = new JFrame();
-//            JOptionPane.showMessageDialog(jFrame, "Creation of insurance plan failed. Please try again!");
-//
-//        }
-//    }
-    
-    
-//    private String createNewSignUpInsertStatement() {
-//
-//        return new StringBuilder().append("insert into InsurancePlan Values (\'")
-//                .append(planName.getText()).append("\' , ")
-//                .append(" \' \', ")
-//                .append(Integer.valueOf(premiumAmount.getText()))
-//                .append(",")
-//                .append(Integer.valueOf(planCoverage.getText()))
-//                .append(",")
-//                .append(Integer.valueOf(validity.getSelectedItem().toString()))
-//                .append(")")
-//                .toString();
-//
-//    }
-    
-//    private String createNewAddressInsertStatement(){
-//        return new StringBuilder().append("insert into InsurancePlan Values (\'")
-//                .append(planName.getText()).append("\' , ")
-//                .append(" \' \', ")
-//                .append(Integer.valueOf(premiumAmount.getText()))
-//                .append(",")
-//                .append(Integer.valueOf(planCoverage.getText()))
-//                .append(",")
-//                .append(Integer.valueOf(validity.getSelectedItem().toString()))
-//                .append(")")
-//                .toString();
-//    }
+    public void registerUser() {
+        try {
+            int addressID = 0;
+            
+            Address address = new Address(addressLine1TextField.getText(), addresslLine2TextField.getText() ,
+                    cityTextField.getText(), stateTextField.getText(), countryTextField.getText(), Integer.valueOf(zipCodeTextField.getText()));
+            
+            //Create Address
+            ResultSet rs;
+            rs = DatabaseConnection.storeData(address);
+            while (rs.next()) {
+                addressID = rs.getInt(1);
+            }
+
+            //Create Person
+            int personID = 0;
+            Person person = new Person(firstNameTextField.getText(), lastNameTextField.getText(), emailTextField.getText(),
+                           null, Integer.valueOf(zipCodeTextField.getText())  );
+            
+            rs = DatabaseConnection.storeData(person);
+            while (rs.next()) {
+                personID = rs.getInt(1);
+            }
+            
+            //Create User Account
+            UserAccount ua = new UserAccount(usernameTextField.getText(), PasswordField.getText()
+            , personID, Roles.valueOf(roleComboBox.getSelectedItem().toString() ));
+            DatabaseConnection.storeData(ua);
+            
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Sign up completed!");
+        } catch (HeadlessException | NumberFormatException | SQLException e) {
+
+            e.printStackTrace();
+
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Sign up failed. Please try again!");
+
+        }
+    }
 }

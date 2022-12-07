@@ -4,18 +4,13 @@
  */
 package info5100.petinsurance.utilities;
 
-import java.util.regex.Pattern;
-
 /**
  *
- * @author rakshaisrani
+ * @author mansidabriwal
  */
-public class EmailValidationService {
+public enum WorkFlowStatus {
     
-    public static boolean validateEmail(String email){
-     return Pattern.compile(Constants.EmailRegex)
-      .matcher(email)
-      .matches();
-    }
-    
+    PENDING, 
+    COMPLETED, 
+    CANCELLED
 }

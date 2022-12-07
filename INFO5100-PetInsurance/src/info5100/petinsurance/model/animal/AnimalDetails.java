@@ -16,9 +16,18 @@ public class AnimalDetails {
     int age;
     String gender;
     int animalOwnerID;
-
-   
     String bloodType;
+
+    public AnimalDetails(String animalType, String breed, int age, String gender, int animalOwnerID, String bloodType) {
+        this.animalType = animalType;
+        this.breed = breed;
+        this.age = age;
+        this.gender = gender;
+        this.animalOwnerID = animalOwnerID;
+        this.bloodType = bloodType;
+    }
+    
+    
 
     public int getAnimalOwnerID() {
         return animalOwnerID;
@@ -28,9 +37,6 @@ public class AnimalDetails {
         this.animalOwnerID = animalOwnerID;
     }
 
- 
-
-   
 
     public String getAnimalType() {
         return animalType;
@@ -74,10 +80,6 @@ public class AnimalDetails {
     public void setGender(String gender) {
         this.gender = gender;
     }
-
-
-
-   
 
     public String getBloodType() {
         return bloodType;

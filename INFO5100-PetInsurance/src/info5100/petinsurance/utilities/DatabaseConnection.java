@@ -4,12 +4,20 @@
  */
 package info5100.petinsurance.utilities;
 
+import info5100.petinsurance.model.Address;
+import info5100.petinsurance.model.Person;
+import info5100.petinsurance.model.UserAccount;
+import info5100.petinsurance.model.animal.AnimalDetails;
+import info5100.petinsurance.model.insurance.InsuranceDetails;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,12 +25,11 @@ import java.sql.Statement;
  */
 public class DatabaseConnection {
 
-    private static Statement statement;
+    private static Connection connection;
 
     private static void setConnection() throws SQLException {
         try {
-            Connection connection = DriverManager.getConnection(Constants.connectionUrl);
-            statement = connection.createStatement();
+            connection = DriverManager.getConnection(Constants.connectionUrl);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -33,14 +40,144 @@ public class DatabaseConnection {
     public static ResultSet getData(String query, boolean isDml) throws SQLException {
         setConnection();
 
+        PreparedStatement ps;
+
         ResultSet resultSet = null;
         if (isDml) {
-            statement.executeUpdate(query);
-            return null;
+            ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            int affectedTrue = ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+            return resultSet;
         }
+        Statement statement;
+        statement = connection.createStatement();
         resultSet = statement.executeQuery(query);
 
         return resultSet;
+    }
+
+    public static void storeData(UserAccount ua) {
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ResultSet resultSet = null;
+            ps = connection.prepareStatement("INSERT INTO USERACCOUNT (Username, Password, PersonID, RoleName) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, ua.getUsername());
+            ps.setString(2, ua.getPassword());
+            ps.setInt(3, ua.getPersonID());
+            ps.setString(4, ua.getRole());
+            int affectedTrue = ps.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static ResultSet storeData(AnimalDetails ad) {
+        
+         ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO AnimalDetails VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, ad.getAnimalType());
+            ps.setString(2, ad.getBreed());
+            ps.setInt(3, ad.getAge());
+            ps.setString(4, ad.getGender());
+            ps.setInt(5, ad.getAnimalOwnerID());
+            ps.setString(6, ad.getBloodType());
+            int affectedTrue = ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    }
+    
+    
+    public static ResultSet storeData(InsuranceDetails insurance){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO InsuranceDetails VALUES ( ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, insurance.getAnimalId());
+            ps.setDate(2,  new Date(insurance.getDateOfInsurance().getTime()));
+            ps.setString(3, insurance.getExistingMedicalConditions());
+            ps.setInt(4, insurance.getPlanId());
+            
+            int affectedTrue = ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;   
+    }
+    
+    
+    public static ResultSet storeData(Address address){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO Address VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, address.getAddressLine1());
+            ps.setString(2, address.getAddressLine2());
+            ps.setString(3, address.getCity());
+            ps.setString(4, address.getState());
+            ps.setString(5, address.getCountry());
+            ps.setInt(6, address.getZipCode());
+            
+            int affectedTrue = ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
+    }
+    
+    
+    public static ResultSet storeData(Person person){
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO Person VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, person.getfName());
+            ps.setString(2, person.getlName());
+            ps.setString(3, person.getPhone());
+            ps.setString(4, person.getEmail());
+            ps.setInt(5, person.getAddressID());
+            
+            int affectedTrue = ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    
     }
 
 }
