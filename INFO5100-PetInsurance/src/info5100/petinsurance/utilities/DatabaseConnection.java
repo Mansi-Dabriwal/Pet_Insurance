@@ -61,16 +61,15 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ResultSet resultSet = null;
+            //ResultSet resultSet = null;
             ps = connection.prepareStatement("INSERT INTO USERACCOUNT (Username, Password, PersonID, RoleName) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, ua.getUsername());
             ps.setString(2, ua.getPassword());
             ps.setInt(3, ua.getPersonID());
             ps.setString(4, ua.getRole());
-            int affectedTrue = ps.executeUpdate();
+            ps.executeUpdate();
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -89,11 +88,10 @@ public class DatabaseConnection {
             ps.setString(4, ad.getGender());
             ps.setInt(5, ad.getAnimalOwnerID());
             ps.setString(6, ad.getBloodType());
-            int affectedTrue = ps.executeUpdate();
+            ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -113,12 +111,10 @@ public class DatabaseConnection {
             ps.setDate(2,  new Date(insurance.getDateOfInsurance().getTime()));
             ps.setString(3, insurance.getExistingMedicalConditions());
             ps.setInt(4, insurance.getPlanId());
-            
-            int affectedTrue = ps.executeUpdate();
+            ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -141,11 +137,10 @@ public class DatabaseConnection {
             ps.setString(5, address.getCountry());
             ps.setInt(6, address.getZipCode());
             
-            int affectedTrue = ps.executeUpdate();
+            ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -168,11 +163,10 @@ public class DatabaseConnection {
             ps.setString(4, person.getEmail());
             ps.setInt(5, person.getAddressID());
             
-            int affectedTrue = ps.executeUpdate();
+            ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         
