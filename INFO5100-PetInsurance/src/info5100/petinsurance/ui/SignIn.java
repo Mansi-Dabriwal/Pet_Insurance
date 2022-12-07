@@ -215,6 +215,8 @@ public class SignIn extends javax.swing.JFrame {
                             case HospitalAdmin:
                                 break;
                             case PetOwner:
+                                new PetOwner(ua).setVisible(true);
+                                this.dispose();
                                 break;
                             case RescueUnitManager:
                                 break;
