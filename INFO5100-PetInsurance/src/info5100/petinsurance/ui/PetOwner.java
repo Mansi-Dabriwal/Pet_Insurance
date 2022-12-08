@@ -680,7 +680,7 @@ public class PetOwner extends javax.swing.JFrame {
         String gender = maleRadioButton.isSelected() ? "male" : "female";
         AnimalDetails animal = new AnimalDetails(typeTextField.getText(), breedTextField.getText(),
                 Integer.valueOf(ageTextField.getText()),
-                gender, 1);
+                gender, 1, null);
 
         ResultSet rs = DatabaseConnection.storeData(animal);
 
