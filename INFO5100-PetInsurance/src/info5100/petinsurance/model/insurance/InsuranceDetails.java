@@ -16,14 +16,6 @@ public class InsuranceDetails {
     Date dateOfInsurance;
     String existingMedicalConditions;
     int planId;
-
-    public int getPlanId() {
-        return planId;
-    }
-
-    public void setPlanId(int planId) {
-        this.planId = planId;
-    }
     
     public InsuranceDetails(int animalId, Date dateOfInsurance, String existingMedicalConditions, int planId) {
         this.animalId = animalId;
@@ -63,4 +55,13 @@ public class InsuranceDetails {
     public void setExistingMedicalConditions(String existingMedicalConditions) {
         this.existingMedicalConditions = existingMedicalConditions;
     }
+
+    public int getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(int planId) {
+        this.planId = planId;
+    }
+    
 }

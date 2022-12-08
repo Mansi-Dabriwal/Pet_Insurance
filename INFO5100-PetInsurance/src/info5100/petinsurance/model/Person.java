@@ -16,14 +16,6 @@ public class Person {
     String email;
     int addressID;
 
-    public int getAddressID() {
-        return addressID;
-    }
-
-    public void setAddressID(int addressID) {
-        this.addressID = addressID;
-    }
-    
     public Person(String fName, String lName, String phone, String email, int addressID) {
         this.fName = fName;
         this.lName = lName;
@@ -31,7 +23,7 @@ public class Person {
         this.email = email;
         this.addressID = addressID;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -71,5 +63,13 @@ public class Person {
     public void setEmail(String email) {
         this.email = email;
     }
-  
+
+    public int getAddressID() {
+        return addressID;
+    }
+
+    public void setAddressID(int addressID) {
+        this.addressID = addressID;
+    }
+    
 }

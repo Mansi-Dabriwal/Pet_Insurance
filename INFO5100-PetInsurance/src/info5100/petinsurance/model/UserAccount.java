@@ -17,17 +17,8 @@ public class UserAccount {
     String password;
     int personID;
     String role;
-
-    public int getPersonID() {
-        return personID;
-    }
-
-    public void setPersonID(int personID) {
-        this.personID = personID;
-    }
     
-    public UserAccount(int id, String username, String password, int personID, Roles role){
-        this.id = id;
+    public UserAccount( String username, String password, int personID, Roles role){
         this.username = username;
         this.password = password;
         this.personID = personID; 
@@ -66,6 +57,13 @@ public class UserAccount {
     public void setRole(String role) {
         this.role = role;
     }
-    
+
+    public int getPersonID() {
+        return personID;
+    }
+
+    public void setPersonID(int personID) {
+        this.personID = personID;
+    }
 
 }
