@@ -15,8 +15,8 @@ public class Doctor {
     String speciality;
     int hospitalId;
     
-    public Doctor(int id, int personId, String speciality, int hospitalId){
-        this.id = id;
+    public Doctor( int personId, String speciality, int hospitalId){
+        
         this.personId = personId;
         this.speciality = speciality;
         this.hospitalId = hospitalId; 
