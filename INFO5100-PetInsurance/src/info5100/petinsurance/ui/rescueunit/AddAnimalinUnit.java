@@ -232,26 +232,7 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
 
     private void addAnimalActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-        try {
-            ResultSet rs = DatabaseConnection.getData("select * from RescueUnit", false);
-            ResultSet insertResultSet;
-            if (!rs.next()) {
-                addNewAnimalToRescue();
-            } else {
-
-                while (rs.next()) {
-                    if (rs.getString(2).equalsIgnoreCase(animalId.getText())) {
-                        JFrame jFrame = new JFrame();
-                        JOptionPane.showMessageDialog(jFrame, "There's already a animal with same id, Please enter a new id!");
-
-                    } else {
-                        addNewAnimalToRescue();
-                    }
-                }
-            }
-        } catch (HeadlessException | SQLException e) {
-
-        }
+        addNewAnimalToRescue();
         
     }                                         
 
@@ -322,7 +303,7 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField medicalHistoryId;
     private javax.swing.JTextField placeOfRescue;
-    private com.toedter.calendar.JDateChooser rescueDate;
+//    private com.toedter.calendar.JDateChooser rescueDate;
     private javax.swing.JComboBox<String> wasRescued;
     // End of variables declaration                   
 
