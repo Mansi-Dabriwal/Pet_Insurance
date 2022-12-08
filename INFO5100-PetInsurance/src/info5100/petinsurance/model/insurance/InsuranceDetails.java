@@ -16,14 +16,14 @@ public class InsuranceDetails {
     Date dateOfInsurance;
     String existingMedicalConditions;
     int planId;
-
+    
     public InsuranceDetails(int animalId, Date dateOfInsurance, String existingMedicalConditions, int planId) {
         this.animalId = animalId;
         this.dateOfInsurance = dateOfInsurance;
         this.existingMedicalConditions = existingMedicalConditions;
         this.planId = planId;
     }
-    
+
     public int getId() {
         return id;
     }

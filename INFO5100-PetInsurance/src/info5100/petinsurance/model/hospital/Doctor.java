@@ -14,6 +14,14 @@ public class Doctor {
     int personId;
     String speciality;
     int hospitalId;
+    
+    public Doctor(int id, int personId, String speciality, int hospitalId){
+        this.id = id;
+        this.personId = personId;
+        this.speciality = speciality;
+        this.hospitalId = hospitalId; 
+       
+    }
 
     public int getId() {
         return id;

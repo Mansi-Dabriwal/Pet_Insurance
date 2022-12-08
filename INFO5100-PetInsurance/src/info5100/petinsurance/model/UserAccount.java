@@ -65,7 +65,5 @@ public class UserAccount {
     public void setPersonID(int personID) {
         this.personID = personID;
     }
-    
-    
 
 }

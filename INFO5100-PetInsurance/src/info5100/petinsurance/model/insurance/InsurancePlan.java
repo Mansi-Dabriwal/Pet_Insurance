@@ -16,6 +16,14 @@ public class InsurancePlan {
     int planPremium;
     int planCoverage;
 
+    public InsurancePlan(String planName, String inclusions, int validity, int planPremium, int planCoverage) {
+        this.planName = planName;
+        this.inclusions = inclusions;
+        this.validity = validity;
+        this.planPremium = planPremium;
+        this.planCoverage = planCoverage;
+    }
+    
     public int getValidity() {
         return validity;
     }
