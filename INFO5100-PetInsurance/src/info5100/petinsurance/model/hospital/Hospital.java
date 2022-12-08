@@ -12,16 +12,26 @@ public class Hospital {
     
     int id;
     String hospitalName;
-    String addressID;
+    int addressID;
     String phone;
     String email;
 
+    public Hospital( String hospitalName, int addressID, String phone, String email){
+   
+        this.hospitalName = hospitalName;
+        this.addressID = addressID;
+        this.phone = phone; 
+        this.email = email;
+       
+    }
 
-    public String getAddressID() {
+    
+    
+    public int getAddressID() {
         return addressID;
     }
 
-    public void setAddressID(String addressID) {
+    public void setAddressID(int addressID) {
         this.addressID = addressID;
     }
   

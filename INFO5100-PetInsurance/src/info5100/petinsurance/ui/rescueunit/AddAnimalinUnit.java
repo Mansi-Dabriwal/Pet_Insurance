@@ -303,7 +303,7 @@ public class AddAnimalinUnit extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField medicalHistoryId;
     private javax.swing.JTextField placeOfRescue;
-    private com.toedter.calendar.JDateChooser rescueDate;
+//    private com.toedter.calendar.JDateChooser rescueDate;
     private javax.swing.JComboBox<String> wasRescued;
     // End of variables declaration                   
 

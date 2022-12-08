@@ -17,6 +17,14 @@ public class UserAccount {
     String password;
     int personID;
     String role;
+
+    public int getPersonID() {
+        return personID;
+    }
+
+    public void setPersonID(int personID) {
+        this.personID = personID;
+    }
     
     public UserAccount(int id, String username, String password, int personID, Roles role){
         this.id = id;

@@ -13,6 +13,13 @@ public class Bloodbank {
     int id;
     String bloodType;
     int availability;
+    
+    public Bloodbank(int id, String bloodType, int availability){
+        this.id = id;
+        this.bloodType = bloodType;
+        this.availability = availability;
+       
+    }
 
     public int getId() {
         return id;

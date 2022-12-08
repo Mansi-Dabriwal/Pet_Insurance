@@ -4,6 +4,15 @@
  */
 package info5100.petinsurance.ui.hospital;
 
+import info5100.petinsurance.model.UserAccount;
+import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.Roles;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author mansidabriwal
@@ -270,4 +279,25 @@ public class RegisterHospital extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
+
+    public static void storeDoctorData(UserAccount ua) {
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ResultSet resultSet = null;
+            ps = connection.prepareStatement("INSERT INTO HOSPITAL (hospitalName, Phone, email) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, ua.getUsername());
+            ps.setString(2, ua.getPassword());
+            ps.setInt(3, 7);
+            ps.setString(4, Roles.InsuranceProviderAdmin.getDisplayVal());
+            int affectedTrue = ps.executeUpdate();
+            connection.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
