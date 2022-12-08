@@ -9,6 +9,7 @@ import info5100.petinsurance.model.support.AbuseReport;
 import info5100.petinsurance.model.support.BloodCollectionRequestModel;
 import info5100.petinsurance.ui.WelcomeFrame;
 import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.EmailUtility;
 import info5100.petinsurance.utilities.WorkFlowStatus;
 import java.sql.ResultSet;
 import javax.swing.JFrame;
@@ -529,8 +530,13 @@ public class SupportAdmin extends javax.swing.JFrame {
         if (rs == null) {
             JOptionPane.showMessageDialog(jFrame, "Please try again!");
         }
-        else
+        else{
+            String emailbody = String.format("Hi, \n Thank you for connecting with our support representative.\n We would like to inform you that your request has been successfully registered into system and the dog/cat will be moved to a rescue unit after the inspection from our office. \n \n Regards, \n LoveAnimalsTeam");
             JOptionPane.showMessageDialog(jFrame, "Complaint for rescue from abuse raised!");
+            EmailUtility.sendEmail(reporterEmail.getText(), "Your complaint for rescuing animal has been registered", 
+                    emailbody);
+        
+        }
     }//GEN-LAST:event_submitComplaintButtonActionPerformed
 
     private void bloodRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloodRequestButtonActionPerformed
@@ -547,8 +553,12 @@ public class SupportAdmin extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(jFrame, "Blood collection request process encountered an error. Please try again!");
 
-        } else
+        } else{
             JOptionPane.showMessageDialog(jFrame, "Blood collection request raised!");
+//            String emailbody = String.format("Hi %s,\nYour request for collecting %d units of blood has been raised and is waiting for approval from the blood bank administrator. \nRegards,\nLoveAnimalsTeam");
+//            EmailUtility.sendEmail(reporterEmail.getText(), "Your request for blood collection has been registered", 
+//                    emailbody);
+        }
         
     }//GEN-LAST:event_bloodRequestButtonActionPerformed
 
