@@ -19,10 +19,12 @@ public class INFO5100PetInsurance {
     public static void main(String[] args) {
         // TODO code application logic here
         try{
-        ResultSet rs = DatabaseConnection.getData("select * from demo");
-        while(rs.next()){  
-                  System.out.print(rs.getInt(1)+"\n"); 
-                  }
+//        ResultSet rs = DatabaseConnection.getData("select * from demo", false);
+//        while(rs.next()){  
+//                  System.out.print(rs.getInt(1)+"\n"); 
+//                  }
+
+        //DatabaseConnection.storeData();
         } catch(Exception e){
         
         }

@@ -20,5 +20,7 @@ public class Constants {
                 + "encrypt=true;"
                 + "trustServerCertificate=true;"
                 + "loginTimeout=30;";
+    public static final String numRegex = "[0-9]+";
+    
     
 }

@@ -10,4 +10,39 @@ package info5100.petinsurance.model.hospital.bloodbank;
  */
 public class Bloodbank {
     
+    int id;
+    String bloodType;
+    int availability;
+    
+    public Bloodbank(int id, String bloodType, int availability){
+        this.id = id;
+        this.bloodType = bloodType;
+        this.availability = availability;
+       
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getBloodType() {
+        return bloodType;
+    }
+
+    public void setBloodType(String bloodType) {
+        this.bloodType = bloodType;
+    }
+
+    public int getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(int availability) {
+        this.availability = availability;
+    }
+    
 }
