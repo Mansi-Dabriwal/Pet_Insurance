@@ -4,6 +4,15 @@
  */
 package info5100.petinsurance.ui.rescueunit;
 
+import info5100.petinsurance.ui.WelcomeFrame;
+import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.WorkFlowStatus;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ashit
