@@ -5,8 +5,9 @@
 package info5100.petinsurance.ui;
 
 import info5100.petinsurance.model.UserAccount;
-import info5100.petinsurance.model.support.SupportRepresentative;
+import info5100.petinsurance.model.support.AbuseReport;
 import info5100.petinsurance.ui.insurance.InsuranceAdminWorkFlow;
+import info5100.petinsurance.ui.support.SupportAdmin;
 import info5100.petinsurance.ui.support.SupportRepresentativeWorkflow;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.Roles;
@@ -219,7 +220,7 @@ public class SignIn extends javax.swing.JFrame {
                             case SystemAdmin:
                                 break;
                             case SupportRepresentative:
-                                new SupportRepresentativeWorkflow(ua).setVisible(true);
+                                new SupportAdmin(ua).setVisible(true);
                                 this.dispose();
                                 break;
                             case VeterinaryAdmin:

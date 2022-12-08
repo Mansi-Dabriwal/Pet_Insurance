@@ -133,7 +133,7 @@ public class SignUp extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel18.setText("Username");
 
-        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Insurance Provider Admin", "Hospital Admin", "Veterinary Admin", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Abuse Report Support Representative", "System Admin" }));
+        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Insurance Provider Admin", "Hospital Admin", "Veterinary Admin", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Support Representative", "System Admin" }));
 
         backBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         backBtn.setText("Back");
@@ -422,17 +422,23 @@ public class SignUp extends javax.swing.JFrame {
 
             //Create Person
             int personID = 0;
-            Person person = new Person(firstNameTextField.getText(), lastNameTextField.getText(), emailTextField.getText(),
-                           null, Integer.valueOf(zipCodeTextField.getText())  );
+            Person person = new Person(firstNameTextField.getText(), lastNameTextField.getText(), null, emailTextField.getText(),
+                            addressID  );
             
             rs = DatabaseConnection.storeData(person);
             while (rs.next()) {
                 personID = rs.getInt(1);
             }
-            
+            Roles r = null;
+                        
+                        for(Roles ri : Roles.values()){
+                           if(ri.getDisplayVal().equals(roleComboBox.getSelectedItem().toString()))
+                               r = ri;
+                        }
+                        
             //Create User Account
             UserAccount ua = new UserAccount(usernameTextField.getText(), PasswordField.getText()
-            , personID, Roles.valueOf(roleComboBox.getSelectedItem().toString() ));
+            , personID, r);
             DatabaseConnection.storeData(ua);
             
             JFrame jFrame = new JFrame();

@@ -2,7 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package info5100.petinsurance.ui;
+package info5100.petinsurance.ui.support;
+
+import info5100.petinsurance.model.UserAccount;
+import info5100.petinsurance.model.support.AbuseReport;
+import info5100.petinsurance.model.support.BloodCollectionRequestModel;
+import info5100.petinsurance.ui.WelcomeFrame;
+import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.WorkFlowStatus;
+import java.sql.ResultSet;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,7 +23,10 @@ public class SupportAdmin extends javax.swing.JFrame {
     /**
      * Creates new form SupportAdmin
      */
-    public SupportAdmin() {
+    UserAccount ua;
+
+    public SupportAdmin(UserAccount ua) {
+        this.ua = ua;
         initComponents();
     }
 
@@ -46,7 +59,7 @@ public class SupportAdmin extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         units = new javax.swing.JTextField();
         bloodType = new javax.swing.JTextField();
-        requestButton = new javax.swing.JButton();
+        bloodRequestButton = new javax.swing.JButton();
         reportAbusePanel = new javax.swing.JPanel();
         animalId = new javax.swing.JTextField();
         complaintComments = new javax.swing.JTextField();
@@ -88,7 +101,7 @@ public class SupportAdmin extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("System Admin");
+        jLabel11.setText("Support Admin");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -196,8 +209,13 @@ public class SupportAdmin extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setText("Required by date");
 
-        requestButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        requestButton.setText("Request");
+        bloodRequestButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        bloodRequestButton.setText("Request");
+        bloodRequestButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bloodRequestButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout bloodCollectionRequestPanelLayout = new javax.swing.GroupLayout(bloodCollectionRequestPanel);
         bloodCollectionRequestPanel.setLayout(bloodCollectionRequestPanelLayout);
@@ -222,7 +240,7 @@ public class SupportAdmin extends javax.swing.JFrame {
                             .addComponent(requiredDate, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)))
                     .addGroup(bloodCollectionRequestPanelLayout.createSequentialGroup()
                         .addGap(225, 225, 225)
-                        .addComponent(requestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bloodRequestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(225, Short.MAX_VALUE))
         );
         bloodCollectionRequestPanelLayout.setVerticalGroup(
@@ -251,7 +269,7 @@ public class SupportAdmin extends javax.swing.JFrame {
                     .addComponent(requiredDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(74, 74, 74)
-                .addComponent(requestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bloodRequestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(110, Short.MAX_VALUE))
         );
 
@@ -276,6 +294,11 @@ public class SupportAdmin extends javax.swing.JFrame {
 
         submitComplaintButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         submitComplaintButton.setText("Submit Complaint");
+        submitComplaintButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitComplaintButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout reportAbusePanelLayout = new javax.swing.GroupLayout(reportAbusePanel);
         reportAbusePanel.setLayout(reportAbusePanelLayout);
@@ -494,40 +517,75 @@ public class SupportAdmin extends javax.swing.JFrame {
         parentPanel.revalidate();
     }//GEN-LAST:event_updateDetailsButtonActionPerformed
 
+    private void submitComplaintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitComplaintButtonActionPerformed
+        // TODO add your handling code here:
+        JFrame jFrame = new JFrame();
+        AbuseReport ar = new AbuseReport(Integer.valueOf(animalId.getText()), reporterName.getText(),
+                reporterEmail.getText(), reporterMobile.getText(), complaintComments.getText(), ua.getPersonID(), null,
+                WorkFlowStatus.PENDING);
+        ResultSet rs = DatabaseConnection.StoreData(ar);
+        
+
+        if (rs == null) {
+            JOptionPane.showMessageDialog(jFrame, "Please try again!");
+        }
+        else
+            JOptionPane.showMessageDialog(jFrame, "Complaint for rescue from abuse raised!");
+    }//GEN-LAST:event_submitComplaintButtonActionPerformed
+
+    private void bloodRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloodRequestButtonActionPerformed
+        // TODO add your handling code here:
+
+        JFrame jFrame = new JFrame();
+
+        BloodCollectionRequestModel bcr = new BloodCollectionRequestModel(Integer.valueOf(animalID.getText()),
+           animalType.getText(), bloodType.getText(), Integer.valueOf(units.getText()),
+               requiredDate.getDate(), ua.getPersonID(), "abc", WorkFlowStatus.PENDING);
+
+        ResultSet rs = DatabaseConnection.storeData(bcr);
+        if (rs == null) {
+
+            JOptionPane.showMessageDialog(jFrame, "Blood collection request process encountered an error. Please try again!");
+
+        } else
+            JOptionPane.showMessageDialog(jFrame, "Blood collection request raised!");
+        
+    }//GEN-LAST:event_bloodRequestButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SupportAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SupportAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SupportAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SupportAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SupportAdmin().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(SupportAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(SupportAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(SupportAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(SupportAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new SupportAdmin().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField animalID;
@@ -535,6 +593,7 @@ public class SupportAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField animalType;
     private javax.swing.JButton bloodCollectionRequestButton;
     private javax.swing.JPanel bloodCollectionRequestPanel;
+    private javax.swing.JButton bloodRequestButton;
     private javax.swing.JTextField bloodType;
     private javax.swing.JTextField complaintComments;
     private javax.swing.JTextField emailAddressTextField;
@@ -569,7 +628,6 @@ public class SupportAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField reporterEmail;
     private javax.swing.JTextField reporterMobile;
     private javax.swing.JTextField reporterName;
-    private javax.swing.JButton requestButton;
     private com.toedter.calendar.JDateChooser requiredDate;
     private javax.swing.JTextField searchTextField;
     private javax.swing.JButton submitComplaintButton;
