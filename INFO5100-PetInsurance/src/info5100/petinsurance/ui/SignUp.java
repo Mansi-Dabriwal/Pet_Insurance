@@ -9,6 +9,7 @@ import info5100.petinsurance.model.Person;
 import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.Roles;
+import info5100.petinsurance.utilities.ValidationService;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -325,7 +326,7 @@ public class SignUp extends javax.swing.JFrame {
             if (allowSignUp) {
                 System.out.print("Proceed for signup");
                 JFrame jFrame = new JFrame();
-                JOptionPane.showMessageDialog(jFrame, "Username exists, proceed for signup!");
+                JOptionPane.showMessageDialog(jFrame, "Username doesn't exists, proceed for signup!");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -429,6 +430,11 @@ public class SignUp extends javax.swing.JFrame {
             while (rs.next()) {
                 personID = rs.getInt(1);
             }
+           
+            ValidationService vs = new ValidationService();
+            vs.validateEmail(emailTextField.getText());
+            
+            
             Roles r = null;
 
             for (Roles ri : Roles.values()) {

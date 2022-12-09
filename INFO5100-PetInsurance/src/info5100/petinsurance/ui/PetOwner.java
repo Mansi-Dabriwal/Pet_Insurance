@@ -8,6 +8,7 @@ import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
 import info5100.petinsurance.model.insurance.InsuranceDetails;
 import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.ValidationService;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -652,6 +653,9 @@ public class PetOwner extends javax.swing.JFrame {
         AnimalDetails animal = new AnimalDetails(typeTextField.getText(), breedTextField.getText(),
                 Integer.valueOf(ageTextField.getText()),
                 gender, ua.getPersonID(), null);
+        
+        ValidationService vs = new ValidationService();
+        vs.validateAge(ageTextField.getText());
 
         ResultSet rs = DatabaseConnection.storeData(animal);
 
