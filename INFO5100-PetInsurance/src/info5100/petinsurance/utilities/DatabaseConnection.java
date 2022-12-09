@@ -326,7 +326,5 @@ public class DatabaseConnection {
         
         return resultSet;
     }
-
-        
         
 }

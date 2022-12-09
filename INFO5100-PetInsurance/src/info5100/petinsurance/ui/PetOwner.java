@@ -683,7 +683,7 @@ public class PetOwner extends javax.swing.JFrame {
     private void purchaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseButtonActionPerformed
         // TODO add your handling code here:
 
-        /*InsuranceDetails insurance = new InsuranceDetails(Integer.valueOf(animalIDTextField1.getText()),
+        InsuranceDetails insurance = new InsuranceDetails(Integer.valueOf(animalIDTextField1.getText()),
                 startDateChooser.getDate(), existingMedicalConditions.getSelectedItem().toString(),
                 planLookup.get(planComboBox.getSelectedItem().toString()));
 
@@ -694,10 +694,9 @@ public class PetOwner extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(jFrame, "failed to purchase insurance. Please try again");
         } else {
             JFrame jFrame = new JFrame();
-            //Animal ID removed
             JOptionPane.showMessageDialog(jFrame, "Insurance purchased for with Start Date as :" + startDateChooser.getDate());
         }
-         */
+         
     }//GEN-LAST:event_purchaseButtonActionPerformed
 
     private void submitclaimButtonActionPerformed(java.awt.event.ActionEvent evt) {
