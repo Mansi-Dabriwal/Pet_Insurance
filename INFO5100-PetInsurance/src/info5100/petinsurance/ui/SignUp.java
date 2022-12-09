@@ -297,8 +297,8 @@ public class SignUp extends javax.swing.JFrame {
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
         } else {
-             // performValidation();
-             registerUser();
+            // performValidation();
+            registerUser();
 
         }
     }//GEN-LAST:event_signUpButtonActionPerformed
@@ -307,19 +307,19 @@ public class SignUp extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             ResultSet rs = DatabaseConnection.getData("select username from UserAccount ", false);
-            if (!rs.next()) {
-                allowSignUp = true;
-            } else {
-                while (rs.next()) {
-                    if (rs.getString(1).equalsIgnoreCase(usernameTextField.getText())) {
-                        JFrame jFrame = new JFrame();
-                        JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
 
-                    } else {
-                        allowSignUp = true;
+            while (rs.next()) {
+                if (rs.getString(1).equalsIgnoreCase(usernameTextField.getText())) {
+                    allowSignUp = false;
+                    JFrame jFrame = new JFrame();
 
-                    }
+                    JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
+
+                } else {
+                    allowSignUp = true;
+
                 }
+
             }
 
             if (allowSignUp) {
@@ -409,10 +409,10 @@ public class SignUp extends javax.swing.JFrame {
     public void registerUser() {
         try {
             int addressID = 0;
-            
-            Address address = new Address(addressLine1TextField.getText(), addresslLine2TextField.getText() ,
+
+            Address address = new Address(addressLine1TextField.getText(), addresslLine2TextField.getText(),
                     cityTextField.getText(), stateTextField.getText(), countryTextField.getText(), Integer.valueOf(zipCodeTextField.getText()));
-            
+
             //Create Address
             ResultSet rs;
             rs = DatabaseConnection.storeData(address);
@@ -423,24 +423,25 @@ public class SignUp extends javax.swing.JFrame {
             //Create Person
             int personID = 0;
             Person person = new Person(firstNameTextField.getText(), lastNameTextField.getText(), null, emailTextField.getText(),
-                            addressID  );
-            
+                    addressID);
+
             rs = DatabaseConnection.storeData(person);
             while (rs.next()) {
                 personID = rs.getInt(1);
             }
             Roles r = null;
-                        
-                        for(Roles ri : Roles.values()){
-                           if(ri.getDisplayVal().equals(roleComboBox.getSelectedItem().toString()))
-                               r = ri;
-                        }
-                        
+
+            for (Roles ri : Roles.values()) {
+                if (ri.getDisplayVal().equals(roleComboBox.getSelectedItem().toString())) {
+                    r = ri;
+                }
+            }
+
             //Create User Account
-            UserAccount ua = new UserAccount(usernameTextField.getText(), PasswordField.getText()
-            , personID, r);
+            UserAccount ua = new UserAccount(usernameTextField.getText(), PasswordField.getText(),
+                     personID, r);
             DatabaseConnection.storeData(ua);
-            
+
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Sign up completed!");
         } catch (HeadlessException | NumberFormatException | SQLException e) {

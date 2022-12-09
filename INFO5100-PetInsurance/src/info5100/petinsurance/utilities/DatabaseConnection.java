@@ -13,7 +13,6 @@ import info5100.petinsurance.model.insurance.InsuranceDetails;
 import info5100.petinsurance.model.insurance.InsurancePlan;
 import info5100.petinsurance.model.support.AbuseReport;
 import info5100.petinsurance.model.support.BloodCollectionRequestModel;
-import info5100.petinsurance.ui.support.BloodCollectionRequest;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -37,7 +36,7 @@ public class DatabaseConnection {
             connection = DriverManager.getConnection(Constants.connectionUrl);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            
         }
 
     }
@@ -86,13 +85,14 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO AnimalDetails VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, ad.getAnimalType());
-            ps.setString(2, ad.getBreed());
-            ps.setInt(3, ad.getAge());
-            ps.setString(4, ad.getGender());
-            ps.setInt(5, ad.getAnimalOwnerID());
-            ps.setString(6, ad.getBloodType());
+            ps = connection.prepareStatement("INSERT INTO AnimalDetails VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, "coco");
+            ps.setString(2, ad.getAnimalType());
+            ps.setString(3, ad.getBreed());
+            ps.setInt(4, ad.getAge());
+            ps.setString(5, ad.getGender());
+            ps.setInt(6, ad.getAnimalOwnerID());
+            ps.setString(7, ad.getBloodType());
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
