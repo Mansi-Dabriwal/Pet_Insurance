@@ -16,6 +16,7 @@ public class InsuranceDetails {
     Date dateOfInsurance;
     String existingMedicalConditions;
     int planId;
+    Date endDate;
     
     public InsuranceDetails(int animalId, Date dateOfInsurance, String existingMedicalConditions, int planId) {
         this.animalId = animalId;

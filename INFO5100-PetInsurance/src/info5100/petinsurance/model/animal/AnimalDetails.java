@@ -17,14 +17,16 @@ public class AnimalDetails {
     String gender;
     int animalOwnerID;
     String bloodType;
+    String animalName;
 
-    public AnimalDetails(String animalType, String breed, int age, String gender, int animalOwnerID, String bloodType) {
+    public AnimalDetails(String animalType, String breed, int age, String gender, int animalOwnerID, String bloodType, String animalName) {
         this.animalType = animalType;
         this.breed = breed;
         this.age = age;
         this.gender = gender;
         this.animalOwnerID = animalOwnerID;
         this.bloodType = bloodType;
+        this.animalName = animalName;
     }
     
     
@@ -88,5 +90,14 @@ public class AnimalDetails {
     public void setBloodType(String bloodType) {
         this.bloodType = bloodType;
     }
+
+    public String getAnimalName() {
+        return animalName;
+    }
+
+    public void setAnimalName(String animalName) {
+        this.animalName = animalName;
+    }
+    
     
 }
