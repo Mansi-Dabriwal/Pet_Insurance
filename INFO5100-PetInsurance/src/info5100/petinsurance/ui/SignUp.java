@@ -13,6 +13,7 @@ import info5100.petinsurance.ui.rescueunit.RescueUnitManager;
 import info5100.petinsurance.ui.support.SupportAdmin;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.Roles;
+import info5100.petinsurance.utilities.ValidationService;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,6 +29,7 @@ import javax.swing.JOptionPane;
 public class SignUp extends javax.swing.JFrame {
 
     private boolean allowSignUp;
+    private boolean flag;
 
     public SignUp() {
         this.allowSignUp = true;
@@ -410,10 +412,11 @@ public class SignUp extends javax.swing.JFrame {
     public void registerUser() {
         try {
             int addressID = 0;
-
+            
             Address address = new Address(addressLine1TextField.getText(), addresslLine2TextField.getText(),
                     cityTextField.getText(), stateTextField.getText(), countryTextField.getText(), Integer.valueOf(zipCodeTextField.getText()));
-
+            
+            
             //Create Address
             ResultSet rs;
             rs = DatabaseConnection.storeData(address);
@@ -425,10 +428,19 @@ public class SignUp extends javax.swing.JFrame {
             int personID = 0;
             Person person = new Person(firstNameTextField.getText(), lastNameTextField.getText(), null, emailTextField.getText(),
                     addressID);
-
-            rs = DatabaseConnection.storeData(person);
-            while (rs.next()) {
-                personID = rs.getInt(1);
+            
+            flag= true;
+            ValidationService vs= new ValidationService();
+            flag= vs.validateEmail(emailTextField.getText());
+            if(!flag){
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Email entered is wrong, please enter correct email!");
+            }
+            else{       
+                rs = DatabaseConnection.storeData(person);
+                while (rs.next()) {
+                    personID = rs.getInt(1);
+                }
             }
             Roles r = null;
 
