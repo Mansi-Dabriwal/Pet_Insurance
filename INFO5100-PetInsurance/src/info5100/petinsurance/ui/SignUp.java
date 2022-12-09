@@ -7,6 +7,11 @@ package info5100.petinsurance.ui;
 import info5100.petinsurance.model.Address;
 import info5100.petinsurance.model.Person;
 import info5100.petinsurance.model.UserAccount;
+import info5100.petinsurance.ui.hospital.HospitalAdmin;
+import info5100.petinsurance.ui.insurance.InsuranceAdmin;
+import info5100.petinsurance.ui.insurance.InsuranceAdminWorkFlow;
+import info5100.petinsurance.ui.rescueunit.RescueUnitManager;
+import info5100.petinsurance.ui.support.SupportAdmin;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.Roles;
 import java.awt.HeadlessException;
@@ -312,14 +317,11 @@ public class SignUp extends javax.swing.JFrame {
                 if (rs.getString(1).equalsIgnoreCase(usernameTextField.getText())) {
                     allowSignUp = false;
                     JFrame jFrame = new JFrame();
-
                     JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
 
                 } else {
                     allowSignUp = true;
-
                 }
-
             }
 
             if (allowSignUp) {
@@ -439,14 +441,43 @@ public class SignUp extends javax.swing.JFrame {
 
             //Create User Account
             UserAccount ua = new UserAccount(usernameTextField.getText(), PasswordField.getText(),
-                     personID, r);
+                    personID, r);
             DatabaseConnection.storeData(ua);
 
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Sign up completed!");
-        } catch (HeadlessException | NumberFormatException | SQLException e) {
 
-            e.printStackTrace();
+            switch (r) {
+                case InsuranceProviderAdmin:
+                    new InsuranceAdmin(ua).setVisible(true);
+                    this.dispose();
+                    break;
+                case BloodBankAdmin:
+                    new BloodBankAdmin().setVisible(true);
+                    this.dispose();
+                    break;
+                case HospitalAdmin:
+                    new HospitalAdmin().setVisible(true);
+                    this.dispose();
+                    break;
+                case PetOwner:
+                    new PetOwner(ua).setVisible(true);
+                    this.dispose();
+                    break;
+                case RescueUnitManager:
+                    new RescueUnitManager().setVisible(true);
+                    this.dispose();
+                    break;
+                case SystemAdmin:
+                    break;
+                case SupportRepresentative:
+                    new SupportAdmin(ua).setVisible(true);
+                    this.dispose();
+                    break;
+                case VeterinaryDoctor:
+                    break;
+            }
+        } catch (HeadlessException | NumberFormatException | SQLException e) {
 
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Sign up failed. Please try again!");

@@ -6,6 +6,7 @@ package info5100.petinsurance.ui;
 
 import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.ui.hospital.HospitalAdmin;
+import info5100.petinsurance.ui.insurance.InsuranceAdmin;
 import info5100.petinsurance.ui.insurance.InsuranceAdminWorkFlow;
 import info5100.petinsurance.ui.rescueunit.RescueUnitManager;
 import info5100.petinsurance.ui.support.SupportAdmin;
@@ -204,7 +205,7 @@ public class SignIn extends javax.swing.JFrame {
 
                         switch (r) {
                             case InsuranceProviderAdmin:
-                                new InsuranceAdminWorkFlow(ua).setVisible(true);
+                                new InsuranceAdmin(ua).setVisible(true);
                                 this.dispose();
                                 break;
                             case BloodBankAdmin:
@@ -229,7 +230,7 @@ public class SignIn extends javax.swing.JFrame {
                                 new SupportAdmin(ua).setVisible(true);
                                 this.dispose();
                                 break;
-                            case VeterinaryAdmin:
+                            case VeterinaryDoctor:
                                 break;
 
                         }
