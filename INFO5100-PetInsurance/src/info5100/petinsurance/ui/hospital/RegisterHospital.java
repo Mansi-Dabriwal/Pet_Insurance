@@ -6,6 +6,7 @@ package info5100.petinsurance.ui.hospital;
 
 import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.utilities.DatabaseConnection;
+import static info5100.petinsurance.utilities.DatabaseConnection.setConnection;
 import info5100.petinsurance.utilities.Roles;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

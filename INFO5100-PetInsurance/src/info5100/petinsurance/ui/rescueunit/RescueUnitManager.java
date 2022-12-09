@@ -539,7 +539,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
 
     private void sendRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendRequestActionPerformed
         // TODO add your handling code here:
-        animalForAdoption();
+        //animalForAdoption();
     }//GEN-LAST:event_sendRequestActionPerformed
 
     private void showAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllActionPerformed
@@ -562,13 +562,13 @@ public class RescueUnitManager extends javax.swing.JFrame {
 
     private void confirmRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmRequestActionPerformed
         // TODO add your handling code here:
-        animalForAdoption(WorkFlowStatus.COMPLETED);
+       // animalForAdoption(WorkFlowStatus.COMPLETED);
     }//GEN-LAST:event_confirmRequestActionPerformed
 
     private void cancelRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelRequestActionPerformed
         // TODO add your handling code here:
 
-        animalForAdoption(WorkFlowStatus.CANCELLED);
+        //animalForAdoption(WorkFlowStatus.CANCELLED);
 
     }//GEN-LAST:event_cancelRequestActionPerformed
 
