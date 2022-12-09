@@ -13,6 +13,8 @@ import java.awt.CardLayout;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -27,10 +29,32 @@ public class HospitalAdmin extends javax.swing.JFrame {
     /**
      * Creates new form HospitalAdmin
      */
+    ResultSet hospitalN;
     CardLayout cardLayout;
+    Map<String, Integer> HospitalLookup = new HashMap<String, Integer>();
+    
     public HospitalAdmin() {
         initComponents();
         cardLayout = (CardLayout) (pnlCards.getLayout());
+        
+        String[] hospitals = new String[15];
+
+        try {
+            hospitalN = DatabaseConnection.getData("Select * from Hospital", false);
+            int i = 0;
+            while (hospitalN.next()) {
+                hospitals[i] = hospitalN.getString("hospitalName");
+                System.out.println(hospitals[i]);
+                HospitalLookup.put(hospitalN.getString("hospitalName"), hospitalN.getInt("id"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        hospitalName.setModel(new javax.swing.DefaultComboBoxModel<>(hospitals));
+
+        
+       
     }
 
     /**
@@ -44,6 +68,28 @@ public class HospitalAdmin extends javax.swing.JFrame {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         pnlCards = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
+        hospitalNamee = new javax.swing.JTextField();
+        phoneNumber = new javax.swing.JTextField();
+        emailId = new javax.swing.JTextField();
+        addressLine1 = new javax.swing.JTextField();
+        addHospitalBtn = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jLabel59 = new javax.swing.JLabel();
+        addressLine2 = new javax.swing.JTextField();
+        City = new javax.swing.JTextField();
+        jLabel60 = new javax.swing.JLabel();
+        jLabel61 = new javax.swing.JLabel();
+        jLabel62 = new javax.swing.JLabel();
+        State = new javax.swing.JTextField();
+        Country = new javax.swing.JTextField();
+        jLabel63 = new javax.swing.JLabel();
+        ZipCode = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -71,28 +117,6 @@ public class HospitalAdmin extends javax.swing.JFrame {
         email = new javax.swing.JTextField();
         addDoctorBtn = new javax.swing.JButton();
         hospitalName = new javax.swing.JComboBox<>();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel54 = new javax.swing.JLabel();
-        jLabel55 = new javax.swing.JLabel();
-        jLabel56 = new javax.swing.JLabel();
-        jLabel57 = new javax.swing.JLabel();
-        jLabel58 = new javax.swing.JLabel();
-        hospitalNamee = new javax.swing.JTextField();
-        phoneNumber = new javax.swing.JTextField();
-        emailId = new javax.swing.JTextField();
-        addressLine1 = new javax.swing.JTextField();
-        addHospitalBtn = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jLabel59 = new javax.swing.JLabel();
-        addressLine2 = new javax.swing.JTextField();
-        City = new javax.swing.JTextField();
-        jLabel60 = new javax.swing.JLabel();
-        jLabel61 = new javax.swing.JLabel();
-        jLabel62 = new javax.swing.JLabel();
-        State = new javax.swing.JTextField();
-        Country = new javax.swing.JTextField();
-        jLabel63 = new javax.swing.JLabel();
-        ZipCode = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
@@ -123,165 +147,6 @@ public class HospitalAdmin extends javax.swing.JFrame {
 
         pnlCards.setBackground(new java.awt.Color(153, 204, 255));
         pnlCards.setLayout(new java.awt.CardLayout());
-
-        jPanel6.setBackground(new java.awt.Color(255, 189, 50));
-
-        jLabel12.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        jLabel12.setText("Register Doctor ");
-
-        jLabel13.setText("First Name:");
-
-        jLabel14.setText("Speciality:");
-
-        jLabel15.setText("Hospital Name:");
-
-        jLabel16.setText("Phone No.:");
-
-        jLabel17.setText("Last Name:");
-
-        jLabel18.setText("Email:");
-
-        jLabel19.setText("Address Line 2:");
-
-        jLabel20.setText("State:");
-
-        jLabel21.setText("Address Line 1:");
-
-        addressL2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addressL2ActionPerformed(evt);
-            }
-        });
-
-        jLabel22.setText("ZipCode:");
-
-        jLabel23.setText("Country:");
-
-        jLabel24.setText("City:");
-
-        firstName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                firstNameActionPerformed(evt);
-            }
-        });
-
-        addDoctorBtn.setText("Add Doctor");
-        addDoctorBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addDoctorBtnActionPerformed(evt);
-            }
-        });
-
-        hospitalName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(117, 117, 117)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 415, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel24)
-                            .addComponent(jLabel22)
-                            .addComponent(jLabel23)
-                            .addComponent(jLabel18)
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel15)
-                                .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(66, 66, 66)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addressL1)
-                            .addComponent(addressL2)
-                            .addComponent(city)
-                            .addComponent(state)
-                            .addComponent(country)
-                            .addComponent(zipCode)
-                            .addComponent(email)
-                            .addComponent(phone)
-                            .addComponent(speciality)
-                            .addComponent(lastName)
-                            .addComponent(firstName)
-                            .addComponent(hospitalName, 0, 397, Short.MAX_VALUE))))
-                .addGap(97, 97, 97))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(272, 272, 272)
-                        .addComponent(jLabel12))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(303, 303, 303)
-                        .addComponent(addDoctorBtn)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jLabel12)
-                .addGap(44, 44, 44)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(firstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(lastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(speciality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
-                    .addComponent(hospitalName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel18)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(addressL1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21))
-                .addGap(21, 21, 21)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19)
-                    .addComponent(addressL2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(city, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(state, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel23)
-                    .addComponent(country, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(zipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addDoctorBtn)
-                .addContainerGap())
-        );
-
-        pnlCards.add(jPanel6, "pnlCard2");
 
         jPanel9.setBackground(new java.awt.Color(255, 189, 50));
 
@@ -427,6 +292,163 @@ public class HospitalAdmin extends javax.swing.JFrame {
 
         pnlCards.add(jPanel9, "pnlCard1");
 
+        jPanel6.setBackground(new java.awt.Color(255, 189, 50));
+
+        jLabel12.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel12.setText("Register Doctor ");
+
+        jLabel13.setText("First Name:");
+
+        jLabel14.setText("Speciality:");
+
+        jLabel15.setText("Hospital Name:");
+
+        jLabel16.setText("Phone No.:");
+
+        jLabel17.setText("Last Name:");
+
+        jLabel18.setText("Email:");
+
+        jLabel19.setText("Address Line 2:");
+
+        jLabel20.setText("State:");
+
+        jLabel21.setText("Address Line 1:");
+
+        addressL2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addressL2ActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setText("ZipCode:");
+
+        jLabel23.setText("Country:");
+
+        jLabel24.setText("City:");
+
+        firstName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                firstNameActionPerformed(evt);
+            }
+        });
+
+        addDoctorBtn.setText("Add Doctor");
+        addDoctorBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addDoctorBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(117, 117, 117)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 415, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel24)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel23)
+                            .addComponent(jLabel18)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel15)
+                                .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGap(66, 66, 66)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addressL1)
+                            .addComponent(addressL2)
+                            .addComponent(city)
+                            .addComponent(state)
+                            .addComponent(country)
+                            .addComponent(zipCode)
+                            .addComponent(email)
+                            .addComponent(phone)
+                            .addComponent(speciality)
+                            .addComponent(lastName)
+                            .addComponent(firstName)
+                            .addComponent(hospitalName, 0, 397, Short.MAX_VALUE))))
+                .addGap(97, 97, 97))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(272, 272, 272)
+                        .addComponent(jLabel12))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(303, 303, 303)
+                        .addComponent(addDoctorBtn)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jLabel12)
+                .addGap(44, 44, 44)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(firstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(lastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(speciality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addComponent(hospitalName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel18)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(addressL1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(addressL2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(city, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(state, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(country, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(zipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addDoctorBtn)
+                .addContainerGap())
+        );
+
+        pnlCards.add(jPanel6, "pnlCard2");
+
         jPanel5.setBackground(new java.awt.Color(255, 204, 204));
 
         jLabel25.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
@@ -464,17 +486,6 @@ public class HospitalAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel26)
-                                .addGap(56, 56, 56))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel27)
-                                .addGap(72, 72, 72)))
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField11)
-                            .addComponent(jTextField10)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel32)
                             .addComponent(jLabel31)
                             .addComponent(jLabel33))
@@ -494,24 +505,33 @@ public class HospitalAdmin extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField12)
                             .addComponent(jTextField13)
-                            .addComponent(jTextField14))))
+                            .addComponent(jTextField14)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel26)
+                                .addGap(56, 56, 56))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel27)
+                                .addGap(72, 72, 72)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jTextField11)
+                            .addComponent(jTextField10))))
                 .addGap(275, 275, 275))
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(207, 207, 207)
-                        .addComponent(jLabel25))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(300, 300, 300)
-                        .addComponent(bloodBankBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(300, 300, 300)
+                .addComponent(bloodBankBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(38, 38, 38)
                 .addComponent(jLabel25)
-                .addGap(55, 55, 55)
+                .addGap(52, 52, 52)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
                     .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -686,7 +706,7 @@ public class HospitalAdmin extends javax.swing.JFrame {
     private void addDoctorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDoctorBtnActionPerformed
         // TODO add your handling code here:
 //        createNewAddressInsertStatement();
-//        addDoctor();
+        addDoctor();
     }//GEN-LAST:event_addDoctorBtnActionPerformed
 
     /**
@@ -883,7 +903,7 @@ public class HospitalAdmin extends javax.swing.JFrame {
                 Logger.getLogger(HospitalAdmin.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            //Create User Account
+            //Create Hospital
             Hospital h;
             h = new Hospital(hospitalNamee.getText(),addressID, phoneNumber.getText(), emailId.getText());
             DatabaseConnection.storeData(h);
@@ -900,43 +920,53 @@ public class HospitalAdmin extends javax.swing.JFrame {
         }
     }
     
-//    public void addDoctor() {
-//        try {
-//            int addressID = 0;
-//            
-//            Address address = new Address(addressL1.getText(), addressL2.getText() ,
-//                    city.getText(), state.getText(), country.getText(), Integer.valueOf(zipCode.getText()));
-//            
-//            //Create Address
-//            ResultSet rs;
-//            rs = DatabaseConnection.storeData(address);
-//            while (rs.next()) {
-//                addressID = rs.getInt(1);
-//            }
-//
-//            //Create Person
-//            int personID = 0;
-//            Person person = new Person(firstName.getText(), lastName.getText(), email.getText(),
-//                           null, Integer.valueOf(zipCode.getText())  );
-//            
-//            rs = DatabaseConnection.storeData(person);
-//            while (rs.next()) {
-//                personID = rs.getInt(1);
-//            }
-//            
-//            //Create User Account
-//            Doctor d = new Doctor(personID, speciality.getText(), hospital.getText() ));
-//            DatabaseConnection.storeData(d);
-//            
-//            JFrame jFrame = new JFrame();
-//            JOptionPane.showMessageDialog(jFrame, "Doctor registered!");
-//        } catch (HeadlessException | NumberFormatException  e) {
-//
-//            e.printStackTrace();
-//
-//            JFrame jFrame = new JFrame();
-//            JOptionPane.showMessageDialog(jFrame, "Doctor Registration failed. Please try again!");
-//
-//        }
-//    }
+    public void addDoctor() {
+        try {
+            int addressID = 0;
+            
+            Address address = new Address(addressL1.getText(), addressL2.getText() ,
+                    city.getText(), state.getText(), country.getText(), Integer.valueOf(zipCode.getText()));
+            
+            //Create Address
+            ResultSet rs;
+            rs = DatabaseConnection.storeData(address);
+            try {
+                while (rs.next()) {
+                    addressID = rs.getInt(1);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(HospitalAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            //Create Person
+            int personID = 0;
+            Person person = new Person(firstName.getText(), lastName.getText(),phone.getText(), email.getText(), addressID );
+            
+            rs = DatabaseConnection.storeData(person);
+            try {
+                while (rs.next()) {
+                    personID = rs.getInt(1);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(HospitalAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String HospitalN = hospitalName.getSelectedItem().toString();
+            System.out.println(HospitalN);
+            System.out.println(HospitalLookup.get(HospitalN));
+            
+            //Create Doctor
+            Doctor d = new Doctor(personID, speciality.getText(), HospitalLookup.get(HospitalN));
+            DatabaseConnection.storeData(d);
+            
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Doctor registered!");
+        } catch (HeadlessException | NumberFormatException  e) {
+
+            e.printStackTrace();
+
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Doctor Registration failed. Please try again!");
+
+        }
+    }
 }

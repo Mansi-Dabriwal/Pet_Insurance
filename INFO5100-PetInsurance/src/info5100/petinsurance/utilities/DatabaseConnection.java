@@ -8,6 +8,7 @@ import info5100.petinsurance.model.Address;
 import info5100.petinsurance.model.Person;
 import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
+import info5100.petinsurance.model.hospital.Doctor;
 import info5100.petinsurance.model.hospital.Hospital;
 import info5100.petinsurance.model.insurance.InsuranceDetails;
 import info5100.petinsurance.model.insurance.InsurancePlan;
@@ -232,7 +233,7 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO Hospital VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO Hospital VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             
             ps.setString(1, h.getHospitalName());
             ps.setInt(2, h.getAddressID());
@@ -248,7 +249,7 @@ public class DatabaseConnection {
         
         return resultSet;
     }
-
+    
     public static ResultSet StoreData(AbuseReport ar) {
         ResultSet resultSet = null;
         try {
@@ -274,7 +275,7 @@ public class DatabaseConnection {
         
         return resultSet; //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     public static ResultSet storeData(BloodCollectionRequestModel bcr) {
         
         ResultSet resultSet = null;
@@ -302,4 +303,30 @@ public class DatabaseConnection {
         return resultSet; //To change body of generated methods, choose Tools | Templates.
         
     }
+    
+    public static ResultSet storeData(Doctor d) {
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO Doctor VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setInt(1, d.getPersonId());
+            ps.setString(2, d.getSpeciality());
+            ps.setInt(3, d.getHospitalId());
+            
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    }
+
+        
+        
 }
