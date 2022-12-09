@@ -92,12 +92,12 @@ public class PetOwner extends javax.swing.JFrame {
         anmlIDCancelTextField = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         cancelInsurancePanelButton = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        endDateChooser = new com.toedter.calendar.JDateChooser();
         jScrollPane2 = new javax.swing.JScrollPane();
         cancelInsuranceTable = new javax.swing.JTable();
         submitClaimPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        submitClaimTable = new javax.swing.JTable();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -108,7 +108,7 @@ public class PetOwner extends javax.swing.JFrame {
         claimAmount = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        submitClaimButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -158,7 +158,7 @@ public class PetOwner extends javax.swing.JFrame {
                         .addGap(20, 20, 20))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cancelInsuranceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(26, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(submitclaimButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -507,7 +507,7 @@ public class PetOwner extends javax.swing.JFrame {
                             .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(65, 65, 65)
                         .addGroup(cancelInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(endDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(anmlIDCancelTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(cancelInsurancePanelLayout.createSequentialGroup()
                         .addGap(213, 213, 213)
@@ -525,7 +525,7 @@ public class PetOwner extends javax.swing.JFrame {
                     .addComponent(anmlIDCancelTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(cancelInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addComponent(cancelInsurancePanelButton)
@@ -536,23 +536,23 @@ public class PetOwner extends javax.swing.JFrame {
 
         submitClaimPanel.setBackground(new java.awt.Color(255, 255, 153));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        submitClaimTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Name", "Insurance Amount"
+                "ID", "Name", "Insurance Amount", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(submitClaimTable);
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel16.setText("Hospital Name");
@@ -580,8 +580,8 @@ public class PetOwner extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setText("Submit");
+        submitClaimButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        submitClaimButton.setText("Submit");
 
         javax.swing.GroupLayout submitClaimPanelLayout = new javax.swing.GroupLayout(submitClaimPanel);
         submitClaimPanel.setLayout(submitClaimPanelLayout);
@@ -611,7 +611,7 @@ public class PetOwner extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(submitClaimPanelLayout.createSequentialGroup()
                 .addGap(273, 273, 273)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(submitClaimButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         submitClaimPanelLayout.setVerticalGroup(
@@ -640,7 +640,7 @@ public class PetOwner extends javax.swing.JFrame {
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(submitClaimButton)
                 .addGap(15, 15, 15))
         );
 
@@ -663,9 +663,7 @@ public class PetOwner extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(parentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(parentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -754,7 +752,7 @@ public class PetOwner extends javax.swing.JFrame {
         } else {
             InsuranceDetails insurance = new InsuranceDetails(Integer.valueOf(animalIDTextField1.getText()),
                     startDateChooser.getDate(), existingMedicalConditions.getSelectedItem().toString(),
-                    planLookup.get(planComboBox.getSelectedItem().toString()));
+                    planLookup.get(planComboBox.getSelectedItem().toString()), null);
 
             ResultSet rs = DatabaseConnection.storeData(insurance);
 
@@ -794,33 +792,33 @@ public class PetOwner extends javax.swing.JFrame {
 
     private void cancelInsurancePanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelInsurancePanelButtonActionPerformed
         // TODO add your handling code here:
-//        boolean activeInsuranceExists = false;
-//        try {
-//            String select = Constants.getInsuranceForPet + animalIDTextField1.getText();
-//            ResultSet rs = DatabaseConnection.getData(select, false);
-//
-//            while (rs.next()) {
-//                activeInsuranceExists = true;
-//                InsuranceDetails activeInsuranceDetails = new InsuranceDetails(
-//                rs.getInt(""), new Date(rs.getDate("dateOfInsurance").getDate()), rs.getString("existingmedicalconditions"), rs.getInt("planId")
-//                 new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
-//            }
-//        } catch (SQLException e) {
-//            Logger.getLogger(PetOwner.class.getName()).log(Level.SEVERE, null, e);
-//
-//        }
-//        
-//        if (activeInsuranceExists) {
-//            
-//                    
-//           DatabaseConnection.cancelInsurance();
-//
-//        }
-//        else{
-//            JFrame jFrame = new JFrame();
-//            JOptionPane.showMessageDialog(jFrame, "There's no active insurance.");
-//        
-//        }
+        boolean activeInsuranceExists = false;
+        InsuranceDetails activeInsuranceDetails = null;
+        try {
+            String select = Constants.getInsuranceForPet + anmlIDCancelTextField.getText();
+            System.out.print("Cancel insurance :" + select);
+            ResultSet rs = DatabaseConnection.getData(select, false);
+
+            while (rs.next()) {
+                activeInsuranceExists = true;
+                activeInsuranceDetails = new InsuranceDetails(
+                rs.getInt("animalID"), new Date(rs.getDate("dateOfInsurance").getDate()), rs.getString("existingmedicalconditions"), rs.getInt("planId"),
+                 endDateChooser.getDate());
+                activeInsuranceDetails.setId(rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(PetOwner.class.getName()).log(Level.SEVERE, null, e);
+
+        }
+        
+        if (activeInsuranceExists) {
+           DatabaseConnection.cancelInsurance(activeInsuranceDetails);
+        }
+        else{
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "There's no active insurance.");
+        
+        }
 
 
     }//GEN-LAST:event_cancelInsurancePanelButtonActionPerformed
@@ -880,12 +878,11 @@ public class PetOwner extends javax.swing.JFrame {
     private javax.swing.JButton cancelInsurancePanelButton;
     private javax.swing.JTable cancelInsuranceTable;
     private javax.swing.JTextField claimAmount;
+    private com.toedter.calendar.JDateChooser endDateChooser;
     private javax.swing.JComboBox<String> existingMedicalConditions;
     private javax.swing.JRadioButton femaleRadioButton;
     private javax.swing.JPanel homePanel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -909,7 +906,6 @@ public class PetOwner extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField4;
@@ -925,7 +921,9 @@ public class PetOwner extends javax.swing.JFrame {
     private javax.swing.JPanel registerAnimalPanel;
     private javax.swing.JButton registerButton;
     private com.toedter.calendar.JDateChooser startDateChooser;
+    private javax.swing.JButton submitClaimButton;
     private javax.swing.JPanel submitClaimPanel;
+    private javax.swing.JTable submitClaimTable;
     private javax.swing.JButton submitclaimButton;
     private javax.swing.JTextField typeTextField;
     // End of variables declaration//GEN-END:variables
@@ -978,8 +976,7 @@ public class PetOwner extends javax.swing.JFrame {
 
         try {
             ResultSet rs = null;
-            String selectStatmt = "select * from InsuranceDetails id JOIN AnimalDetails ad ON id.animalId = ad.id WHERE ad.animalOwnerID = " + ua.getPersonID();
-            System.out.print(selectStatmt);
+            String selectStatmt = "select * from InsuranceDetails id JOIN AnimalDetails ad ON id.animalId = ad.id WHERE status='ACTIVE' and ad.animalOwnerID = " + ua.getPersonID();
             rs = DatabaseConnection.getData(selectStatmt, false);
             while (rs.next()) {
                 Object[] row = {rs.getString("name"), rs.getString("animalType"), rs.getString("breed"), rs.getString("gender")};

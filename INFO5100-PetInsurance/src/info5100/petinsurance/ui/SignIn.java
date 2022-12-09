@@ -175,7 +175,6 @@ public class SignIn extends javax.swing.JFrame {
         try {
             ResultSet rs;
             String selectStatement = selectCountUserString();
-            System.out.print("Select statment :" + selectStatement);
             rs = DatabaseConnection.getData(selectStatement, false);
 
             rs.next();

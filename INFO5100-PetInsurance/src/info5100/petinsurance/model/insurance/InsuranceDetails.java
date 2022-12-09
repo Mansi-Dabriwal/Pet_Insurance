@@ -23,7 +23,7 @@ public class InsuranceDetails {
         this.dateOfInsurance = dateOfInsurance;
         this.existingMedicalConditions = existingMedicalConditions;
         this.planId = planId;
-        this.endDate = null;
+        this.endDate = endDate;
     }
 
     public int getId() {
@@ -64,6 +64,14 @@ public class InsuranceDetails {
 
     public void setPlanId(int planId) {
         this.planId = planId;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
     
 }
