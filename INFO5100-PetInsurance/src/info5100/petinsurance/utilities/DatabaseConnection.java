@@ -114,6 +114,7 @@ public class DatabaseConnection {
             PreparedStatement ps;
 
             ps = connection.prepareStatement("INSERT INTO InsuranceDetails VALUES ( ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            
             ps.setInt(1, insurance.getAnimalId());
             ps.setDate(2,  new Date(insurance.getDateOfInsurance().getTime()));
             ps.setString(3, insurance.getExistingMedicalConditions());
@@ -121,6 +122,7 @@ public class DatabaseConnection {
             ps.setDate(5, null);
             ps.setString(6, "ACTIVE");
             ps.executeUpdate();
+
             resultSet = ps.getGeneratedKeys();
 
         } catch (SQLException ex) {
