@@ -12,6 +12,8 @@ import info5100.petinsurance.model.hospital.Doctor;
 import info5100.petinsurance.model.hospital.Hospital;
 import info5100.petinsurance.model.insurance.InsuranceDetails;
 import info5100.petinsurance.model.insurance.InsurancePlan;
+import info5100.petinsurance.model.support.AbuseReport;
+import info5100.petinsurance.model.support.BloodCollectionRequestModel;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -35,7 +37,7 @@ public class DatabaseConnection {
             connection = DriverManager.getConnection(Constants.connectionUrl);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            
         }
 
     }
@@ -84,13 +86,14 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO AnimalDetails VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, ad.getAnimalType());
-            ps.setString(2, ad.getBreed());
-            ps.setInt(3, ad.getAge());
-            ps.setString(4, ad.getGender());
-            ps.setInt(5, ad.getAnimalOwnerID());
-            ps.setString(6, ad.getBloodType());
+            ps = connection.prepareStatement("INSERT INTO AnimalDetails VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, "coco");
+            ps.setString(2, ad.getAnimalType());
+            ps.setString(3, ad.getBreed());
+            ps.setInt(4, ad.getAge());
+            ps.setString(5, ad.getGender());
+            ps.setInt(6, ad.getAnimalOwnerID());
+            ps.setString(7, ad.getBloodType());
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
@@ -247,6 +250,60 @@ public class DatabaseConnection {
         return resultSet;
     }
     
+    public static ResultSet StoreData(AbuseReport ar) {
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO AbuseComplaints VALUES (?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, ar.getAnimalID());
+            ps.setString(2, ar.getReporterName());
+            ps.setString(3, ar.getReporteEmail());
+            ps.setString(4, ar.getReporterPhone());
+            ps.setString(5, ar.getComments());
+            ps.setInt(6, ar.getSupportPersonId());
+            ps.setString(7, ar.getSupportPersonName());
+            ps.setString(8, ar.getStatus().toString());
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet; //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public static ResultSet storeData(BloodCollectionRequestModel bcr) {
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO BloodCollectionRequests VALUES (?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, bcr.getAnimalID());
+            ps.setString(2, bcr.getAnimalType());
+            ps.setString(3, bcr.getBloodType());
+            ps.setInt(4, bcr.getUnits());
+            ps.setDate(5, new Date(bcr.getRequiredByDate().getTime()));
+            ps.setInt(6, bcr.getSupportPersonID());
+            ps.setString(7, bcr.getSupportPersonName());
+            ps.setString(8, bcr.getStatus().toString());
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet; //To change body of generated methods, choose Tools | Templates.
+        
+    }
+    
     public static ResultSet storeData(Doctor d) {
         ResultSet resultSet = null;
         try {
@@ -269,4 +326,7 @@ public class DatabaseConnection {
         
         return resultSet;
     }
+
+        
+        
 }
