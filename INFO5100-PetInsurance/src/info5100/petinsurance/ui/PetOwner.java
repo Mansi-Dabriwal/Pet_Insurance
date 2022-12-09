@@ -7,9 +7,12 @@ package info5100.petinsurance.ui;
 import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
 import info5100.petinsurance.model.insurance.InsuranceDetails;
+import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -88,8 +91,10 @@ public class PetOwner extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         anmlIDCancelTextField = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        cancelButton = new javax.swing.JButton();
+        cancelInsurancePanelButton = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        cancelInsuranceTable = new javax.swing.JTable();
         submitClaimPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -100,7 +105,7 @@ public class PetOwner extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        claimAmount = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -153,7 +158,7 @@ public class PetOwner extends javax.swing.JFrame {
                         .addGap(20, 20, 20))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cancelInsuranceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(26, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(submitclaimButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -245,6 +250,12 @@ public class PetOwner extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("Age");
+
+        ageTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ageTextFieldKeyTyped(evt);
+            }
+        });
 
         maleRadioButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         maleRadioButton.setText("Male");
@@ -379,6 +390,11 @@ public class PetOwner extends javax.swing.JFrame {
                 "Animal Name", "Type", "Breed", "Gender"
             }
         ));
+        purchaseInsuranceTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                purchaseInsuranceTableMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(purchaseInsuranceTable);
 
         javax.swing.GroupLayout purchaseInsurancePanelLayout = new javax.swing.GroupLayout(purchaseInsurancePanel);
@@ -454,43 +470,66 @@ public class PetOwner extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel15.setText("End Date");
 
-        cancelButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        cancelButton.setText("Cancel Insurance");
+        cancelInsurancePanelButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cancelInsurancePanelButton.setText("Cancel Insurance");
+        cancelInsurancePanelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelInsurancePanelButtonActionPerformed(evt);
+            }
+        });
+
+        cancelInsuranceTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "InsuranceID", "Animal Name", "Plan", "Start Date"
+            }
+        ));
+        jScrollPane2.setViewportView(cancelInsuranceTable);
 
         javax.swing.GroupLayout cancelInsurancePanelLayout = new javax.swing.GroupLayout(cancelInsurancePanel);
         cancelInsurancePanel.setLayout(cancelInsurancePanelLayout);
         cancelInsurancePanelLayout.setHorizontalGroup(
             cancelInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cancelInsurancePanelLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(cancelInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(cancelInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(cancelInsurancePanelLayout.createSequentialGroup()
-                        .addGroup(cancelInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(130, 130, 130)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(cancelInsurancePanelLayout.createSequentialGroup()
+                        .addGap(155, 155, 155)
+                        .addGroup(cancelInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(111, 111, 111)
+                        .addGap(65, 65, 65)
                         .addGroup(cancelInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(anmlIDCancelTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(cancelInsurancePanelLayout.createSequentialGroup()
-                        .addComponent(cancelButton)
-                        .addGap(73, 73, 73)))
-                .addContainerGap(258, Short.MAX_VALUE))
+                        .addGap(213, 213, 213)
+                        .addComponent(cancelInsurancePanelButton)))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         cancelInsurancePanelLayout.setVerticalGroup(
             cancelInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cancelInsurancePanelLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(cancelInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(anmlIDCancelTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(anmlIDCancelTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
                 .addGroup(cancelInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(91, 91, 91)
-                .addComponent(cancelButton)
-                .addContainerGap())
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addComponent(cancelInsurancePanelButton)
+                .addGap(68, 68, 68))
         );
 
         parentPanel.add(cancelInsurancePanel, "card3");
@@ -530,6 +569,17 @@ public class PetOwner extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel20.setText("Contact Number");
 
+        claimAmount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                claimAmountActionPerformed(evt);
+            }
+        });
+        claimAmount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                claimAmountKeyTyped(evt);
+            }
+        });
+
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton1.setText("Submit");
 
@@ -554,7 +604,7 @@ public class PetOwner extends javax.swing.JFrame {
                         .addGroup(submitClaimPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(claimAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 179, Short.MAX_VALUE)))
@@ -584,7 +634,7 @@ public class PetOwner extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(submitClaimPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(claimAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(submitClaimPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -601,7 +651,7 @@ public class PetOwner extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(parentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -614,7 +664,7 @@ public class PetOwner extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(208, 208, 208)
+                        .addGap(0, 0, 0)
                         .addComponent(parentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -644,6 +694,8 @@ public class PetOwner extends javax.swing.JFrame {
         parentPanel.add(cancelInsurancePanel);
         parentPanel.repaint();
         parentPanel.revalidate();
+
+        populateCancelInsuranceTable();
     }//GEN-LAST:event_cancelInsuranceButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -657,7 +709,7 @@ public class PetOwner extends javax.swing.JFrame {
         String gender = maleRadioButton.isSelected() ? "male" : "female";
         AnimalDetails animal = new AnimalDetails(typeTextField.getText(), breedTextField.getText(),
                 Integer.valueOf(ageTextField.getText()),
-                gender, ua.getPersonID(), null);
+                gender, ua.getPersonID(), null, animalName.getText());
 
         ResultSet rs = DatabaseConnection.storeData(animal);
 
@@ -682,23 +734,96 @@ public class PetOwner extends javax.swing.JFrame {
 
     private void purchaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseButtonActionPerformed
         // TODO add your handling code here:
+        boolean activeInsuranceExists = false;
+        try {
+            String select = Constants.getInsuranceForPet + animalIDTextField1.getText();
+            ResultSet rs = DatabaseConnection.getData(select, false);
 
-        /*InsuranceDetails insurance = new InsuranceDetails(Integer.valueOf(animalIDTextField1.getText()),
-                startDateChooser.getDate(), existingMedicalConditions.getSelectedItem().toString(),
-                planLookup.get(planComboBox.getSelectedItem().toString()));
+            while (rs.next()) {
+                activeInsuranceExists = true;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(PetOwner.class.getName()).log(Level.SEVERE, null, e);
 
-        ResultSet rs = DatabaseConnection.storeData(insurance);
-
-        if (null == rs) {
-            JFrame jFrame = new JFrame();
-            JOptionPane.showMessageDialog(jFrame, "failed to purchase insurance. Please try again");
-        } else {
-            JFrame jFrame = new JFrame();
-            //Animal ID removed
-            JOptionPane.showMessageDialog(jFrame, "Insurance purchased for with Start Date as :" + startDateChooser.getDate());
         }
-         */
+
+        if (activeInsuranceExists) {
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "There's 1 insurance already active. New purchase is prohibited");
+
+        } else {
+            InsuranceDetails insurance = new InsuranceDetails(Integer.valueOf(animalIDTextField1.getText()),
+                    startDateChooser.getDate(), existingMedicalConditions.getSelectedItem().toString(),
+                    planLookup.get(planComboBox.getSelectedItem().toString()));
+
+            ResultSet rs = DatabaseConnection.storeData(insurance);
+
+            if (null == rs) {
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "failed to purchase insurance. Please try again");
+            } else {
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Insurance purchased for with Start Date as :" + startDateChooser.getDate());
+            }
+        }
+
     }//GEN-LAST:event_purchaseButtonActionPerformed
+
+    private void ageTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ageTextFieldKeyTyped
+        // TODO add your handling code here:
+        char TestChar = evt.getKeyChar();
+        if (!(Character.isDigit(TestChar)))
+            evt.consume();
+    }//GEN-LAST:event_ageTextFieldKeyTyped
+
+    private void claimAmountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_claimAmountKeyTyped
+        // TODO add your handling code here:
+        char TestChar = evt.getKeyChar();
+        if (!(Character.isDigit(TestChar)))
+            evt.consume();
+    }//GEN-LAST:event_claimAmountKeyTyped
+
+    private void claimAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_claimAmountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_claimAmountActionPerformed
+
+    private void purchaseInsuranceTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_purchaseInsuranceTableMouseClicked
+        // TODO add your handling code here:
+        animalIDTextField1.setText(purchaseInsuranceTable.getValueAt(purchaseInsuranceTable.getSelectedColumn(), 0).toString());
+    }//GEN-LAST:event_purchaseInsuranceTableMouseClicked
+
+    private void cancelInsurancePanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelInsurancePanelButtonActionPerformed
+        // TODO add your handling code here:
+//        boolean activeInsuranceExists = false;
+//        try {
+//            String select = Constants.getInsuranceForPet + animalIDTextField1.getText();
+//            ResultSet rs = DatabaseConnection.getData(select, false);
+//
+//            while (rs.next()) {
+//                activeInsuranceExists = true;
+//                InsuranceDetails activeInsuranceDetails = new InsuranceDetails(
+//                rs.getInt(""), new Date(rs.getDate("dateOfInsurance").getDate()), rs.getString("existingmedicalconditions"), rs.getInt("planId")
+//                 new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+//            }
+//        } catch (SQLException e) {
+//            Logger.getLogger(PetOwner.class.getName()).log(Level.SEVERE, null, e);
+//
+//        }
+//        
+//        if (activeInsuranceExists) {
+//            
+//                    
+//           DatabaseConnection.cancelInsurance();
+//
+//        }
+//        else{
+//            JFrame jFrame = new JFrame();
+//            JOptionPane.showMessageDialog(jFrame, "There's no active insurance.");
+//        
+//        }
+
+
+    }//GEN-LAST:event_cancelInsurancePanelButtonActionPerformed
 
     private void submitclaimButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -750,9 +875,11 @@ public class PetOwner extends javax.swing.JFrame {
     private javax.swing.JTextField anmlIDCancelTextField;
     private javax.swing.JButton backButton;
     private javax.swing.JTextField breedTextField;
-    private javax.swing.JButton cancelButton;
     private javax.swing.JButton cancelInsuranceButton;
     private javax.swing.JPanel cancelInsurancePanel;
+    private javax.swing.JButton cancelInsurancePanelButton;
+    private javax.swing.JTable cancelInsuranceTable;
+    private javax.swing.JTextField claimAmount;
     private javax.swing.JComboBox<String> existingMedicalConditions;
     private javax.swing.JRadioButton femaleRadioButton;
     private javax.swing.JPanel homePanel;
@@ -780,11 +907,11 @@ public class PetOwner extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JRadioButton maleRadioButton;
@@ -814,7 +941,7 @@ public class PetOwner extends javax.swing.JFrame {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
         }
 
         planComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(plans));
@@ -835,9 +962,35 @@ public class PetOwner extends javax.swing.JFrame {
             }
 
         } catch (SQLException e) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
 
         }
 
+    }
+
+    private void cancelInsurance() {
+
+    }
+
+    private void populateCancelInsuranceTable() {
+        DefaultTableModel model = (DefaultTableModel) cancelInsuranceTable.getModel();
+        model.setRowCount(0);
+
+        try {
+            ResultSet rs = null;
+            String selectStatmt = "select * from InsuranceDetails id JOIN AnimalDetails ad ON id.animalId = ad.id WHERE ad.animalOwnerID = " + ua.getPersonID();
+            System.out.print(selectStatmt);
+            rs = DatabaseConnection.getData(selectStatmt, false);
+            while (rs.next()) {
+                Object[] row = {rs.getString("name"), rs.getString("animalType"), rs.getString("breed"), rs.getString("gender")};
+                model.addRow(row);
+            }
+
+        } catch (SQLException e) {
+
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
+
+        }
     }
 
 }

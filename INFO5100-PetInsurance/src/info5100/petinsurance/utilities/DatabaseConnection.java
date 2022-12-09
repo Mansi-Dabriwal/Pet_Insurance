@@ -14,6 +14,7 @@ import info5100.petinsurance.model.insurance.InsuranceDetails;
 import info5100.petinsurance.model.insurance.InsurancePlan;
 import info5100.petinsurance.model.support.AbuseReport;
 import info5100.petinsurance.model.support.BloodCollectionRequestModel;
+import info5100.petinsurance.ui.SignUp;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -37,6 +38,7 @@ public class DatabaseConnection {
             connection = DriverManager.getConnection(Constants.connectionUrl);
 
         } catch (SQLException e) {
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
             
         }
 
@@ -87,7 +89,7 @@ public class DatabaseConnection {
             PreparedStatement ps;
 
             ps = connection.prepareStatement("INSERT INTO AnimalDetails VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, "coco");
+            ps.setString(1, ad.getAnimalName());
             ps.setString(2, ad.getAnimalType());
             ps.setString(3, ad.getBreed());
             ps.setInt(4, ad.getAge());
@@ -111,11 +113,13 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO InsuranceDetails VALUES ( ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO InsuranceDetails VALUES ( ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, insurance.getAnimalId());
             ps.setDate(2,  new Date(insurance.getDateOfInsurance().getTime()));
             ps.setString(3, insurance.getExistingMedicalConditions());
             ps.setInt(4, insurance.getPlanId());
+            ps.setDate(5, null);
+            ps.setString(6, "ACTIVE");
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
@@ -326,7 +330,5 @@ public class DatabaseConnection {
         
         return resultSet;
     }
-
-        
         
 }

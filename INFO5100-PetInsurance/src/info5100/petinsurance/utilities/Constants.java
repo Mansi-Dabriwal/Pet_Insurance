@@ -13,14 +13,16 @@ public class Constants {
     public static final String EmailRegex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" 
         + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
     public static final String connectionUrl =
-                "jdbc:sqlserver://petinsuranceaed.database.windows.net:1433;"
-                + "database=petinsurancedb;"
-                + "user=petinsurance;"
-                + "password=Password@5100;"
+                "jdbc:sqlserver://boyce.coe.neu.edu:1433;"
+                + "database=RakshaAshi;"
+                + "user=INFO6210;"
+                + "password=NEUHusky!;"
                 + "encrypt=true;"
                 + "trustServerCertificate=true;"
                 + "loginTimeout=30;";
     public static final String numRegex = "[0-9]+";
+    
+    public static final String getInsuranceForPet = "select * from InsuranceDetails where status = 'Active' and animalID = ";
     
     
 }

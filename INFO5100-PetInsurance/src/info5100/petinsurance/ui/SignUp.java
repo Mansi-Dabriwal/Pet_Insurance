@@ -9,7 +9,6 @@ import info5100.petinsurance.model.Person;
 import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.ui.hospital.HospitalAdmin;
 import info5100.petinsurance.ui.insurance.InsuranceAdmin;
-import info5100.petinsurance.ui.insurance.InsuranceAdminWorkFlow;
 import info5100.petinsurance.ui.rescueunit.RescueUnitManager;
 import info5100.petinsurance.ui.support.SupportAdmin;
 import info5100.petinsurance.utilities.DatabaseConnection;
@@ -31,7 +30,7 @@ public class SignUp extends javax.swing.JFrame {
     private boolean allowSignUp;
 
     public SignUp() {
-        this.allowSignUp = false;
+        this.allowSignUp = true;
         initComponents();
     }
 
@@ -310,18 +309,19 @@ public class SignUp extends javax.swing.JFrame {
 
     private void verifyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verifyBtnActionPerformed
         // TODO add your handling code here:
+        allowSignUp = true;
         try {
             ResultSet rs = DatabaseConnection.getData("select username from UserAccount ", false);
 
             while (rs.next()) {
                 if (rs.getString(1).equalsIgnoreCase(usernameTextField.getText())) {
                     allowSignUp = false;
-                    JFrame jFrame = new JFrame();
-                    JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
-
-                } else {
-                    allowSignUp = true;
                 }
+            }
+            
+            if(!allowSignUp){
+              JFrame jFrame = new JFrame();
+              JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
             }
 
             if (allowSignUp) {
@@ -330,7 +330,6 @@ public class SignUp extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(jFrame, "Username exists, proceed for signup!");
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_verifyBtnActionPerformed
@@ -478,7 +477,7 @@ public class SignUp extends javax.swing.JFrame {
                     break;
             }
         } catch (HeadlessException | NumberFormatException | SQLException e) {
-
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Sign up failed. Please try again!");
 

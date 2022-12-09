@@ -16,12 +16,14 @@ public class InsuranceDetails {
     Date dateOfInsurance;
     String existingMedicalConditions;
     int planId;
+    Date endDate;
     
-    public InsuranceDetails(int animalId, Date dateOfInsurance, String existingMedicalConditions, int planId) {
+    public InsuranceDetails(int animalId, Date dateOfInsurance, String existingMedicalConditions, int planId, Date endDate) {
         this.animalId = animalId;
         this.dateOfInsurance = dateOfInsurance;
         this.existingMedicalConditions = existingMedicalConditions;
         this.planId = planId;
+        this.endDate = null;
     }
 
     public int getId() {
