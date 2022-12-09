@@ -4,7 +4,14 @@
  */
 package info5100.petinsurance.ui.doctor;
 
+import info5100.petinsurance.ui.rescueunit.RescueUnitManager;
+import info5100.petinsurance.utilities.DatabaseConnection;
 import java.awt.CardLayout;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,6 +44,8 @@ public class DoctorPortal extends javax.swing.JFrame {
         pnlCard1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        showData = new javax.swing.JButton();
         pnlCard2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -55,6 +64,7 @@ public class DoctorPortal extends javax.swing.JFrame {
         med3 = new javax.swing.JTextField();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         btnComplete = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -83,21 +93,43 @@ public class DoctorPortal extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel11.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel11.setText("Upcoming Appointments");
+
+        showData.setText("Show Data");
+        showData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showDataActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlCard1Layout = new javax.swing.GroupLayout(pnlCard1);
         pnlCard1.setLayout(pnlCard1Layout);
         pnlCard1Layout.setHorizontalGroup(
             pnlCard1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCard1Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addGroup(pnlCard1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlCard1Layout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(jLabel11))
+                    .addGroup(pnlCard1Layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlCard1Layout.createSequentialGroup()
+                        .addGap(216, 216, 216)
+                        .addComponent(showData)))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
         pnlCard1Layout.setVerticalGroup(
             pnlCard1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCard1Layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65))
+                .addGap(37, 37, 37)
+                .addComponent(jLabel11)
+                .addGap(62, 62, 62)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(showData)
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         pnlCards.add(pnlCard1, "pnlCard1");
@@ -137,6 +169,9 @@ public class DoctorPortal extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel12.setText("Diagnose Patient ");
+
         javax.swing.GroupLayout pnlCard2Layout = new javax.swing.GroupLayout(pnlCard2);
         pnlCard2.setLayout(pnlCard2Layout);
         pnlCard2Layout.setHorizontalGroup(
@@ -171,13 +206,18 @@ public class DoctorPortal extends javax.swing.JFrame {
                                         .addComponent(med3))))))
                     .addGroup(pnlCard2Layout.createSequentialGroup()
                         .addGap(163, 163, 163)
-                        .addComponent(btnComplete)))
+                        .addComponent(btnComplete))
+                    .addGroup(pnlCard2Layout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addComponent(jLabel12)))
                 .addContainerGap(115, Short.MAX_VALUE))
         );
         pnlCard2Layout.setVerticalGroup(
             pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCard2Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel12)
+                .addGap(50, 50, 50)
                 .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -211,7 +251,7 @@ public class DoctorPortal extends javax.swing.JFrame {
                     .addComponent(med3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(btnComplete)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pnlCards.add(pnlCard2, "pnlCard2");
@@ -227,7 +267,7 @@ public class DoctorPortal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Diagnose a Patient");
+        jButton2.setText("Diagnose Patient");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -323,6 +363,24 @@ public class DoctorPortal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCompleteActionPerformed
 
+    private void showDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showDataActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        model.setRowCount(0);
+
+        ResultSet rs;
+        try {
+            rs = DatabaseConnection.getData("select * from UpcomingAppointments ", false);
+            while (rs.next()) {
+
+                model.addRow(new Object[]{rs.getString("patientName"),rs.getDate("dateOfAppointment")});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DoctorPortal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_showDataActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -368,6 +426,8 @@ public class DoctorPortal extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -387,5 +447,6 @@ public class DoctorPortal extends javax.swing.JFrame {
     private javax.swing.JPanel pnlCard1;
     private javax.swing.JPanel pnlCard2;
     private javax.swing.JPanel pnlCards;
+    private javax.swing.JButton showData;
     // End of variables declaration//GEN-END:variables
 }

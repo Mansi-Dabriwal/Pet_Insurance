@@ -12,6 +12,8 @@ import info5100.petinsurance.model.hospital.Doctor;
 import info5100.petinsurance.model.hospital.Hospital;
 import info5100.petinsurance.model.insurance.InsuranceDetails;
 import info5100.petinsurance.model.insurance.InsurancePlan;
+import info5100.petinsurance.model.rescueoperation.AdoptedAnimal;
+import info5100.petinsurance.model.rescueoperation.AnimalRescueOperation;
 import info5100.petinsurance.model.support.AbuseReport;
 import info5100.petinsurance.model.support.BloodCollectionRequestModel;
 import java.sql.Connection;
@@ -327,6 +329,53 @@ public class DatabaseConnection {
         return resultSet;
     }
 
+    public static ResultSet storeData(AnimalRescueOperation r) {
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO RescueUnit VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setString(1, r.getWasRescued());
+            ps.setDate(2, (Date) r.getDateOfRescue());
+            ps.setString(3, r.getPlaceOfRescue());
+            ps.setInt(4, r.getAnimalID());
+            
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        return resultSet;
+    }    
+    
+    public static ResultSet storeData(AdoptedAnimal a) {
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO AnimalsForAdoption VALUES (?, ?, ?, ?,?)", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setString(1, a.getType());
+            ps.setString(2, a.getGender());
+            ps.setString(3, a.getBreed());
+            ps.setInt(4, a.getAge());
+            ps.setString(5, a.getStatus());
+            
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    }    
         
 }
