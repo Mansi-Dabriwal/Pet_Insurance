@@ -7,9 +7,12 @@ package info5100.petinsurance.ui;
 import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
 import info5100.petinsurance.model.insurance.InsuranceDetails;
+import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -691,7 +694,7 @@ public class PetOwner extends javax.swing.JFrame {
         parentPanel.add(cancelInsurancePanel);
         parentPanel.repaint();
         parentPanel.revalidate();
-        
+
         populateCancelInsuranceTable();
     }//GEN-LAST:event_cancelInsuranceButtonActionPerformed
 
@@ -731,34 +734,52 @@ public class PetOwner extends javax.swing.JFrame {
 
     private void purchaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseButtonActionPerformed
         // TODO add your handling code here:
+        boolean activeInsuranceExists = false;
+        try {
+            String select = Constants.getInsuranceForPet + animalIDTextField1.getText();
+            ResultSet rs = DatabaseConnection.getData(select, false);
 
-        InsuranceDetails insurance = new InsuranceDetails(Integer.valueOf(animalIDTextField1.getText()),
-                startDateChooser.getDate(), existingMedicalConditions.getSelectedItem().toString(),
-                planLookup.get(planComboBox.getSelectedItem().toString()));
+            while (rs.next()) {
+                activeInsuranceExists = true;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(PetOwner.class.getName()).log(Level.SEVERE, null, e);
 
-        ResultSet rs = DatabaseConnection.storeData(insurance);
-
-        if (null == rs) {
-            JFrame jFrame = new JFrame();
-            JOptionPane.showMessageDialog(jFrame, "failed to purchase insurance. Please try again");
-        } else {
-            JFrame jFrame = new JFrame();
-            JOptionPane.showMessageDialog(jFrame, "Insurance purchased for with Start Date as :" + startDateChooser.getDate());
         }
-         
+
+        if (activeInsuranceExists) {
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "There's 1 insurance already active. New purchase is prohibited");
+
+        } else {
+            InsuranceDetails insurance = new InsuranceDetails(Integer.valueOf(animalIDTextField1.getText()),
+                    startDateChooser.getDate(), existingMedicalConditions.getSelectedItem().toString(),
+                    planLookup.get(planComboBox.getSelectedItem().toString()));
+
+            ResultSet rs = DatabaseConnection.storeData(insurance);
+
+            if (null == rs) {
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "failed to purchase insurance. Please try again");
+            } else {
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Insurance purchased for with Start Date as :" + startDateChooser.getDate());
+            }
+        }
+
     }//GEN-LAST:event_purchaseButtonActionPerformed
 
     private void ageTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ageTextFieldKeyTyped
         // TODO add your handling code here:
-         char TestChar = evt.getKeyChar();
-         if (!(Character.isDigit(TestChar)))
+        char TestChar = evt.getKeyChar();
+        if (!(Character.isDigit(TestChar)))
             evt.consume();
     }//GEN-LAST:event_ageTextFieldKeyTyped
 
     private void claimAmountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_claimAmountKeyTyped
         // TODO add your handling code here:
-         char TestChar = evt.getKeyChar();
-         if (!(Character.isDigit(TestChar)))
+        char TestChar = evt.getKeyChar();
+        if (!(Character.isDigit(TestChar)))
             evt.consume();
     }//GEN-LAST:event_claimAmountKeyTyped
 
@@ -773,8 +794,35 @@ public class PetOwner extends javax.swing.JFrame {
 
     private void cancelInsurancePanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelInsurancePanelButtonActionPerformed
         // TODO add your handling code here:
-        
-        
+//        boolean activeInsuranceExists = false;
+//        try {
+//            String select = Constants.getInsuranceForPet + animalIDTextField1.getText();
+//            ResultSet rs = DatabaseConnection.getData(select, false);
+//
+//            while (rs.next()) {
+//                activeInsuranceExists = true;
+//                InsuranceDetails activeInsuranceDetails = new InsuranceDetails(
+//                rs.getInt(""), new Date(rs.getDate("dateOfInsurance").getDate()), rs.getString("existingmedicalconditions"), rs.getInt("planId")
+//                 new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+//            }
+//        } catch (SQLException e) {
+//            Logger.getLogger(PetOwner.class.getName()).log(Level.SEVERE, null, e);
+//
+//        }
+//        
+//        if (activeInsuranceExists) {
+//            
+//                    
+//           DatabaseConnection.cancelInsurance();
+//
+//        }
+//        else{
+//            JFrame jFrame = new JFrame();
+//            JOptionPane.showMessageDialog(jFrame, "There's no active insurance.");
+//        
+//        }
+
+
     }//GEN-LAST:event_cancelInsurancePanelButtonActionPerformed
 
     private void submitclaimButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -893,7 +941,7 @@ public class PetOwner extends javax.swing.JFrame {
             }
 
         } catch (SQLException e) {
-           Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
         }
 
         planComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(plans));
@@ -919,13 +967,13 @@ public class PetOwner extends javax.swing.JFrame {
         }
 
     }
-    
-    private void cancelInsurance(){
-    
+
+    private void cancelInsurance() {
+
     }
 
     private void populateCancelInsuranceTable() {
-       DefaultTableModel model = (DefaultTableModel) cancelInsuranceTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) cancelInsuranceTable.getModel();
         model.setRowCount(0);
 
         try {
@@ -939,7 +987,7 @@ public class PetOwner extends javax.swing.JFrame {
             }
 
         } catch (SQLException e) {
-            
+
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
 
         }
