@@ -15,7 +15,7 @@ public enum Roles {
 
     InsuranceProviderAdmin("Insurance Provider Admin"),
     HospitalAdmin("Hospital Admin"),
-    VeterinaryAdmin("Veterinary Admin"),
+    VeterinaryDoctor("Veterinary Doctor"),
     BloodBankAdmin("Blood Bank Admin"),
     RescueUnitManager("Rescue Unit Manager"),
     PetOwner("Pet Owner"),

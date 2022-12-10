@@ -4,6 +4,11 @@
  */
 package info5100.petinsurance.ui;
 
+import info5100.petinsurance.utilities.DatabaseConnection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ashit
@@ -15,6 +20,8 @@ public class BloodBankAdmin extends javax.swing.JFrame {
      */
     public BloodBankAdmin() {
         initComponents();
+        
+        populatePendingRequestsTable();
     }
 
     /**
@@ -42,7 +49,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
         setButton = new javax.swing.JButton();
         viewPendingRequestPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        pendingRequestsTable = new javax.swing.JTable();
         approveButton = new javax.swing.JButton();
         rejectButton = new javax.swing.JButton();
 
@@ -152,7 +159,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "O Positive", "O Negative", "A Positive", "A Negative", "B Positive", "B Negative", "AB Positive", "AB Negative" }));
 
         setButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        setButton.setText("Set");
+        setButton.setText("Update Availability");
 
         javax.swing.GroupLayout updatePanelLayout = new javax.swing.GroupLayout(updatePanel);
         updatePanel.setLayout(updatePanelLayout);
@@ -164,14 +171,14 @@ public class BloodBankAdmin extends javax.swing.JFrame {
                         .addGap(58, 58, 58)
                         .addGroup(updatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(84, 84, 84)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(44, 44, 44)
                         .addGroup(updatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jComboBox1, 0, 146, Short.MAX_VALUE)
                             .addComponent(availabilityTextField)))
                     .addGroup(updatePanelLayout.createSequentialGroup()
-                        .addGap(219, 219, 219)
-                        .addComponent(setButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(180, 180, 180)
+                        .addComponent(setButton)))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
         updatePanelLayout.setVerticalGroup(
@@ -194,42 +201,56 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
         viewPendingRequestPanel.setBackground(new java.awt.Color(255, 255, 153));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        pendingRequestsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Blood Type", "Availability (Units)"
+                "Request ID", "Animal Id", "Animal Type", "Blood Type", "Units Required"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(pendingRequestsTable);
 
         approveButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         approveButton.setText("Approve");
+        approveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                approveButtonActionPerformed(evt);
+            }
+        });
 
         rejectButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         rejectButton.setText("Reject");
+        rejectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rejectButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout viewPendingRequestPanelLayout = new javax.swing.GroupLayout(viewPendingRequestPanel);
         viewPendingRequestPanel.setLayout(viewPendingRequestPanelLayout);
         viewPendingRequestPanelLayout.setHorizontalGroup(
             viewPendingRequestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
             .addGroup(viewPendingRequestPanelLayout.createSequentialGroup()
                 .addGap(112, 112, 112)
                 .addComponent(approveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
                 .addComponent(rejectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(118, 118, 118))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewPendingRequestPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+                .addContainerGap())
         );
         viewPendingRequestPanelLayout.setVerticalGroup(
             viewPendingRequestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewPendingRequestPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
+                .addGap(56, 56, 56)
                 .addGroup(viewPendingRequestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(approveButton)
                     .addComponent(rejectButton))
@@ -246,7 +267,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(parentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE))
+                .addComponent(parentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,6 +304,16 @@ public class BloodBankAdmin extends javax.swing.JFrame {
         new WelcomeFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void approveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveButtonActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = pendingRequestsTable.getSelectedRow();
+        String select = "Select * from BloodCollectionRequests where id = " + pendingRequestsTable.getValueAt(selectedRow, 0);
+    }//GEN-LAST:event_approveButtonActionPerformed
+
+    private void rejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rejectButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -331,8 +362,8 @@ public class BloodBankAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel parentPanel;
+    private javax.swing.JTable pendingRequestsTable;
     private javax.swing.JButton rejectButton;
     private javax.swing.JButton setButton;
     private javax.swing.JButton updateButton;
@@ -340,4 +371,22 @@ public class BloodBankAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel viewPendingRequestPanel;
     private javax.swing.JButton viewRequestButton;
     // End of variables declaration//GEN-END:variables
+
+    private void populatePendingRequestsTable() {
+        DefaultTableModel model = (DefaultTableModel) pendingRequestsTable.getModel();
+        model.setRowCount(0);
+
+        try {
+            ResultSet rs = null;
+            String selectStatmt = "Select * from BloodCollectionRequests WHERE status = 'PENDING'";
+            rs = DatabaseConnection.getData(selectStatmt, false);
+            while (rs.next()) {
+                Object[] row = {rs.getInt("ID"), rs.getInt("AnimalID") , rs.getString("AnimalType"), rs.getString("BloodType"), rs.getString("NumberofUnits")};
+                model.addRow(row);
+            }
+
+        } catch (SQLException e) {
+
+        }
+    }
 }
