@@ -4,25 +4,38 @@
  */
 package info5100.petinsurance.ui.rescueunit;
 
+import info5100.petinsurance.model.UserAccount;
+import info5100.petinsurance.model.animal.AnimalDetails;
+import info5100.petinsurance.model.rescueoperation.AdoptedAnimal;
+import info5100.petinsurance.model.rescueoperation.AnimalRescueOperation;
 import info5100.petinsurance.ui.WelcomeFrame;
+import info5100.petinsurance.ui.hospital.HospitalAdmin;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.WorkFlowStatus;
+import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author ashit
  */
+
 public class RescueUnitManager extends javax.swing.JFrame {
 
     /**
      * Creates new form RescueUnitManager
      */
-    public RescueUnitManager() {
+    UserAccount ua;
+    public RescueUnitManager(UserAccount ua) {
+        this.ua = ua;
         initComponents();
     }
 
@@ -55,8 +68,6 @@ public class RescueUnitManager extends javax.swing.JFrame {
         breed = new javax.swing.JTextField();
         age = new javax.swing.JTextField();
         gender = new javax.swing.JTextField();
-        animalOwnerId = new javax.swing.JTextField();
-        medicalHistoryId = new javax.swing.JTextField();
         bloodType = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -65,8 +76,6 @@ public class RescueUnitManager extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         adoptAnimalPanel = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
@@ -78,12 +87,14 @@ public class RescueUnitManager extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         pendingRequestPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         showAll = new javax.swing.JButton();
         confirmRequest = new javax.swing.JButton();
         cancelRequest = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -225,12 +236,6 @@ public class RescueUnitManager extends javax.swing.JFrame {
         jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel24.setText("Gender");
 
-        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel25.setText("Animal Owner Id");
-
-        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel26.setText("Medical History Id");
-
         jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel27.setText("Blood  Type");
 
@@ -239,34 +244,34 @@ public class RescueUnitManager extends javax.swing.JFrame {
         addAnimalPanelLayout.setHorizontalGroup(
             addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(addAnimalPanelLayout.createSequentialGroup()
-                .addGap(53, 53, 53)
                 .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel27)
-                    .addComponent(jLabel26))
-                .addGap(45, 45, 45)
-                .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(wasRescued, 0, 274, Short.MAX_VALUE)
-                    .addComponent(animalId, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-                    .addComponent(placeOfRescue, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-                    .addComponent(rescueDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(animalType)
-                    .addComponent(breed, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(age)
-                    .addComponent(gender)
-                    .addComponent(addAnimal1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(animalOwnerId)
-                    .addComponent(medicalHistoryId)
-                    .addComponent(bloodType))
-                .addContainerGap(100, Short.MAX_VALUE))
+                    .addGroup(addAnimalPanelLayout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel27))
+                        .addGap(76, 76, 76)
+                        .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(wasRescued, 0, 274, Short.MAX_VALUE)
+                            .addComponent(animalId, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                            .addComponent(placeOfRescue, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                            .addComponent(rescueDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(animalType)
+                            .addComponent(breed, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(age)
+                            .addComponent(gender)
+                            .addComponent(bloodType)))
+                    .addGroup(addAnimalPanelLayout.createSequentialGroup()
+                        .addGap(214, 214, 214)
+                        .addComponent(addAnimal1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         addAnimalPanelLayout.setVerticalGroup(
             addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,21 +308,13 @@ public class RescueUnitManager extends javax.swing.JFrame {
                 .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(62, 62, 62)
                 .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(animalOwnerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(medicalHistoryId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bloodType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bloodType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
                 .addComponent(addAnimal1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         parentPanel.add(addAnimalPanel, "card2");
@@ -339,6 +336,12 @@ public class RescueUnitManager extends javax.swing.JFrame {
             }
         });
 
+        age1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                age1ActionPerformed(evt);
+            }
+        });
+
         sendRequest.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         sendRequest.setText("Send Request");
         sendRequest.addActionListener(new java.awt.event.ActionListener() {
@@ -356,6 +359,9 @@ public class RescueUnitManager extends javax.swing.JFrame {
         jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel29.setText("Age");
 
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel2.setText("Adopt Animal");
+
         javax.swing.GroupLayout adoptAnimalPanelLayout = new javax.swing.GroupLayout(adoptAnimalPanel);
         adoptAnimalPanel.setLayout(adoptAnimalPanelLayout);
         adoptAnimalPanelLayout.setHorizontalGroup(
@@ -369,20 +375,27 @@ public class RescueUnitManager extends javax.swing.JFrame {
                     .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addGroup(adoptAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(animalType1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                    .addComponent(animalType1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                     .addComponent(gender1)
                     .addComponent(breed1)
                     .addComponent(age1))
                 .addGap(232, 232, 232))
             .addGroup(adoptAnimalPanelLayout.createSequentialGroup()
-                .addGap(152, 152, 152)
-                .addComponent(sendRequest)
+                .addGroup(adoptAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(adoptAnimalPanelLayout.createSequentialGroup()
+                        .addGap(152, 152, 152)
+                        .addComponent(sendRequest))
+                    .addGroup(adoptAnimalPanelLayout.createSequentialGroup()
+                        .addGap(244, 244, 244)
+                        .addComponent(jLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         adoptAnimalPanelLayout.setVerticalGroup(
             adoptAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(adoptAnimalPanelLayout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addGap(22, 22, 22)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
                 .addGroup(adoptAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(animalType1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -400,7 +413,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
                     .addComponent(age1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(115, 115, 115)
                 .addComponent(sendRequest)
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addContainerGap(325, Short.MAX_VALUE))
         );
 
         parentPanel.add(adoptAnimalPanel, "card3");
@@ -444,30 +457,44 @@ public class RescueUnitManager extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel5.setText("Pending Requests");
+
         javax.swing.GroupLayout pendingRequestPanelLayout = new javax.swing.GroupLayout(pendingRequestPanel);
         pendingRequestPanel.setLayout(pendingRequestPanelLayout);
         pendingRequestPanelLayout.setHorizontalGroup(
             pendingRequestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pendingRequestPanelLayout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
             .addGroup(pendingRequestPanelLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(showAll)
-                .addGap(18, 18, 18)
-                .addComponent(confirmRequest)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cancelRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
+                .addGroup(pendingRequestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pendingRequestPanelLayout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(showAll)
+                        .addGap(18, 18, 18)
+                        .addComponent(confirmRequest)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cancelRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pendingRequestPanelLayout.createSequentialGroup()
+                        .addGap(232, 232, 232)
+                        .addComponent(jLabel5)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pendingRequestPanelLayout.setVerticalGroup(
             pendingRequestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pendingRequestPanelLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel5)
+                .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(141, 141, 141)
+                .addGap(53, 53, 53)
                 .addGroup(pendingRequestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(showAll)
                     .addComponent(confirmRequest)
                     .addComponent(cancelRequest))
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
 
         parentPanel.add(pendingRequestPanel, "card4");
@@ -501,6 +528,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
         parentPanel.add(addAnimalPanel);
         parentPanel.repaint();
         parentPanel.revalidate();
+        
     }//GEN-LAST:event_addAnimalActionPerformed
 
     private void adoptAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adoptAnimalActionPerformed
@@ -527,6 +555,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
 
     private void addAnimal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAnimal1ActionPerformed
         // TODO add your handling code here:
+        addAnimal();
     }//GEN-LAST:event_addAnimal1ActionPerformed
 
     private void animalType1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_animalType1ActionPerformed
@@ -539,7 +568,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
 
     private void sendRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendRequestActionPerformed
         // TODO add your handling code here:
-        //animalForAdoption();
+        sendRequestForAdoption();
     }//GEN-LAST:event_sendRequestActionPerformed
 
     private void showAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllActionPerformed
@@ -555,57 +584,61 @@ public class RescueUnitManager extends javax.swing.JFrame {
                 model.addRow(new Object[]{rs.getInt("id"),rs.getString("animalType"), rs.getString("gender"), rs.getString("breed"), rs.getInt("age")});
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PendingRequests.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RescueUnitManager.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_showAllActionPerformed
 
     private void confirmRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmRequestActionPerformed
         // TODO add your handling code here:
-       // animalForAdoption(WorkFlowStatus.COMPLETED);
+        StatusUpdateForAdoption(WorkFlowStatus.COMPLETED);
     }//GEN-LAST:event_confirmRequestActionPerformed
 
     private void cancelRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelRequestActionPerformed
         // TODO add your handling code here:
 
-        //animalForAdoption(WorkFlowStatus.CANCELLED);
+        StatusUpdateForAdoption(WorkFlowStatus.CANCELLED);
 
     }//GEN-LAST:event_cancelRequestActionPerformed
+
+    private void age1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_age1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_age1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RescueUnitManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RescueUnitManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RescueUnitManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RescueUnitManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RescueUnitManager().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(RescueUnitManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(RescueUnitManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(RescueUnitManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(RescueUnitManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new RescueUnitManager().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addAnimal;
@@ -616,7 +649,6 @@ public class RescueUnitManager extends javax.swing.JFrame {
     private javax.swing.JTextField age;
     private javax.swing.JTextField age1;
     private javax.swing.JTextField animalId;
-    private javax.swing.JTextField animalOwnerId;
     private javax.swing.JTextField animalType;
     private javax.swing.JTextField animalType1;
     private javax.swing.JButton back;
@@ -632,23 +664,22 @@ public class RescueUnitManager extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField medicalHistoryId;
     private javax.swing.JPanel parentPanel;
     private javax.swing.JPanel pendingRequestPanel;
     private javax.swing.JButton pendingRequests;
@@ -658,4 +689,106 @@ public class RescueUnitManager extends javax.swing.JFrame {
     private javax.swing.JButton showAll;
     private javax.swing.JComboBox<String> wasRescued;
     // End of variables declaration//GEN-END:variables
+
+    public void addAnimal() {
+        try{
+            int animalID = 0;
+            
+            
+            
+            AnimalDetails animal = new AnimalDetails(animalType.getText(), breed.getText() ,
+                    Integer.valueOf(age.getText()), gender.getText(), ua.getPersonID(),bloodType.getText());
+            
+            //Create Address
+            ResultSet rs;
+            rs = DatabaseConnection.storeData(animal);
+            try {
+                while (rs.next()) {
+                    animalID = rs.getInt(1);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(HospitalAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+            
+            
+            AnimalRescueOperation animalRescue = new AnimalRescueOperation(wasRescued.getSelectedItem().toString(),rescueDate.getDate(),
+                    placeOfRescue.getText(),animalID);
+            rs = DatabaseConnection.storeData(animalRescue);
+           
+            
+            
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Animal added to rescue unit!");
+            
+           } catch (HeadlessException | NumberFormatException  e) {
+
+            e.printStackTrace();
+
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Animal Registration failed. Please try again!");
+
+        }
+    }
+    
+    public void  sendRequestForAdoption() {
+        try{
+          
+            
+            
+            
+            AdoptedAnimal animal = new AdoptedAnimal(animalType1.getText(),gender1.getText(), breed1.getText() ,
+                    Integer.valueOf(age1.getText()), WorkFlowStatus.PENDING.toString());
+            
+            //Create Address
+            ResultSet rs;
+            rs = DatabaseConnection.storeData(animal);
+
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Animal added to rescue unit!");
+            
+           } catch (HeadlessException | NumberFormatException  e) {
+
+            e.printStackTrace();
+
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Animal Registration failed. Please try again!");
+
+        }
+    }
+    
+    private void StatusUpdateForAdoption(WorkFlowStatus status) {
+        try {
+            if(jTable1.getSelectedRowCount()==1){
+                int row_no = jTable1.getSelectedRow();
+                int id = (int) jTable1.getValueAt(row_no, 0);
+                System.out.println("id:"+id);
+                String updateSt = "update  AnimalsForAdoption set Status = '"+status +"' where id ="+id;
+                System.out.println("update statement :" + updateSt);
+                DatabaseConnection.getData(updateSt, true);
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, status+ " THE ADOPTION!");
+            }else{
+            if(jTable1.getRowCount()==0){
+                // if Table1 is empty (no data) then display message
+                JOptionPane.showMessageDialog(this, "There is no pending request!");
+               
+            }else{
+                JOptionPane.showMessageDialog(this, "Please select a single row for changing the request status!");
+            }
+        }
+            
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, " Failed to change the pending request status. Please try again!");
+
+        }
+
+    }
+    
 }
