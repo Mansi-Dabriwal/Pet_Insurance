@@ -8,6 +8,7 @@ import info5100.petinsurance.model.Address;
 import info5100.petinsurance.model.Person;
 import info5100.petinsurance.model.hospital.Doctor;
 import info5100.petinsurance.model.hospital.Hospital;
+import info5100.petinsurance.model.hospital.UpcomingAppointments;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import java.awt.CardLayout;
 import java.awt.HeadlessException;
@@ -29,30 +30,38 @@ public class HospitalAdmin extends javax.swing.JFrame {
     /**
      * Creates new form HospitalAdmin
      */
-    ResultSet hospitalN;
+    ResultSet hospitalN, patientN;
     CardLayout cardLayout;
     Map<String, Integer> HospitalLookup = new HashMap<String, Integer>();
+    Map<String, Integer> PatientLookup = new HashMap<String, Integer>();
     
     public HospitalAdmin() {
         initComponents();
         cardLayout = (CardLayout) (pnlCards.getLayout());
         
         String[] hospitals = new String[15];
+        String[] patients = new String[15];
 
         try {
             hospitalN = DatabaseConnection.getData("Select * from Hospital", false);
+            patientN = DatabaseConnection.getData("Select * from AnimalDetails", false);
             int i = 0;
             while (hospitalN.next()) {
                 hospitals[i] = hospitalN.getString("hospitalName");
                 System.out.println(hospitals[i]);
                 HospitalLookup.put(hospitalN.getString("hospitalName"), hospitalN.getInt("id"));
             }
+            while (patientN.next()) {
+                patients[i] = patientN.getString("patientName");
+                System.out.println(patients[i]);
+                PatientLookup.put(patientN.getString("patientName"), patientN.getInt("id"));
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         hospitalName.setModel(new javax.swing.DefaultComboBoxModel<>(hospitals));
-
+        patientName.setModel(new javax.swing.DefaultComboBoxModel<>(patients));
         
        
     }
@@ -117,9 +126,17 @@ public class HospitalAdmin extends javax.swing.JFrame {
         email = new javax.swing.JTextField();
         addDoctorBtn = new javax.swing.JButton();
         hospitalName = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        bookingDate = new com.toedter.calendar.JDateChooser();
+        addAppointment = new javax.swing.JButton();
+        patientName = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         registerHospitalBtn = new javax.swing.JButton();
         registerDoctorBtn = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -329,7 +346,7 @@ public class HospitalAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 415, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(512, 512, 512))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel21)
@@ -354,11 +371,14 @@ public class HospitalAdmin extends javax.swing.JFrame {
                             .addComponent(zipCode)
                             .addComponent(email)
                             .addComponent(phone)
-                            .addComponent(speciality)
-                            .addComponent(lastName)
                             .addComponent(firstName)
-                            .addComponent(hospitalName, 0, 397, Short.MAX_VALUE))))
-                .addGap(97, 97, 97))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(106, 106, 106)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(speciality)
+                                    .addComponent(lastName)
+                                    .addComponent(hospitalName, 0, 291, Short.MAX_VALUE))))
+                        .addGap(97, 97, 97))))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -429,6 +449,71 @@ public class HospitalAdmin extends javax.swing.JFrame {
 
         pnlCards.add(jPanel6, "pnlCard2");
 
+        jPanel1.setBackground(new java.awt.Color(255, 204, 153));
+
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel2.setText("Book an appointment");
+
+        jLabel3.setText("Patient Name:");
+
+        jLabel4.setText("Booking Date:");
+
+        addAppointment.setText("Add Appointment");
+        addAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addAppointmentActionPerformed(evt);
+            }
+        });
+
+        patientName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(232, 232, 232)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(105, 105, 105)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bookingDate, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                            .addComponent(patientName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(255, 255, 255)
+                        .addComponent(addAppointment)))
+                .addContainerGap(280, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(jLabel3)
+                        .addGap(24, 24, 24))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(patientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(bookingDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(136, 136, 136)
+                .addComponent(addAppointment)
+                .addContainerGap(304, Short.MAX_VALUE))
+        );
+
+        pnlCards.add(jPanel1, "pnlCard3");
+
         jSplitPane1.setRightComponent(pnlCards);
 
         jPanel3.setBackground(new java.awt.Color(255, 204, 102));
@@ -447,24 +532,37 @@ public class HospitalAdmin extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Book an appointment");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(registerHospitalBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(registerDoctorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addComponent(registerDoctorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(141, 141, 141)
                 .addComponent(registerHospitalBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(28, 28, 28)
                 .addComponent(registerDoctorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(412, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(337, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel3);
@@ -546,6 +644,16 @@ public class HospitalAdmin extends javax.swing.JFrame {
         addDoctor();
     }//GEN-LAST:event_addDoctorBtnActionPerformed
 
+    private void addAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAppointmentActionPerformed
+        // TODO add your handling code here:
+        addAppointment();
+    }//GEN-LAST:event_addAppointmentActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        cardLayout.show(pnlCards,"pnlCard3");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -586,12 +694,14 @@ public class HospitalAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField Country;
     private javax.swing.JTextField State;
     private javax.swing.JTextField ZipCode;
+    private javax.swing.JButton addAppointment;
     private javax.swing.JButton addDoctorBtn;
     private javax.swing.JButton addHospitalBtn;
     private javax.swing.JTextField addressL1;
     private javax.swing.JTextField addressL2;
     private javax.swing.JTextField addressLine1;
     private javax.swing.JTextField addressLine2;
+    private com.toedter.calendar.JDateChooser bookingDate;
     private javax.swing.JTextField city;
     private javax.swing.JTextField country;
     private javax.swing.JTextField email;
@@ -599,6 +709,7 @@ public class HospitalAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField firstName;
     private javax.swing.JComboBox<String> hospitalName;
     private javax.swing.JTextField hospitalNamee;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
@@ -609,11 +720,14 @@ public class HospitalAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
@@ -624,12 +738,14 @@ public class HospitalAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextField lastName;
+    private javax.swing.JComboBox<String> patientName;
     private javax.swing.JTextField phone;
     private javax.swing.JTextField phoneNumber;
     private javax.swing.JPanel pnlCards;
@@ -722,6 +838,44 @@ public class HospitalAdmin extends javax.swing.JFrame {
 
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Doctor Registration failed. Please try again!");
+
+        }
+    }
+    
+    public void addAppointment() {
+        try {
+            int addressID = 0;
+            String patientN = patientName.getSelectedItem().toString();
+            System.out.println(patientN);
+            System.out.println(PatientLookup.get(patientN));
+            
+//            UpcomingAppointments appointment = new UpcomingAppointments(PatientLookup.get(patientN), bookingDate.getDate());
+//            
+//            //Create Address
+//            ResultSet rs;
+//            rs = DatabaseConnection.storeData(appointment);
+//            try {
+//                while (rs.next()) {
+//                    addressID = rs.getInt(1);
+//                    System.out.println(addressID);
+//                }
+//            } catch (SQLException ex) {
+//                Logger.getLogger(HospitalAdmin.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//            //Create Hospital
+//            Hospital h;
+//            h = new Hospital(hospitalNamee.getText(),addressID, phoneNumber.getText(), emailId.getText());
+//            DatabaseConnection.storeData(h);
+//            
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Hospital registered!");
+        } catch (HeadlessException | NumberFormatException  e) {
+
+            e.printStackTrace();
+
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Hospital Registration failed. Please try again!");
 
         }
     }
