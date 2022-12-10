@@ -10,6 +10,7 @@ import info5100.petinsurance.model.hospital.Doctor;
 import info5100.petinsurance.model.hospital.Hospital;
 import info5100.petinsurance.ui.WelcomeFrame;
 import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.ValidationService;
 import java.awt.CardLayout;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
@@ -33,6 +34,8 @@ public class HospitalAdmin extends javax.swing.JFrame {
     ResultSet hospitalN;
     CardLayout cardLayout;
     Map<String, Integer> HospitalLookup = new HashMap<String, Integer>();
+    private boolean flag;
+    private boolean flag1;
     
     public HospitalAdmin() {
         initComponents();
@@ -877,11 +880,23 @@ public class HospitalAdmin extends javax.swing.JFrame {
             //Create Hospital
             Hospital h;
             h = new Hospital(hospitalNamee.getText(),addressID, phoneNumber.getText(), emailId.getText());
+            flag= true;
+            ValidationService vs= new ValidationService();
+            flag= vs.validateEmail(emailId.getText());
+            flag1= vs.validateNumber(phoneNumber.getText());
+            if(!flag){
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Email entered is wrong, please enter correct Email!");
+            }else if(!flag1){
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Phone number entered is wrong, please enter correct number!");
+            }else{
+            
             DatabaseConnection.storeData(h);
             
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Hospital registered!");
-        } catch (HeadlessException | NumberFormatException  e) {
+        } }catch (HeadlessException | NumberFormatException  e) {
 
             e.printStackTrace();
 
@@ -913,24 +928,36 @@ public class HospitalAdmin extends javax.swing.JFrame {
             int personID = 0;
             Person person = new Person(firstName.getText(), lastName.getText(),phone.getText(), email.getText(), addressID );
             
-            rs = DatabaseConnection.storeData(person);
-            try {
-                while (rs.next()) {
-                    personID = rs.getInt(1);
+            flag= true;
+            ValidationService vs= new ValidationService();
+            flag= vs.validateEmail(email.getText());
+            flag1= vs.validateNumber(phone.getText());
+            if(!flag){
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Email entered is wrong, please enter correct Email!");
+            }else if(!flag1){
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Phone number entered is wrong, please enter correct number!");
+            }else{
+                rs = DatabaseConnection.storeData(person);
+                try {
+                    while (rs.next()) {
+                        personID = rs.getInt(1);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(HospitalAdmin.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(HospitalAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                String HospitalN = hospitalName.getSelectedItem().toString();
+                System.out.println(HospitalN);
+                System.out.println(HospitalLookup.get(HospitalN));
+
+                //Create Doctor
+                Doctor d = new Doctor(personID, speciality.getText(), HospitalLookup.get(HospitalN));
+                DatabaseConnection.storeData(d);
+
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Doctor registered!");
             }
-            String HospitalN = hospitalName.getSelectedItem().toString();
-            System.out.println(HospitalN);
-            System.out.println(HospitalLookup.get(HospitalN));
-            
-            //Create Doctor
-            Doctor d = new Doctor(personID, speciality.getText(), HospitalLookup.get(HospitalN));
-            DatabaseConnection.storeData(d);
-            
-            JFrame jFrame = new JFrame();
-            JOptionPane.showMessageDialog(jFrame, "Doctor registered!");
         } catch (HeadlessException | NumberFormatException  e) {
 
             e.printStackTrace();

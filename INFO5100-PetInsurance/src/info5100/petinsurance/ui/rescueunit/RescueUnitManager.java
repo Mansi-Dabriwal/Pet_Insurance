@@ -119,7 +119,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(166, 166, 166)
+                .addGap(221, 221, 221)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -195,7 +195,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
         );
         homePanelLayout.setVerticalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
+            .addGap(0, 624, Short.MAX_VALUE)
         );
 
         parentPanel.add(homePanel, "card5");
@@ -308,13 +308,13 @@ public class RescueUnitManager extends javax.swing.JFrame {
                 .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62)
+                .addGap(18, 18, 18)
                 .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bloodType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                .addGap(89, 89, 89)
                 .addComponent(addAnimal1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         parentPanel.add(addAnimalPanel, "card2");
@@ -413,7 +413,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
                     .addComponent(age1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(115, 115, 115)
                 .addComponent(sendRequest)
-                .addContainerGap(325, Short.MAX_VALUE))
+                .addContainerGap(260, Short.MAX_VALUE))
         );
 
         parentPanel.add(adoptAnimalPanel, "card3");
@@ -494,7 +494,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
                     .addComponent(showAll)
                     .addComponent(confirmRequest)
                     .addComponent(cancelRequest))
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addGap(150, 150, 150))
         );
 
         parentPanel.add(pendingRequestPanel, "card4");
@@ -736,9 +736,6 @@ public class RescueUnitManager extends javax.swing.JFrame {
     public void  sendRequestForAdoption() {
         try{
           
-            
-            
-            
             AdoptedAnimal animal = new AdoptedAnimal(animalType1.getText(),gender1.getText(), breed1.getText() ,
                     Integer.valueOf(age1.getText()), WorkFlowStatus.PENDING.toString());
             
