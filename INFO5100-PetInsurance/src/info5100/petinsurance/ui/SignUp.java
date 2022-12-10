@@ -328,7 +328,7 @@ public class SignUp extends javax.swing.JFrame {
             if (allowSignUp) {
                 System.out.print("Proceed for signup");
                 JFrame jFrame = new JFrame();
-                JOptionPane.showMessageDialog(jFrame, "Username exists, proceed for signup!");
+                JOptionPane.showMessageDialog(jFrame, "New username, proceed for signup!");
             }
         } catch (SQLException ex) {
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
@@ -436,56 +436,57 @@ public class SignUp extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(jFrame, "Email entered is wrong, please enter correct email!");
             }
             else{       
-                rs = DatabaseConnection.storeData(person);
-                while (rs.next()) {
-                    personID = rs.getInt(1);
+                    rs = DatabaseConnection.storeData(person);
+                    while (rs.next()) {
+                        personID = rs.getInt(1);
+                    }
+
+                Roles r = null;
+
+                for (Roles ri : Roles.values()) {
+                    if (ri.getDisplayVal().equals(roleComboBox.getSelectedItem().toString())) {
+                        r = ri;
+                    }
                 }
-            }
-            Roles r = null;
 
-            for (Roles ri : Roles.values()) {
-                if (ri.getDisplayVal().equals(roleComboBox.getSelectedItem().toString())) {
-                    r = ri;
+                //Create User Account
+                UserAccount ua = new UserAccount(usernameTextField.getText(), PasswordField.getText(),
+                        personID, r);
+                DatabaseConnection.storeData(ua);
+
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Sign up completed!");
+
+                switch (r) {
+                    case InsuranceProviderAdmin:
+                        new InsuranceAdmin(ua).setVisible(true);
+                        this.dispose();
+                        break;
+                    case BloodBankAdmin:
+                        new BloodBankAdmin().setVisible(true);
+                        this.dispose();
+                        break;
+                    case HospitalAdmin:
+                        new HospitalAdmin().setVisible(true);
+                        this.dispose();
+                        break;
+                    case PetOwner:
+                        new PetOwner(ua).setVisible(true);
+                        this.dispose();
+                        break;
+                    case RescueUnitManager:
+                        new RescueUnitManager().setVisible(true);
+                        this.dispose();
+                        break;
+                    case SystemAdmin:
+                        break;
+                    case SupportRepresentative:
+                        new SupportAdmin(ua).setVisible(true);
+                        this.dispose();
+                        break;
+                    case VeterinaryDoctor:
+                        break;
                 }
-            }
-
-            //Create User Account
-            UserAccount ua = new UserAccount(usernameTextField.getText(), PasswordField.getText(),
-                    personID, r);
-            DatabaseConnection.storeData(ua);
-
-            JFrame jFrame = new JFrame();
-            JOptionPane.showMessageDialog(jFrame, "Sign up completed!");
-
-            switch (r) {
-                case InsuranceProviderAdmin:
-                    new InsuranceAdmin(ua).setVisible(true);
-                    this.dispose();
-                    break;
-                case BloodBankAdmin:
-                    new BloodBankAdmin().setVisible(true);
-                    this.dispose();
-                    break;
-                case HospitalAdmin:
-                    new HospitalAdmin().setVisible(true);
-                    this.dispose();
-                    break;
-                case PetOwner:
-                    new PetOwner(ua).setVisible(true);
-                    this.dispose();
-                    break;
-                case RescueUnitManager:
-                    new RescueUnitManager().setVisible(true);
-                    this.dispose();
-                    break;
-                case SystemAdmin:
-                    break;
-                case SupportRepresentative:
-                    new SupportAdmin(ua).setVisible(true);
-                    this.dispose();
-                    break;
-                case VeterinaryDoctor:
-                    break;
             }
         } catch (HeadlessException | NumberFormatException | SQLException e) {
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
