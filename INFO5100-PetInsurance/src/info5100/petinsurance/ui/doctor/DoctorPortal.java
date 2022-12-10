@@ -22,6 +22,8 @@ public class DoctorPortal extends javax.swing.JFrame {
     public DoctorPortal() {
         initComponents();
         cardLayout = (CardLayout) (pnlCards.getLayout());
+        
+        
     }
 
     /**
@@ -148,7 +150,7 @@ public class DoctorPortal extends javax.swing.JFrame {
         jLabel8.setText("Medicine 1");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setText("Medicone 2");
+        jLabel9.setText("Medicine 2");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setText("Medicine 3");
