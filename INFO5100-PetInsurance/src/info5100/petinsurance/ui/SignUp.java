@@ -475,7 +475,7 @@ public class SignUp extends javax.swing.JFrame {
                     this.dispose();
                     break;
                 case RescueUnitManager:
-                    new RescueUnitManager().setVisible(true);
+                    new RescueUnitManager(ua).setVisible(true);
                     this.dispose();
                     break;
                 case SystemAdmin:

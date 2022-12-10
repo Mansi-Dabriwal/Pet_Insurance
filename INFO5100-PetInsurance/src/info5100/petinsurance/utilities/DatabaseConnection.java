@@ -91,7 +91,7 @@ public class DatabaseConnection {
             PreparedStatement ps;
 
             ps = connection.prepareStatement("INSERT INTO AnimalDetails VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, ad.getAnimalName());
+            ps.setString(1, ad.getName());
             ps.setString(2, ad.getAnimalType());
             ps.setString(3, ad.getBreed());
             ps.setInt(4, ad.getAge());

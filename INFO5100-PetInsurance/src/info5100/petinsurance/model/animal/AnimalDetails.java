@@ -11,25 +11,33 @@ package info5100.petinsurance.model.animal;
 public class AnimalDetails {
     
     int id;
+    String name;
     String animalType;
     String breed;
     int age;
     String gender;
     int animalOwnerID;
     String bloodType;
-    String animalName;
+//    String animalName;
 
-    public AnimalDetails(String animalType, String breed, int age, String gender, int animalOwnerID, String bloodType, String animalName) {
+    public AnimalDetails(String name,String animalType, String breed, int age, String gender, int animalOwnerID, String bloodType) {
+        this.name = name;
         this.animalType = animalType;
         this.breed = breed;
         this.age = age;
         this.gender = gender;
         this.animalOwnerID = animalOwnerID;
         this.bloodType = bloodType;
-        this.animalName = animalName;
+//        this.animalName = animalName;
     }
     
-    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getAnimalOwnerID() {
         return animalOwnerID;
@@ -91,13 +99,7 @@ public class AnimalDetails {
         this.bloodType = bloodType;
     }
 
-    public String getAnimalName() {
-        return animalName;
-    }
-
-    public void setAnimalName(String animalName) {
-        this.animalName = animalName;
-    }
+    
     
     
 }
