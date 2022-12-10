@@ -59,7 +59,7 @@
             <Container class="javax.swing.JPanel" name="jPanel9">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="32" green="bd" red="ff" type="rgb"/>
+                  <Color blue="99" green="ff" red="ff" type="rgb"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -127,7 +127,7 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="284" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="295" max="-2" attributes="0"/>
                           <Component id="addHospitalBtn" min="-2" pref="149" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -181,9 +181,9 @@
                               <Component id="jLabel63" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ZipCode" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                           <Component id="addHospitalBtn" min="-2" pref="39" max="-2" attributes="0"/>
-                          <EmptySpace pref="141" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -308,65 +308,76 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="348" max="-2" attributes="0"/>
-                                  <Component id="addDoctorBtn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="348" max="-2" attributes="0"/>
+                          <Component id="addDoctorBtn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel24" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                      <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                                      <Component id="firstName" min="-2" pref="281" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel24" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel19" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel21" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="state" min="-2" pref="283" max="-2" attributes="0"/>
-                                          <Component id="country" min="-2" pref="283" max="-2" attributes="0"/>
-                                          <Component id="zipCode" min="-2" pref="283" max="-2" attributes="0"/>
-                                          <Component id="city" alignment="0" min="-2" pref="282" max="-2" attributes="0"/>
-                                          <Component id="addressL2" alignment="0" min="-2" pref="282" max="-2" attributes="0"/>
-                                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="lastName" max="32767" attributes="0"/>
-                                              <Component id="email" alignment="0" min="-2" pref="280" max="-2" attributes="0"/>
-                                              <Component id="speciality" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="hospitalName" alignment="0" pref="282" max="32767" attributes="0"/>
-                                              <Component id="phone" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Component id="addressL1" alignment="0" min="-2" pref="281" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="324" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="phone" alignment="1" min="-2" pref="258" max="-2" attributes="0"/>
+                                              <Component id="email" alignment="1" min="-2" pref="258" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="speciality" min="-2" pref="258" max="-2" attributes="0"/>
+                                              <Component id="firstName" min="-2" pref="258" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="24" max="32767" attributes="0"/>
+                                  <Component id="lastName" min="-2" pref="259" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="state" min="-2" pref="283" max="-2" attributes="0"/>
+                                              <Component id="country" min="-2" pref="283" max="-2" attributes="0"/>
+                                              <Component id="zipCode" min="-2" pref="283" max="-2" attributes="0"/>
+                                              <Component id="city" alignment="0" min="-2" pref="282" max="-2" attributes="0"/>
+                                              <Component id="addressL2" alignment="0" min="-2" pref="282" max="-2" attributes="0"/>
+                                              <Component id="addressL1" alignment="0" min="-2" pref="281" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Component id="hospitalName" alignment="0" min="-2" pref="258" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -377,39 +388,35 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="firstName" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lastName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="speciality" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="hospitalName" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                              <Component id="lastName" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="speciality" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                              <Component id="phone" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="hospitalName" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="email" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="phone" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="email" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="addressL1" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                                      <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="addressL1" min="-2" pref="20" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="addressL2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -437,7 +444,7 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="addDoctorBtn" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="88" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -647,7 +654,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="bloodBankBtn" min="-2" pref="187" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="73" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="77" max="32767" attributes="0"/>
                                       </Group>
                                       <Component id="jTextField15" max="32767" attributes="0"/>
                                       <Component id="jTextField16" max="32767" attributes="0"/>
@@ -704,7 +711,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                           <Component id="bloodBankBtn" min="-2" pref="49" max="-2" attributes="0"/>
-                          <EmptySpace pref="170" max="32767" attributes="0"/>
+                          <EmptySpace pref="92" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -808,7 +815,7 @@
         <Container class="javax.swing.JPanel" name="jPanel3">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="66" green="cc" red="ff" type="rgb"/>
+              <Color blue="32" green="bd" red="ff" type="rgb"/>
             </Property>
           </Properties>
           <Constraints>
@@ -843,7 +850,7 @@
                       <Component id="registerDoctorBtn" min="-2" pref="41" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                       <Component id="registerBloodBankBtn" min="-2" pref="44" max="-2" attributes="0"/>
-                      <EmptySpace pref="246" max="32767" attributes="0"/>
+                      <EmptySpace pref="168" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
