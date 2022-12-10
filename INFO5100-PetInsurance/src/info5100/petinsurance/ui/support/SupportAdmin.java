@@ -85,7 +85,7 @@ public class SupportAdmin extends javax.swing.JFrame {
         abuseComplaintScreenTable = new javax.swing.JTable();
         updateDetailsPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        updateDetailstable = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
         searchTextField = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -341,7 +341,7 @@ public class SupportAdmin extends javax.swing.JFrame {
                         .addComponent(animalId, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(reportAbusePanelLayout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 284, Short.MAX_VALUE)
                         .addComponent(complaintComments, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(reportAbusePanelLayout.createSequentialGroup()
                         .addGroup(reportAbusePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -396,7 +396,7 @@ public class SupportAdmin extends javax.swing.JFrame {
 
         updateDetailsPanel.setBackground(new java.awt.Color(255, 255, 153));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        updateDetailstable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -407,7 +407,7 @@ public class SupportAdmin extends javax.swing.JFrame {
                 "First Name", "Last Name", "Phone No.", "Email Address"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(updateDetailstable);
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -668,7 +668,6 @@ public class SupportAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField lastNameTextField2;
     private javax.swing.JPanel parentPanel;
     private javax.swing.JTextField phoneNoTextField;
@@ -684,6 +683,7 @@ public class SupportAdmin extends javax.swing.JFrame {
     private javax.swing.JButton updateButton;
     private javax.swing.JButton updateDetailsButton;
     private javax.swing.JPanel updateDetailsPanel;
+    private javax.swing.JTable updateDetailstable;
     // End of variables declaration//GEN-END:variables
 
     private void populateAlreadyExistingAnimals() {
