@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -341,10 +343,13 @@ public class BloodBankAdmin extends javax.swing.JFrame {
                 DatabaseConnection.updateBloodCollectionRequestStatus(bcr);
 
             }
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Blood collection request approved");
         } catch (SQLException e) {
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
 
         }
+        populatePendingRequestsTable();
     }//GEN-LAST:event_approveButtonActionPerformed
 
     private void rejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectButtonActionPerformed
@@ -371,10 +376,13 @@ public class BloodBankAdmin extends javax.swing.JFrame {
                 DatabaseConnection.updateBloodCollectionRequestStatus(bcr);
 
             }
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Blood collection request denied");
         } catch (SQLException e) {
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
 
         }
+        populatePendingRequestsTable();
     }//GEN-LAST:event_rejectButtonActionPerformed
 
     private void setButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setButtonActionPerformed
