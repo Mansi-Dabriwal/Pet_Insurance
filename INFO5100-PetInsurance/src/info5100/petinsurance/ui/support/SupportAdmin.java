@@ -583,7 +583,7 @@ public class SupportAdmin extends javax.swing.JFrame {
 
         BloodCollectionRequestModel bcr = new BloodCollectionRequestModel(Integer.valueOf(animalID.getText()),
            animalType.getText(), bloodType.getText(), Integer.valueOf(units.getText()),
-               requiredDate.getDate(), ua.getPersonID(), "abc", WorkFlowStatus.PENDING);
+               requiredDate.getDate(), ua.getPersonID(), "abc", WorkFlowStatus.PENDING, null);
 
         ResultSet rs = DatabaseConnection.storeData(bcr);
         if (rs == null) {
