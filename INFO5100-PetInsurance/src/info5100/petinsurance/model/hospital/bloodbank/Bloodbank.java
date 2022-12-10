@@ -14,8 +14,7 @@ public class Bloodbank {
     String bloodType;
     int availability;
     
-    public Bloodbank(int id, String bloodType, int availability){
-        this.id = id;
+    public Bloodbank( String bloodType, int availability){
         this.bloodType = bloodType;
         this.availability = availability;
        

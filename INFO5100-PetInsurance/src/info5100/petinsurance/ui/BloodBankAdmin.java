@@ -4,6 +4,7 @@
  */
 package info5100.petinsurance.ui;
 
+import info5100.petinsurance.model.hospital.bloodbank.Bloodbank;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -160,6 +161,11 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
         setButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         setButton.setText("Update Availability");
+        setButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout updatePanelLayout = new javax.swing.GroupLayout(updatePanel);
         updatePanel.setLayout(updatePanelLayout);
@@ -314,6 +320,13 @@ public class BloodBankAdmin extends javax.swing.JFrame {
     private void rejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rejectButtonActionPerformed
+
+    private void setButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setButtonActionPerformed
+        // TODO add your handling code here:
+        Bloodbank bb = new Bloodbank(jComboBox1.getSelectedItem().toString(), Integer.valueOf(availabilityTextField.getText()));
+        DatabaseConnection.updateAvailability(bb);
+        
+    }//GEN-LAST:event_setButtonActionPerformed
 
     /**
      * @param args the command line arguments

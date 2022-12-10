@@ -8,6 +8,7 @@ import info5100.petinsurance.model.Address;
 import info5100.petinsurance.model.Person;
 import info5100.petinsurance.model.hospital.Doctor;
 import info5100.petinsurance.model.hospital.Hospital;
+import info5100.petinsurance.model.hospital.bloodbank.Bloodbank;
 import info5100.petinsurance.ui.WelcomeFrame;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.ValidationService;
@@ -711,6 +712,8 @@ public class HospitalAdmin extends javax.swing.JFrame {
 
     private void bloodBankBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloodBankBtnActionPerformed
         // TODO add your handling code here:
+        Bloodbank bb = new Bloodbank();
+        DatabaseConnection.storeData(bb);
     }//GEN-LAST:event_bloodBankBtnActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed

@@ -10,6 +10,7 @@ import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
 import info5100.petinsurance.model.hospital.Doctor;
 import info5100.petinsurance.model.hospital.Hospital;
+import info5100.petinsurance.model.hospital.bloodbank.Bloodbank;
 import info5100.petinsurance.model.insurance.InsuranceDetails;
 import info5100.petinsurance.model.insurance.InsurancePlan;
 import info5100.petinsurance.model.support.AbuseReport;
@@ -329,6 +330,29 @@ public class DatabaseConnection {
         }
         
         return resultSet;
+    }
+
+    public static ResultSet updateAvailability(Bloodbank bb) {
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("Update BloodBank SET availability =? where bloodType = ?", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setInt(1, bb.getAvailability());
+            ps.setString(4, bb.getBloodType());
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+        
     }
         
 }
