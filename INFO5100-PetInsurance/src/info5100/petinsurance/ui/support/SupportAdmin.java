@@ -10,6 +10,7 @@ import info5100.petinsurance.model.rescueoperation.AdoptedAnimal;
 import info5100.petinsurance.model.support.AbuseReport;
 import info5100.petinsurance.model.support.BloodCollectionRequestModel;
 import info5100.petinsurance.ui.WelcomeFrame;
+import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.EmailUtility;
 import info5100.petinsurance.utilities.WorkFlowStatus;
@@ -713,9 +714,8 @@ public class SupportAdmin extends javax.swing.JFrame {
 
         try {
             ResultSet rs = null;
-            String selectStatmt = "Select ad.id AS AnimalID, ad.name AS AnimalName, ad.breed , ad.gender , ad.animalType , p.id  AS OwnerID, p.fname +  ' ' +p.lName  as OwnerName, ad.age, ad.bloodType from \n" +
-"AnimalDetails ad JOIN Person p  ON ad.animalOwnerID = p.id ;";
-            rs = DatabaseConnection.getData(selectStatmt, false);
+          
+            rs = DatabaseConnection.getData(Constants.ALREADYEXISTINGANIMALS, false);
             while (rs.next()) {
                 Object[] row = {rs.getString("AnimalName"), rs.getString("animalType"), rs.getString("breed"), rs.getString("gender"), rs.getString("OwnerName")};
                 model.addRow(row);
