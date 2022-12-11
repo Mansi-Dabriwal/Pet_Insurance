@@ -8,6 +8,7 @@ import info5100.petinsurance.model.hospital.bloodbank.Bloodbank;
 import info5100.petinsurance.model.support.BloodCollectionRequestModel;
 import info5100.petinsurance.ui.SignUp;
 import info5100.petinsurance.ui.WelcomeFrame;
+import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.WorkFlowStatus;
 import java.sql.ResultSet;
@@ -324,7 +325,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
     private void approveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveButtonActionPerformed
         // TODO add your handling code here:
         int selectedRow = pendingRequestsTable.getSelectedRow();
-        String select = "Select * from BloodCollectionRequests where id = " + pendingRequestsTable.getValueAt(selectedRow, 0);
+        String select = Constants.GETBLOODCOLLECTIONREQUESTSID + pendingRequestsTable.getValueAt(selectedRow, 0);
 
         try {
 
@@ -357,7 +358,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
     private void rejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectButtonActionPerformed
         // TODO add your handling code here:
        int selectedRow = pendingRequestsTable.getSelectedRow();
-        String select = "Select * from BloodCollectionRequests where id = " + pendingRequestsTable.getValueAt(selectedRow, 0);
+        String select = Constants.GETBLOODCOLLECTIONREQUESTSID + pendingRequestsTable.getValueAt(selectedRow, 0);
 
         try {
 
@@ -394,7 +395,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
         boolean existingBloodType = false;
         Bloodbank bb = new Bloodbank(jComboBox1.getSelectedItem().toString(), Integer.valueOf(availabilityTextField.getText()));
         try {
-            rs = DatabaseConnection.getData("Select * from BloodBank where bloodType = '" + jComboBox1.getSelectedItem().toString() + "'", false);
+            rs = DatabaseConnection.getData(Constants.GETBLOODBANKINFO + jComboBox1.getSelectedItem().toString() + "'", false);
             while (rs.next()) {
                 existingBloodType = true;
             }
@@ -479,8 +480,8 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
         try {
             ResultSet rs = null;
-            String selectStatmt = "Select * from BloodCollectionRequests WHERE status = 'PENDING'";
-            rs = DatabaseConnection.getData(selectStatmt, false);
+          
+            rs = DatabaseConnection.getData(Constants.GETBLOODCOLLECTIONREQUESTS, false);
             while (rs.next()) {
                 Object[] row = {rs.getInt("ID"), rs.getInt("AnimalID"), rs.getString("AnimalType"), rs.getString("BloodType"), rs.getString("NumberofUnits")};
                 model.addRow(row);

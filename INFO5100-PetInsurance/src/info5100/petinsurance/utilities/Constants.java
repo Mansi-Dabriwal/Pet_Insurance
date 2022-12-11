@@ -39,4 +39,11 @@ public class Constants {
     public static final String GETALLDOCTORS = " select p.id as id, p.fName , p.lName from Person p JOIN UserAccount ua ON p.id = ua.PersonID Where ua.RoleName = 'Veterinary Doctor'";
 
     public static final String ALREADYEXISTINGANIMALS = "Select ad.id AS AnimalID, ad.name AS AnimalName, ad.breed , ad.gender , ad.animalType , p.id  AS OwnerID, p.fname +  ' ' +p.lName  as OwnerName, ad.age, ad.bloodType from \n" + "AnimalDetails ad JOIN Person p  ON ad.animalOwnerID = p.id ";
+
+    public static final String GETBLOODBANKINFO = "Select * from BloodBank where bloodType = '";
+    
+    public static final String GETBLOODCOLLECTIONREQUESTS = "Select * from BloodCollectionRequests WHERE status = 'PENDING'";
+    
+    public static final String GETBLOODCOLLECTIONREQUESTSID = "Select * from BloodCollectionRequests where id = ";
+                                                               
 }
