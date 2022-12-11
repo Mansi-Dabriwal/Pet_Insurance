@@ -765,7 +765,7 @@ public class PetOwner extends javax.swing.JFrame {
         int animalId=0;
         try {
             animalId = animals.stream().filter(a->a.getAnimalName().equals(animalIDTextField1.getText())).collect(Collectors.toList()).get(0).getId();
-            String select = Constants.getInsuranceForPet + animalId;
+            String select = Constants.GETINSURANCEFORPET + animalId;
             ResultSet rs = DatabaseConnection.getData(select, false);
 
             while (rs.next()) {
@@ -827,7 +827,7 @@ public class PetOwner extends javax.swing.JFrame {
         boolean activeInsuranceExists = false;
         InsuranceDetails activeInsuranceDetails = null;
         try {
-            String select = Constants.getInsuranceForPet + anmlIDCancelTextField.getText();
+            String select = Constants.GETINSURANCEFORPET + anmlIDCancelTextField.getText();
             System.out.print("Cancel insurance :" + select);
             ResultSet rs = DatabaseConnection.getData(select, false);
 

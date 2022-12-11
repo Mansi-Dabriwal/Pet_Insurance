@@ -39,7 +39,7 @@ public class DatabaseConnection {
 
     private static void setConnection() throws SQLException {
         try {
-            connection = DriverManager.getConnection(Constants.connectionUrl);
+            connection = DriverManager.getConnection(Constants.CONNECTIONURL);
 
         } catch (SQLException e) {
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
