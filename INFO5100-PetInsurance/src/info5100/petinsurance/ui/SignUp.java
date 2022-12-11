@@ -4,9 +4,13 @@
  */
 package info5100.petinsurance.ui;
 
+import info5100.petinsurance.ui.petowner.PetOwner;
+import info5100.petinsurance.ui.SystemAdmin.SystemAdmin;
+import info5100.petinsurance.ui.bloodbank.BloodBankAdmin;
 import info5100.petinsurance.model.Address;
 import info5100.petinsurance.model.Person;
 import info5100.petinsurance.model.UserAccount;
+import info5100.petinsurance.ui.doctor.DoctorPortal;
 import info5100.petinsurance.ui.hospital.HospitalAdmin;
 import info5100.petinsurance.ui.insurance.InsuranceAdmin;
 import info5100.petinsurance.ui.rescueunit.RescueUnitManager;
@@ -143,7 +147,7 @@ public class SignUp extends javax.swing.JFrame {
         roleComboBox.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Insurance Provider Admin", "Hospital Admin", "Veterinary Admin", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Support Representative", "System Admin" }));
 
-        backBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        backBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         backBtn.setText("Back");
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -332,10 +336,10 @@ public class SignUp extends javax.swing.JFrame {
                     allowSignUp = false;
                 }
             }
-            
-            if(!allowSignUp){
-              JFrame jFrame = new JFrame();
-              JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
+
+            if (!allowSignUp) {
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Username is already in use, Please enter a new username!");
             }
 
             if (allowSignUp) {
@@ -423,37 +427,36 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JTextField zipCodeTextField;
     // End of variables declaration//GEN-END:variables
     public void registerUser() {
-        if(addressLine1TextField.getText().trim().isEmpty() && cityTextField.getText().trim().isEmpty() && stateTextField.getText().trim().isEmpty() && countryTextField.getText().trim().isEmpty()
-            && zipCodeTextField.getText().trim().isEmpty() &&  firstNameTextField.getText().trim().isEmpty() && lastNameTextField.getText().trim().isEmpty() && emailTextField.getText().trim().isEmpty()
-             && usernameTextField.getText().trim().isEmpty() &&   PasswordField.getText().trim().isEmpty() ){
+        if (addressLine1TextField.getText().trim().isEmpty() && cityTextField.getText().trim().isEmpty() && stateTextField.getText().trim().isEmpty() && countryTextField.getText().trim().isEmpty()
+                && zipCodeTextField.getText().trim().isEmpty() && firstNameTextField.getText().trim().isEmpty() && lastNameTextField.getText().trim().isEmpty() && emailTextField.getText().trim().isEmpty()
+                && usernameTextField.getText().trim().isEmpty() && PasswordField.getText().trim().isEmpty()) {
             vldLabel.setText("All fields are Empty!");
-        }else if(addressLine1TextField.getText().trim().isEmpty()){
-             vldLabel.setText("Address field is Empty!");
-        }else if(cityTextField.getText().trim().isEmpty()){
-             vldLabel.setText("City field is Empty!");
-        } else if(stateTextField.getText().trim().isEmpty()){
-             vldLabel.setText("State field is Empty!");
-        }else if(countryTextField.getText().trim().isEmpty()){
-             vldLabel.setText("Country field is Empty!");
-        }else if (zipCodeTextField.getText().trim().isEmpty()){
-             vldLabel.setText("ZipCode field is Empty!");
-        }else if (firstNameTextField.getText().trim().isEmpty()){
-             vldLabel.setText("First Name field is Empty!");
-        }else if (lastNameTextField.getText().trim().isEmpty()){
-             vldLabel.setText("Last Name field is Empty!");
-        }else if (usernameTextField.getText().trim().isEmpty()){
-             vldLabel.setText("Username field is Empty!");
-        }else if (PasswordField.getText().trim().isEmpty()){
-             vldLabel.setText("Password field is Empty!");
-        }else if (roleComboBox.getSelectedItem().equals("")){
-             vldLabel.setText("Please select a role!");
-        }else{
+        } else if (addressLine1TextField.getText().trim().isEmpty()) {
+            vldLabel.setText("Address field is Empty!");
+        } else if (cityTextField.getText().trim().isEmpty()) {
+            vldLabel.setText("City field is Empty!");
+        } else if (stateTextField.getText().trim().isEmpty()) {
+            vldLabel.setText("State field is Empty!");
+        } else if (countryTextField.getText().trim().isEmpty()) {
+            vldLabel.setText("Country field is Empty!");
+        } else if (zipCodeTextField.getText().trim().isEmpty()) {
+            vldLabel.setText("ZipCode field is Empty!");
+        } else if (firstNameTextField.getText().trim().isEmpty()) {
+            vldLabel.setText("First Name field is Empty!");
+        } else if (lastNameTextField.getText().trim().isEmpty()) {
+            vldLabel.setText("Last Name field is Empty!");
+        } else if (usernameTextField.getText().trim().isEmpty()) {
+            vldLabel.setText("Username field is Empty!");
+        } else if (PasswordField.getText().trim().isEmpty()) {
+            vldLabel.setText("Password field is Empty!");
+        } else if (roleComboBox.getSelectedItem().equals("")) {
+            vldLabel.setText("Please select a role!");
+        } else {
             try {
                 int addressID = 0;
 
                 Address address = new Address(addressLine1TextField.getText(), addresslLine2TextField.getText(),
                         cityTextField.getText(), stateTextField.getText(), countryTextField.getText(), Integer.valueOf(zipCodeTextField.getText()));
-
 
                 //Create Address
                 ResultSet rs;
@@ -467,18 +470,17 @@ public class SignUp extends javax.swing.JFrame {
                 Person person = new Person(firstNameTextField.getText(), lastNameTextField.getText(), null, emailTextField.getText(),
                         addressID);
 
-                flag= true;
-                ValidationService vs= new ValidationService();
-                flag= vs.validateEmail(emailTextField.getText());
-                if(!flag){
+                flag = true;
+                ValidationService vs = new ValidationService();
+                flag = vs.validateEmail(emailTextField.getText());
+                if (!flag) {
                     JFrame jFrame = new JFrame();
                     JOptionPane.showMessageDialog(jFrame, "Email entered is wrong, please enter correct email!");
-                }
-                else{       
-                        rs = DatabaseConnection.storeData(person);
-                        while (rs.next()) {
-                            personID = rs.getInt(1);
-                        }
+                } else {
+                    rs = DatabaseConnection.storeData(person);
+                    while (rs.next()) {
+                        personID = rs.getInt(1);
+                    }
 
                     Roles r = null;
 
@@ -518,12 +520,16 @@ public class SignUp extends javax.swing.JFrame {
                             this.dispose();
                             break;
                         case SystemAdmin:
+                            new SystemAdmin(ua).setVisible(true);
+                            this.dispose();
                             break;
                         case SupportRepresentative:
                             new SupportAdmin(ua).setVisible(true);
                             this.dispose();
                             break;
                         case VeterinaryDoctor:
+                            new DoctorPortal().setVisible(true);
+                            this.dispose();
                             break;
                     }
                 }
@@ -532,6 +538,6 @@ public class SignUp extends javax.swing.JFrame {
                 JFrame jFrame = new JFrame();
                 JOptionPane.showMessageDialog(jFrame, "Sign up failed. Please try again!");
             }
-         }
+        }
     }
 }

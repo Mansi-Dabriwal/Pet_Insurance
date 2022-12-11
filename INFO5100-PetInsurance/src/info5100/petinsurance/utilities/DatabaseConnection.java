@@ -39,7 +39,7 @@ public class DatabaseConnection {
 
     private static void setConnection() throws SQLException {
         try {
-            connection = DriverManager.getConnection(Constants.connectionUrl);
+            connection = DriverManager.getConnection(Constants.CONNECTIONURL);
 
         } catch (SQLException e) {
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
@@ -494,7 +494,31 @@ public class DatabaseConnection {
         return resultSet;
         
     }
-    
-    
+
+    public static ResultSet updatePerson(Person p) {
+        
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("Update Person SET fname =?, lname =?, phone = ?, email = ? where id = ?", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setString(1, p.getfName());
+            ps.setString(2, p.getlName());
+            ps.setString(3, p.getPhone());
+            ps.setString(4, p.getEmail());
+            ps.setInt(5, p.getId());
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+        
+    }
         
 }

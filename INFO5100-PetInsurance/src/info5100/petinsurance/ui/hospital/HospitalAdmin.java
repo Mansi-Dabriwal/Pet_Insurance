@@ -817,8 +817,6 @@ public class HospitalAdmin extends javax.swing.JFrame {
 
     private void bloodBankBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloodBankBtnActionPerformed
         // TODO add your handling code here:
-//        Bloodbank bb = new Bloodbank();
-//        DatabaseConnection.storeData(bb);
     }//GEN-LAST:event_bloodBankBtnActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed

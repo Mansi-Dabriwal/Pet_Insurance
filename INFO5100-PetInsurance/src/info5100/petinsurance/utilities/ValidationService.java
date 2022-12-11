@@ -13,13 +13,13 @@ import java.util.regex.Pattern;
 public class ValidationService {
     
     public static boolean validateEmail(String email){
-     return Pattern.compile(Constants.EmailRegex)
+     return Pattern.compile(Constants.EMAILREGEX)
       .matcher(email)
       .matches();
     }
     
     public static boolean validateAge(String age){
-     return Pattern.compile(Constants.numRegex)
+     return Pattern.compile(Constants.NUMREGEX)
       .matcher(age)
       .matches();
     }
@@ -28,7 +28,7 @@ public class ValidationService {
      if (number.length() != 10)
          return false;
      else
-     return Pattern.compile(Constants.numRegex)
+     return Pattern.compile(Constants.NUMREGEX)
       .matcher(number)
       .matches();
     }
