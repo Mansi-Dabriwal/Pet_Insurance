@@ -13,6 +13,10 @@ import info5100.petinsurance.utilities.DatabaseConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import info5100.petinsurance.utilities.DatabaseConnection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -793,6 +797,7 @@ public class PetOwner extends javax.swing.JFrame {
 
     private void cancelInsurancePanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelInsurancePanelButtonActionPerformed
         // TODO add your handling code here:
+
         boolean activeInsuranceExists = false;
         InsuranceDetails activeInsuranceDetails = null;
         try {
@@ -820,6 +825,7 @@ public class PetOwner extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(jFrame, "There's no active insurance.");
         
         }
+
     }//GEN-LAST:event_cancelInsurancePanelButtonActionPerformed
 
     private void cancelInsuranceTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelInsuranceTableMouseClicked
