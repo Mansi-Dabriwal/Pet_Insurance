@@ -401,8 +401,12 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
             if (existingBloodType) {
                 DatabaseConnection.updateAvailability(bb);
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Availability Updated!!");
             } else {
                 DatabaseConnection.storeBloodAvailability(bb);
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Availability Updated!!");
             }
         } catch (SQLException e) {
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
