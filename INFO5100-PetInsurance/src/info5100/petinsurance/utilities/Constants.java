@@ -29,4 +29,12 @@ public class Constants {
     public static final String GETUSERACCOUNT =  "select * from Useraccount where username = '";
     
     public static final String GETALLAPPOINTMENTSFORDOCTOR = "SELECT * FROM UpcomingAppointments ua JOIN Doctor d ON d.id = ua.DoctorID WHERE d.personId =";
+    
+    public static final String GETALLUSERNAMES = "select username from UserAccount";
+    
+    public static final String GETALLHOSPITALS = "Select * from Hospital";
+    
+    public static final String GETALLANIMALS = "Select * from AnimalDetails";
+    
+    public static final String GETALLDOCTORS = " select p.id as id, p.fName , p.lName from Person p JOIN UserAccount ua ON p.id = ua.PersonID Where ua.RoleName = 'Veterinary Doctor'";
 }

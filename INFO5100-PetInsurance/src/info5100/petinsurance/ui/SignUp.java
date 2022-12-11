@@ -15,6 +15,7 @@ import info5100.petinsurance.ui.hospital.HospitalAdmin;
 import info5100.petinsurance.ui.insurance.InsuranceAdmin;
 import info5100.petinsurance.ui.rescueunit.RescueUnitManager;
 import info5100.petinsurance.ui.support.SupportAdmin;
+import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.Roles;
 import info5100.petinsurance.utilities.ValidationService;
@@ -353,7 +354,7 @@ public class SignUp extends javax.swing.JFrame {
         // TODO add your handling code here:
         allowSignUp = true;
         try {
-            ResultSet rs = DatabaseConnection.getData("select username from UserAccount ", false);
+            ResultSet rs = DatabaseConnection.getData(Constants.GETALLUSERNAMES, false);
 
             while (rs.next()) {
                 if (rs.getString(1).equalsIgnoreCase(usernameTextField.getText())) {
