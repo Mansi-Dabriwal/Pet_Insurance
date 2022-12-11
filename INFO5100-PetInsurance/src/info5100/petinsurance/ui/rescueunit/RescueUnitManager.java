@@ -13,6 +13,7 @@ import info5100.petinsurance.model.rescueoperation.AnimalRescueOperation;
 import info5100.petinsurance.ui.WelcomeFrame;
 import info5100.petinsurance.ui.hospital.HospitalAdmin;
 import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.ValidationService;
 import info5100.petinsurance.utilities.WorkFlowStatus;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
@@ -35,6 +36,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
     /**
      * Creates new form RescueUnitManager
      */
+    private boolean flag;
     UserAccount ua;
     public RescueUnitManager(UserAccount ua) {
         this.ua = ua;
@@ -58,6 +60,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
         pendingRequests = new javax.swing.JButton();
         parentPanel = new javax.swing.JPanel();
         homePanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         addAnimalPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
@@ -166,15 +169,20 @@ public class RescueUnitManager extends javax.swing.JFrame {
 
         homePanel.setBackground(new java.awt.Color(153, 204, 255));
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info5100/petinsurance/ui/rescueunit/adopt_pets.png"))); // NOI18N
+
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
         homePanelLayout.setHorizontalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 592, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelLayout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
         homePanelLayout.setVerticalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 624, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
         );
 
         parentPanel.add(homePanel, "card5");
@@ -191,6 +199,12 @@ public class RescueUnitManager extends javax.swing.JFrame {
         addAnimal1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addAnimal1ActionPerformed(evt);
+            }
+        });
+
+        age.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ageKeyTyped(evt);
             }
         });
 
@@ -461,6 +475,13 @@ public class RescueUnitManager extends javax.swing.JFrame {
 
     }//GEN-LAST:event_cancelRequestActionPerformed
 
+    private void ageKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ageKeyTyped
+        // TODO add your handling code here:
+        char TestChar = evt.getKeyChar();
+        if (!(Character.isDigit(TestChar)))
+            evt.consume();
+    }//GEN-LAST:event_ageKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -511,6 +532,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
     private javax.swing.JPanel homePanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -544,6 +566,12 @@ public class RescueUnitManager extends javax.swing.JFrame {
                     Integer.valueOf(age.getText()), gender.getText(), ua.getPersonID(),bloodType.getText());
             
             //Create Address
+            flag = true;
+                flag = ValidationService.validateAge(age.getText());
+                if (!flag) {
+                    JFrame jFrame = new JFrame();
+                    JOptionPane.showMessageDialog(jFrame, "Age entered is wrong, please enter correct email!");
+                } else {
             ResultSet rs;
             rs = DatabaseConnection.storeData(animal);
             try {
@@ -566,7 +594,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
             
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Animal added to rescue unit!");
-            
+                }
            } catch (HeadlessException | NumberFormatException  e) {
 
             e.printStackTrace();
