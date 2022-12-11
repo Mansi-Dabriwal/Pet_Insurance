@@ -702,9 +702,9 @@ public class PetOwner extends javax.swing.JFrame {
     private void registerAnimalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerAnimalButtonActionPerformed
         // TODO add your handling code here:
         String gender = maleRadioButton.isSelected() ? "male" : "female";
-        AnimalDetails animal = new AnimalDetails(typeTextField.getText(), breedTextField.getText(),
+        AnimalDetails animal = new AnimalDetails(animalName.getText(), typeTextField.getText(), breedTextField.getText(),
                 Integer.valueOf(ageTextField.getText()),
-                gender, ua.getPersonID(), null, animalName.getText());
+                gender, ua.getPersonID(), null);
 
         ResultSet rs = DatabaseConnection.storeData(animal);
             flag= true;

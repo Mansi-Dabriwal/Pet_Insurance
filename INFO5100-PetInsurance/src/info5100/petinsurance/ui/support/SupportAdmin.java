@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -558,7 +559,8 @@ public class SupportAdmin extends javax.swing.JFrame {
     private void submitComplaintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitComplaintButtonActionPerformed
         // TODO add your handling code here:
         JFrame jFrame = new JFrame();
-        AbuseReport ar = new AbuseReport(Integer.valueOf(animalId.getText()), reporterName.getText(),
+        int animalforabuuse = animals.stream().filter(a->a.getAnimalName().equals(animalId.getText())).collect(Collectors.toList()).get(0).getId();
+        AbuseReport ar = new AbuseReport(animalforabuuse , reporterName.getText(),
                 reporterEmail.getText(), reporterMobile.getText(), complaintComments.getText(), ua.getPersonID(), null,
                 WorkFlowStatus.PENDING);
         ResultSet rs = DatabaseConnection.StoreData(ar);
@@ -692,21 +694,20 @@ public class SupportAdmin extends javax.swing.JFrame {
 
         try {
             ResultSet rs = null;
-            String selectStatmt = "Select ad.id AS AnimalID, ad.name AS AnimalName, ad.breed , ad.gender , ad.animalType , p.id  AS OwnerName from \n" +
+            String selectStatmt = "Select ad.id AS AnimalID, ad.name AS AnimalName, ad.breed , ad.gender , ad.animalType , p.id  AS OwnerID, p.fname +  ' ' +p.lName  as OwnerName, ad.age, ad.bloodType from \n" +
 "AnimalDetails ad JOIN Person p  ON ad.animalOwnerID = p.id ;";
             rs = DatabaseConnection.getData(selectStatmt, false);
             while (rs.next()) {
                 Object[] row = {rs.getString("AnimalName"), rs.getString("animalType"), rs.getString("breed"), rs.getString("gender"), rs.getString("OwnerName")};
                 model.addRow(row);
-                AnimalDetails animalnew = new AnimalDetails( rs.getString("animalType"),
+                AnimalDetails animalnew = new AnimalDetails( rs.getString("AnimalName") , rs.getString("animalType"),
                 rs.getString("breed"),
                         rs.getInt("age"),
                         rs.getString("gender"),
-                        ua.getPersonID(),
-                        rs.getString("bloodType"),
-                        rs.getString("name")     
+                        rs.getInt("OwnerID"),
+                        rs.getString("bloodType")    
                 );
-                animalnew.setId(rs.getInt("id"));
+                animalnew.setId(rs.getInt("AnimalID"));
                 animals.add(animalnew);
             }
 
