@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package info5100.petinsurance.ui;
+package info5100.petinsurance.ui.petowner;
 
 import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
 import info5100.petinsurance.model.insurance.InsuranceDetails;
+import info5100.petinsurance.ui.WelcomeFrame;
 import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.ValidationService;
 import info5100.petinsurance.utilities.DatabaseConnection;
