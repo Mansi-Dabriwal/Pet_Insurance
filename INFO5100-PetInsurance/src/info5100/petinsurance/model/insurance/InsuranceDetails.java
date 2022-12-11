@@ -18,11 +18,12 @@ public class InsuranceDetails {
     int planId;
     Date endDate;
     
-    public InsuranceDetails(int animalId, Date dateOfInsurance, String existingMedicalConditions, int planId) {
+    public InsuranceDetails(int animalId, Date dateOfInsurance, String existingMedicalConditions, int planId, Date endDate) {
         this.animalId = animalId;
         this.dateOfInsurance = dateOfInsurance;
         this.existingMedicalConditions = existingMedicalConditions;
         this.planId = planId;
+        this.endDate = null;
     }
 
     public int getId() {
@@ -64,5 +65,15 @@ public class InsuranceDetails {
     public void setPlanId(int planId) {
         this.planId = planId;
     }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+    
+    
     
 }

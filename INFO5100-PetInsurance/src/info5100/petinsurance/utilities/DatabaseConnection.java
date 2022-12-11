@@ -471,6 +471,30 @@ public class DatabaseConnection {
         return resultSet;
     }
     
+    public static ResultSet cancelInsurance(InsuranceDetails activeInsuranceDetails) {
+        
+         ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("Update InsuranceDetails SET status =?, endDate =? where id = ?", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setString(1, "INACTIVE");
+            ps.setDate(2, new Date(activeInsuranceDetails.getEndDate().getTime()));
+            ps.setInt(3, activeInsuranceDetails.getId());
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+        
+    }
+    
     
         
 }

@@ -13,6 +13,10 @@ import info5100.petinsurance.utilities.DatabaseConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import info5100.petinsurance.utilities.DatabaseConnection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -698,9 +702,9 @@ public class PetOwner extends javax.swing.JFrame {
     private void registerAnimalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerAnimalButtonActionPerformed
         // TODO add your handling code here:
         String gender = maleRadioButton.isSelected() ? "male" : "female";
-        AnimalDetails animal = new AnimalDetails(typeTextField.getText(), breedTextField.getText(),
+        AnimalDetails animal = new AnimalDetails(animalName.getText(), typeTextField.getText(), breedTextField.getText(),
                 Integer.valueOf(ageTextField.getText()),
-                gender, ua.getPersonID(), null, animalName.getText());
+                gender, ua.getPersonID(), null);
 
         ResultSet rs = DatabaseConnection.storeData(animal);
             flag= true;
@@ -793,6 +797,7 @@ public class PetOwner extends javax.swing.JFrame {
 
     private void cancelInsurancePanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelInsurancePanelButtonActionPerformed
         // TODO add your handling code here:
+
         boolean activeInsuranceExists = false;
         InsuranceDetails activeInsuranceDetails = null;
         try {
@@ -820,6 +825,7 @@ public class PetOwner extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(jFrame, "There's no active insurance.");
         
         }
+
     }//GEN-LAST:event_cancelInsurancePanelButtonActionPerformed
 
     private void cancelInsuranceTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelInsuranceTableMouseClicked
@@ -962,13 +968,12 @@ public class PetOwner extends javax.swing.JFrame {
             while (rs.next()) {
                 Object[] row = {rs.getString("name"), rs.getString("animalType"), rs.getString("breed"), rs.getString("gender")};
                 model.addRow(row);
-                AnimalDetails animalnew = new AnimalDetails( rs.getString("animalType"),
+                AnimalDetails animalnew = new AnimalDetails( rs.getString("name") ,rs.getString("animalType"),
                 rs.getString("breed"),
                         rs.getInt("age"),
                         rs.getString("gender"),
                         ua.getPersonID(),
-                        rs.getString("bloodType"),
-                        rs.getString("name")     
+                        rs.getString("bloodType")       
                 );
                 animalnew.setId(rs.getInt("id"));
                 animals.add(animalnew);

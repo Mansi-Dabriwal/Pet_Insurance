@@ -22,5 +22,7 @@ public class Constants {
                 + "loginTimeout=30;";
     public static final String numRegex = "[0-9]+";
     
+    public static final String getInsuranceForPet = "select * from InsuranceDetails where status = 'Active' and animalID = ";
+    
     
 }
