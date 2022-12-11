@@ -85,7 +85,7 @@ public class DoctorPortal extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(153, 204, 255));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info5100/petinsurance/Images/Vet_doc.png"))); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info5100/petinsurance/ui/doctor/Vet_doc.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
