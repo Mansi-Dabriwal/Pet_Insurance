@@ -197,7 +197,7 @@ public class SignIn extends javax.swing.JFrame {
                 while (rs.next()) {
                     if (rs.getString(5).equalsIgnoreCase(roleComboBox.getSelectedItem().toString())) {
                         JFrame jFrame = new JFrame();
-                        JOptionPane.showMessageDialog(jFrame, "Sign Up Successful!");
+                        JOptionPane.showMessageDialog(jFrame, "Sign In Successful!");
                         login = true;
 
                         Roles r = null;

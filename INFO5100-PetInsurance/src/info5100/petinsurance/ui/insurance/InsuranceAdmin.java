@@ -54,6 +54,19 @@ public class InsuranceAdmin extends javax.swing.JFrame {
         createPlanButton = new javax.swing.JButton();
         parentPanel = new javax.swing.JPanel();
         homePanel = new javax.swing.JPanel();
+        modifyPlanPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        modifyPlanPanelTable = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        premiumAmountModify = new javax.swing.JTextField();
+        inclusionModify = new javax.swing.JTextField();
+        planCoverageModify = new javax.swing.JTextField();
+        validityModify = new javax.swing.JComboBox<>();
+        updatePlan = new javax.swing.JButton();
+        updateSelectedPlan = new javax.swing.JButton();
         updateInsurancePanel = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -68,19 +81,6 @@ public class InsuranceAdmin extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         searchTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        modifyPlanPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        modifyPlanPanelTable = new javax.swing.JTable();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        premiumAmountModify = new javax.swing.JTextField();
-        inclusionModify = new javax.swing.JTextField();
-        planCoverageModify = new javax.swing.JTextField();
-        validityModify = new javax.swing.JComboBox<>();
-        updatePlan = new javax.swing.JButton();
-        updateSelectedPlan = new javax.swing.JButton();
         createPlan = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -188,7 +188,7 @@ public class InsuranceAdmin extends javax.swing.JFrame {
 
         parentPanel.setLayout(new java.awt.CardLayout());
 
-        homePanel.setBackground(new java.awt.Color(255, 255, 153));
+        homePanel.setBackground(new java.awt.Color(153, 204, 255));
 
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
@@ -203,103 +203,7 @@ public class InsuranceAdmin extends javax.swing.JFrame {
 
         parentPanel.add(homePanel, "card5");
 
-        updateInsurancePanel.setBackground(new java.awt.Color(255, 255, 153));
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel12.setText("Animal ID");
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel13.setText("Start Date");
-
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel14.setText("Plan");
-
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel15.setText("Existing Medical Conditions");
-
-        jComboBox3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Yes", "No" }));
-
-        jComboBox4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-
-        purchaseButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        purchaseButton.setText("Update");
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Animal ID", "Plan Name", "Start Date", "Existing Conditions"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable2);
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Search");
-
-        javax.swing.GroupLayout updateInsurancePanelLayout = new javax.swing.GroupLayout(updateInsurancePanel);
-        updateInsurancePanel.setLayout(updateInsurancePanelLayout);
-        updateInsurancePanelLayout.setHorizontalGroup(
-            updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(updateInsurancePanelLayout.createSequentialGroup()
-                .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(updateInsurancePanelLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(63, 63, 63)
-                        .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(anmlIDTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(anmlIDTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(updateInsurancePanelLayout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(purchaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
-        updateInsurancePanelLayout.setVerticalGroup(
-            updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(updateInsurancePanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(updateInsurancePanelLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(updateInsurancePanelLayout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35)
-                .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(anmlIDTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(anmlIDTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
-                .addComponent(purchaseButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        parentPanel.add(updateInsurancePanel, "card4");
-
-        modifyPlanPanel.setBackground(new java.awt.Color(255, 255, 153));
+        modifyPlanPanel.setBackground(new java.awt.Color(153, 204, 255));
 
         modifyPlanPanelTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -404,7 +308,103 @@ public class InsuranceAdmin extends javax.swing.JFrame {
 
         parentPanel.add(modifyPlanPanel, "card3");
 
-        createPlan.setBackground(new java.awt.Color(255, 255, 153));
+        updateInsurancePanel.setBackground(new java.awt.Color(153, 204, 255));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel12.setText("Animal ID");
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel13.setText("Start Date");
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel14.setText("Plan");
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel15.setText("Existing Medical Conditions");
+
+        jComboBox3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Yes", "No" }));
+
+        jComboBox4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
+        purchaseButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        purchaseButton.setText("Update");
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Animal ID", "Plan Name", "Start Date", "Existing Conditions"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable2);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Search");
+
+        javax.swing.GroupLayout updateInsurancePanelLayout = new javax.swing.GroupLayout(updateInsurancePanel);
+        updateInsurancePanel.setLayout(updateInsurancePanelLayout);
+        updateInsurancePanelLayout.setHorizontalGroup(
+            updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(updateInsurancePanelLayout.createSequentialGroup()
+                .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(updateInsurancePanelLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(63, 63, 63)
+                        .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(anmlIDTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(anmlIDTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(updateInsurancePanelLayout.createSequentialGroup()
+                        .addGap(175, 175, 175)
+                        .addComponent(purchaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+        updateInsurancePanelLayout.setVerticalGroup(
+            updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(updateInsurancePanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(updateInsurancePanelLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(updateInsurancePanelLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(35, 35, 35)
+                .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(anmlIDTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(anmlIDTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(updateInsurancePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(58, 58, 58)
+                .addComponent(purchaseButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        parentPanel.add(updateInsurancePanel, "card4");
+
+        createPlan.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Premium Amount");

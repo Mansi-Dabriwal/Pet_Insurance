@@ -232,7 +232,7 @@ public class PetOwner extends javax.swing.JFrame {
 
         parentPanel.setLayout(new java.awt.CardLayout());
 
-        homePanel.setBackground(new java.awt.Color(255, 255, 153));
+        homePanel.setBackground(new java.awt.Color(153, 204, 255));
 
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
@@ -247,7 +247,7 @@ public class PetOwner extends javax.swing.JFrame {
 
         parentPanel.add(homePanel, "card6");
 
-        registerAnimalPanel.setBackground(new java.awt.Color(255, 255, 153));
+        registerAnimalPanel.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Breed(optional)");
@@ -367,7 +367,7 @@ public class PetOwner extends javax.swing.JFrame {
 
         parentPanel.add(registerAnimalPanel, "card5");
 
-        purchaseInsurancePanel.setBackground(new java.awt.Color(255, 255, 153));
+        purchaseInsurancePanel.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setText("Animal ID");
@@ -466,7 +466,7 @@ public class PetOwner extends javax.swing.JFrame {
 
         parentPanel.add(purchaseInsurancePanel, "card4");
 
-        cancelInsurancePanel.setBackground(new java.awt.Color(255, 255, 153));
+        cancelInsurancePanel.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel14.setText("Animal Name");
@@ -554,7 +554,7 @@ public class PetOwner extends javax.swing.JFrame {
 
         parentPanel.add(cancelInsurancePanel, "card3");
 
-        submitClaimPanel.setBackground(new java.awt.Color(255, 255, 153));
+        submitClaimPanel.setBackground(new java.awt.Color(153, 204, 255));
 
         submitClaimTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

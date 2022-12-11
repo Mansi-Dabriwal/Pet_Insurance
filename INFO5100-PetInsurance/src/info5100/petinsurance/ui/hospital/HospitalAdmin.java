@@ -178,7 +178,7 @@ public class HospitalAdmin extends javax.swing.JFrame {
         pnlCards.setBackground(new java.awt.Color(153, 204, 255));
         pnlCards.setLayout(new java.awt.CardLayout());
 
-        jPanel9.setBackground(new java.awt.Color(255, 255, 153));
+        jPanel9.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel55.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel55.setText("Hospital Name:");
@@ -310,7 +310,7 @@ public class HospitalAdmin extends javax.swing.JFrame {
 
         pnlCards.add(jPanel9, "pnlCard1");
 
-        jPanel6.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel6.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setText("First Name:");
@@ -488,7 +488,7 @@ public class HospitalAdmin extends javax.swing.JFrame {
 
         pnlCards.add(jPanel6, "pnlCard2");
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 153));
+        jPanel5.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel26.setText("Blood Bank Name:");
@@ -609,6 +609,8 @@ public class HospitalAdmin extends javax.swing.JFrame {
         );
 
         pnlCards.add(jPanel5, "pnlCard3");
+
+        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel2.setText("Book an appointment");
 
