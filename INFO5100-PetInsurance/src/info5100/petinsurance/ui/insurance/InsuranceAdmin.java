@@ -54,6 +54,19 @@ public class InsuranceAdmin extends javax.swing.JFrame {
         createPlanButton = new javax.swing.JButton();
         parentPanel = new javax.swing.JPanel();
         homePanel = new javax.swing.JPanel();
+        modifyPlanPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        modifyPlanPanelTable = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        premiumAmountModify = new javax.swing.JTextField();
+        inclusionModify = new javax.swing.JTextField();
+        planCoverageModify = new javax.swing.JTextField();
+        validityModify = new javax.swing.JComboBox<>();
+        updatePlan = new javax.swing.JButton();
+        updateSelectedPlan = new javax.swing.JButton();
         updateInsurancePanel = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -68,19 +81,6 @@ public class InsuranceAdmin extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         searchTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        modifyPlanPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        modifyPlanPanelTable = new javax.swing.JTable();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        premiumAmountModify = new javax.swing.JTextField();
-        inclusionModify = new javax.swing.JTextField();
-        planCoverageModify = new javax.swing.JTextField();
-        validityModify = new javax.swing.JComboBox<>();
-        updatePlan = new javax.swing.JButton();
-        updateSelectedPlan = new javax.swing.JButton();
         createPlan = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -100,7 +100,7 @@ public class InsuranceAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -136,7 +136,7 @@ public class InsuranceAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel2.setBackground(new java.awt.Color(51, 153, 255));
 
         modifyPlanButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         modifyPlanButton.setText(" Modify an Existing Plan");
@@ -188,7 +188,7 @@ public class InsuranceAdmin extends javax.swing.JFrame {
 
         parentPanel.setLayout(new java.awt.CardLayout());
 
-        homePanel.setBackground(new java.awt.Color(255, 255, 153));
+        homePanel.setBackground(new java.awt.Color(153, 204, 255));
 
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
@@ -203,7 +203,112 @@ public class InsuranceAdmin extends javax.swing.JFrame {
 
         parentPanel.add(homePanel, "card5");
 
-        updateInsurancePanel.setBackground(new java.awt.Color(255, 255, 153));
+        modifyPlanPanel.setBackground(new java.awt.Color(153, 204, 255));
+
+        modifyPlanPanelTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Plan Name", "Premium Amount", "Validity", "Inclusions", "Coverage Amount"
+            }
+        ));
+        jScrollPane1.setViewportView(modifyPlanPanelTable);
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel8.setText("Premium Amount");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel9.setText("Validity(In Months)");
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel10.setText("Inclusion");
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel11.setText("Plan Coverage Amount");
+
+        validityModify.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+
+        updatePlan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        updatePlan.setText("Save");
+        updatePlan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatePlanActionPerformed(evt);
+            }
+        });
+
+        updateSelectedPlan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        updateSelectedPlan.setText("Update Selected Plan");
+        updateSelectedPlan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateSelectedPlanActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout modifyPlanPanelLayout = new javax.swing.GroupLayout(modifyPlanPanel);
+        modifyPlanPanel.setLayout(modifyPlanPanelLayout);
+        modifyPlanPanelLayout.setHorizontalGroup(
+            modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
+            .addGroup(modifyPlanPanelLayout.createSequentialGroup()
+                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(modifyPlanPanelLayout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(modifyPlanPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(planCoverageModify, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifyPlanPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(inclusionModify, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifyPlanPanelLayout.createSequentialGroup()
+                                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(premiumAmountModify, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(validityModify, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(modifyPlanPanelLayout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(updateSelectedPlan))
+                    .addGroup(modifyPlanPanelLayout.createSequentialGroup()
+                        .addGap(220, 220, 220)
+                        .addComponent(updatePlan, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(131, Short.MAX_VALUE))
+        );
+        modifyPlanPanelLayout.setVerticalGroup(
+            modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modifyPlanPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(updateSelectedPlan)
+                .addGap(32, 32, 32)
+                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(premiumAmountModify, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(validityModify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(inclusionModify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(planCoverageModify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(82, 82, 82)
+                .addComponent(updatePlan)
+                .addContainerGap())
+        );
+
+        parentPanel.add(modifyPlanPanel, "card3");
+
+        updateInsurancePanel.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel12.setText("Animal ID");
@@ -299,112 +404,7 @@ public class InsuranceAdmin extends javax.swing.JFrame {
 
         parentPanel.add(updateInsurancePanel, "card4");
 
-        modifyPlanPanel.setBackground(new java.awt.Color(255, 255, 153));
-
-        modifyPlanPanelTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Plan Name", "Premium Amount", "Validity", "Inclusions", "Coverage Amount"
-            }
-        ));
-        jScrollPane1.setViewportView(modifyPlanPanelTable);
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel8.setText("Premium Amount");
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setText("Validity(In Months)");
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel10.setText("Inclusion");
-
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel11.setText("Plan Coverage Amount");
-
-        validityModify.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
-
-        updatePlan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        updatePlan.setText("Save");
-        updatePlan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updatePlanActionPerformed(evt);
-            }
-        });
-
-        updateSelectedPlan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        updateSelectedPlan.setText("Update Selected Plan");
-        updateSelectedPlan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateSelectedPlanActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout modifyPlanPanelLayout = new javax.swing.GroupLayout(modifyPlanPanel);
-        modifyPlanPanel.setLayout(modifyPlanPanelLayout);
-        modifyPlanPanelLayout.setHorizontalGroup(
-            modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(modifyPlanPanelLayout.createSequentialGroup()
-                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(modifyPlanPanelLayout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(modifyPlanPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                                .addComponent(planCoverageModify, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifyPlanPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(inclusionModify, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifyPlanPanelLayout.createSequentialGroup()
-                                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(premiumAmountModify, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(validityModify, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(modifyPlanPanelLayout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(updateSelectedPlan))
-                    .addGroup(modifyPlanPanelLayout.createSequentialGroup()
-                        .addGap(220, 220, 220)
-                        .addComponent(updatePlan, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(108, Short.MAX_VALUE))
-        );
-        modifyPlanPanelLayout.setVerticalGroup(
-            modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(modifyPlanPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(updateSelectedPlan)
-                .addGap(32, 32, 32)
-                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(premiumAmountModify, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(validityModify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(inclusionModify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(modifyPlanPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(planCoverageModify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(82, 82, 82)
-                .addComponent(updatePlan)
-                .addContainerGap())
-        );
-
-        parentPanel.add(modifyPlanPanel, "card3");
-
-        createPlan.setBackground(new java.awt.Color(255, 255, 153));
+        createPlan.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Premium Amount");

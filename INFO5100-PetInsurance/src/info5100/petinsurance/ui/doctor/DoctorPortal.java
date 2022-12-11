@@ -4,8 +4,10 @@
  */
 package info5100.petinsurance.ui.doctor;
 
+import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.ui.WelcomeFrame;
 import info5100.petinsurance.ui.rescueunit.RescueUnitManager;
+import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import java.awt.CardLayout;
 import java.sql.ResultSet;
@@ -25,12 +27,11 @@ public class DoctorPortal extends javax.swing.JFrame {
      */
     
     CardLayout cardLayout;
-    
-    public DoctorPortal() {
+    UserAccount ua;
+    public DoctorPortal(UserAccount ua) {
         initComponents();
+        this.ua = ua;
         cardLayout = (CardLayout) (pnlCards.getLayout());
-        
-        
     }
 
     /**
@@ -70,11 +71,11 @@ public class DoctorPortal extends javax.swing.JFrame {
         med4 = new javax.swing.JTextField();
         med5 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        upcomingAppointments = new javax.swing.JButton();
+        diagnoseapatient = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,7 +84,7 @@ public class DoctorPortal extends javax.swing.JFrame {
         pnlCards.setBackground(new java.awt.Color(255, 189, 50));
         pnlCards.setLayout(new java.awt.CardLayout());
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 153));
+        jPanel3.setBackground(new java.awt.Color(153, 204, 255));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -93,12 +94,12 @@ public class DoctorPortal extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 545, Short.MAX_VALUE)
+            .addGap(0, 550, Short.MAX_VALUE)
         );
 
         pnlCards.add(jPanel3, "card4");
 
-        pnlCard1.setBackground(new java.awt.Color(255, 255, 153));
+        pnlCard1.setBackground(new java.awt.Color(153, 204, 255));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -140,13 +141,13 @@ public class DoctorPortal extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(showAll, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                .addComponent(showAll, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                 .addGap(31, 31, 31))
         );
 
         pnlCards.add(pnlCard1, "pnlCard1");
 
-        pnlCard2.setBackground(new java.awt.Color(255, 255, 153));
+        pnlCard2.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Patient Name");
@@ -184,7 +185,7 @@ public class DoctorPortal extends javax.swing.JFrame {
         });
 
         btnComplete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnComplete.setText("Complete Diagnoses");
+        btnComplete.setText("Complete Diagnosis");
         btnComplete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCompleteActionPerformed(evt);
@@ -274,21 +275,21 @@ public class DoctorPortal extends javax.swing.JFrame {
 
         jSplitPane1.setRightComponent(pnlCards);
 
-        jPanel2.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel2.setBackground(new java.awt.Color(51, 153, 255));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setText("Upcoming Appointments");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        upcomingAppointments.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        upcomingAppointments.setText("Upcoming Appointments");
+        upcomingAppointments.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                upcomingAppointmentsActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton2.setText("Diagnose a Patient");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        diagnoseapatient.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        diagnoseapatient.setText("Diagnose a Patient");
+        diagnoseapatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                diagnoseapatientActionPerformed(evt);
             }
         });
 
@@ -299,32 +300,32 @@ public class DoctorPortal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(diagnoseapatient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(upcomingAppointments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(176, 176, 176)
-                .addComponent(jButton1)
+                .addComponent(upcomingAppointments)
                 .addGap(80, 80, 80)
-                .addComponent(jButton2)
-                .addContainerGap(229, Short.MAX_VALUE))
+                .addComponent(diagnoseapatient)
+                .addContainerGap(234, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel2);
 
-        jPanel1.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Doctor Portal");
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton3.setText("Back");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        backButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                backButtonActionPerformed(evt);
             }
         });
 
@@ -334,7 +335,7 @@ public class DoctorPortal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(234, 234, 234)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -346,7 +347,7 @@ public class DoctorPortal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10))
         );
@@ -372,16 +373,15 @@ public class DoctorPortal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
+    private void upcomingAppointmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upcomingAppointmentsActionPerformed
+        // TODO add your handling code here:   
         cardLayout.show(pnlCards,"pnlCard1");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_upcomingAppointmentsActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void diagnoseapatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diagnoseapatientActionPerformed
         // TODO add your handling code here:
         cardLayout.show(pnlCards,"pnlCard2");
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_diagnoseapatientActionPerformed
 
     private void bloodGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloodGroupActionPerformed
         // TODO add your handling code here:
@@ -389,15 +389,14 @@ public class DoctorPortal extends javax.swing.JFrame {
 
     private void btnCompleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteActionPerformed
         // TODO add your handling code here:
-        
-        
+
     }//GEN-LAST:event_btnCompleteActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
         new WelcomeFrame().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_backButtonActionPerformed
 
     private void showAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllActionPerformed
         // TODO add your handling code here:
@@ -406,7 +405,7 @@ public class DoctorPortal extends javax.swing.JFrame {
 
         ResultSet rs;
         try {
-            rs = DatabaseConnection.getData("select * from UpcomingAppointments", false);
+            rs = DatabaseConnection.getData(Constants.GETALLAPPOINTMENTSFORDOCTOR + ua.getPersonID()  , false);
             while (rs.next()) {
 
                 model.addRow(new Object[]{rs.getString("patientName"), rs.getDate("dateOfAppointment")});
@@ -419,45 +418,44 @@ public class DoctorPortal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DoctorPortal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DoctorPortal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DoctorPortal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DoctorPortal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DoctorPortal().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(DoctorPortal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(DoctorPortal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(DoctorPortal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(DoctorPortal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new DoctorPortal().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JTextField bloodGroup;
     private javax.swing.JTextField bloodPressure;
     private javax.swing.JButton btnComplete;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton diagnoseapatient;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
@@ -485,5 +483,6 @@ public class DoctorPortal extends javax.swing.JFrame {
     private javax.swing.JPanel pnlCard2;
     private javax.swing.JPanel pnlCards;
     private javax.swing.JButton showAll;
+    private javax.swing.JButton upcomingAppointments;
     // End of variables declaration//GEN-END:variables
 }

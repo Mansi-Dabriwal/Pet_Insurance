@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package info5100.petinsurance.ui;
+package info5100.petinsurance.ui.bloodbank;
 
 import info5100.petinsurance.model.hospital.bloodbank.Bloodbank;
 import info5100.petinsurance.model.support.BloodCollectionRequestModel;
+import info5100.petinsurance.ui.SignUp;
+import info5100.petinsurance.ui.WelcomeFrame;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.WorkFlowStatus;
 import java.sql.ResultSet;
@@ -63,7 +65,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -98,7 +100,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel2.setBackground(new java.awt.Color(51, 153, 255));
 
         updateButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         updateButton.setText("Update Blood Availabilty");
@@ -139,7 +141,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
         parentPanel.setLayout(new java.awt.CardLayout());
 
-        homePanel.setBackground(new java.awt.Color(255, 255, 153));
+        homePanel.setBackground(new java.awt.Color(153, 204, 255));
 
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
@@ -154,7 +156,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
         parentPanel.add(homePanel, "card4");
 
-        updatePanel.setBackground(new java.awt.Color(255, 255, 153));
+        updatePanel.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -212,7 +214,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
         parentPanel.add(updatePanel, "card3");
 
-        viewPendingRequestPanel.setBackground(new java.awt.Color(255, 255, 153));
+        viewPendingRequestPanel.setBackground(new java.awt.Color(153, 204, 255));
 
         pendingRequestsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

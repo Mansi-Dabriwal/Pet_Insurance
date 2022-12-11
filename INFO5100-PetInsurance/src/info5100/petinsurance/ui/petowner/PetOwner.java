@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package info5100.petinsurance.ui;
+package info5100.petinsurance.ui.petowner;
 
 import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
 import info5100.petinsurance.model.insurance.InsuranceDetails;
+import info5100.petinsurance.ui.WelcomeFrame;
 import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.ValidationService;
 import info5100.petinsurance.utilities.DatabaseConnection;
@@ -127,7 +128,7 @@ public class PetOwner extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
         registerButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         registerButton.setText("Register Animal");
@@ -192,8 +193,9 @@ public class PetOwner extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel2.setBackground(new java.awt.Color(51, 153, 255));
 
+        jLabel9.setBackground(new java.awt.Color(51, 153, 255));
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Pet Owner");
@@ -230,7 +232,7 @@ public class PetOwner extends javax.swing.JFrame {
 
         parentPanel.setLayout(new java.awt.CardLayout());
 
-        homePanel.setBackground(new java.awt.Color(255, 255, 153));
+        homePanel.setBackground(new java.awt.Color(153, 204, 255));
 
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
@@ -245,7 +247,7 @@ public class PetOwner extends javax.swing.JFrame {
 
         parentPanel.add(homePanel, "card6");
 
-        registerAnimalPanel.setBackground(new java.awt.Color(255, 255, 153));
+        registerAnimalPanel.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Breed(optional)");
@@ -365,7 +367,7 @@ public class PetOwner extends javax.swing.JFrame {
 
         parentPanel.add(registerAnimalPanel, "card5");
 
-        purchaseInsurancePanel.setBackground(new java.awt.Color(255, 255, 153));
+        purchaseInsurancePanel.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setText("Animal ID");
@@ -464,7 +466,7 @@ public class PetOwner extends javax.swing.JFrame {
 
         parentPanel.add(purchaseInsurancePanel, "card4");
 
-        cancelInsurancePanel.setBackground(new java.awt.Color(255, 255, 153));
+        cancelInsurancePanel.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel14.setText("Animal Name");
@@ -552,7 +554,7 @@ public class PetOwner extends javax.swing.JFrame {
 
         parentPanel.add(cancelInsurancePanel, "card3");
 
-        submitClaimPanel.setBackground(new java.awt.Color(255, 255, 153));
+        submitClaimPanel.setBackground(new java.awt.Color(153, 204, 255));
 
         submitClaimTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -765,7 +767,7 @@ public class PetOwner extends javax.swing.JFrame {
         int animalId=0;
         try {
             animalId = animals.stream().filter(a->a.getAnimalName().equals(animalIDTextField1.getText())).collect(Collectors.toList()).get(0).getId();
-            String select = Constants.getInsuranceForPet + animalId;
+            String select = Constants.GETINSURANCEFORPET + animalId;
             ResultSet rs = DatabaseConnection.getData(select, false);
 
             while (rs.next()) {
@@ -827,7 +829,7 @@ public class PetOwner extends javax.swing.JFrame {
         boolean activeInsuranceExists = false;
         InsuranceDetails activeInsuranceDetails = null;
         try {
-            String select = Constants.getInsuranceForPet + anmlIDCancelTextField.getText();
+            String select = Constants.GETINSURANCEFORPET + anmlIDCancelTextField.getText();
             System.out.print("Cancel insurance :" + select);
             ResultSet rs = DatabaseConnection.getData(select, false);
 

@@ -6,12 +6,14 @@ package info5100.petinsurance.ui.support;
 
 import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
+import info5100.petinsurance.model.rescueoperation.AdoptedAnimal;
 import info5100.petinsurance.model.support.AbuseReport;
 import info5100.petinsurance.model.support.BloodCollectionRequestModel;
 import info5100.petinsurance.ui.WelcomeFrame;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.EmailUtility;
 import info5100.petinsurance.utilities.WorkFlowStatus;
+import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -55,6 +57,7 @@ public class SupportAdmin extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         reportAbuseButton = new javax.swing.JButton();
         bloodCollectionRequestButton = new javax.swing.JButton();
+        adoptAnimal = new javax.swing.JButton();
         parentPanel = new javax.swing.JPanel();
         homePanel = new javax.swing.JPanel();
         bloodCollectionRequestPanel = new javax.swing.JPanel();
@@ -83,10 +86,23 @@ public class SupportAdmin extends javax.swing.JFrame {
         submitComplaintButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         abuseComplaintScreenTable = new javax.swing.JTable();
+        adoptAnimalPanel = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        animalType1 = new javax.swing.JTextField();
+        gender1 = new javax.swing.JTextField();
+        breed1 = new javax.swing.JTextField();
+        age1 = new javax.swing.JTextField();
+        sendRequest = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        animalName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton4.setText("Back");
@@ -122,7 +138,7 @@ public class SupportAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel2.setBackground(new java.awt.Color(51, 153, 255));
 
         reportAbuseButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         reportAbuseButton.setText("Report Abuse");
@@ -140,6 +156,14 @@ public class SupportAdmin extends javax.swing.JFrame {
             }
         });
 
+        adoptAnimal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        adoptAnimal.setText("Adopt animals");
+        adoptAnimal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adoptAnimalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -147,23 +171,33 @@ public class SupportAdmin extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(reportAbuseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bloodCollectionRequestButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bloodCollectionRequestButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(reportAbuseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(adoptAnimal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(21, 21, 21))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(194, 194, 194)
-                .addComponent(reportAbuseButton)
-                .addGap(92, 92, 92)
-                .addComponent(bloodCollectionRequestButton)
+                .addGap(195, 195, 195)
+                .addComponent(reportAbuseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73)
+                .addComponent(bloodCollectionRequestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(adoptAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         parentPanel.setLayout(new java.awt.CardLayout());
 
-        homePanel.setBackground(new java.awt.Color(255, 255, 153));
+        homePanel.setBackground(new java.awt.Color(153, 204, 255));
 
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
@@ -178,7 +212,7 @@ public class SupportAdmin extends javax.swing.JFrame {
 
         parentPanel.add(homePanel, "card5");
 
-        bloodCollectionRequestPanel.setBackground(new java.awt.Color(255, 255, 153));
+        bloodCollectionRequestPanel.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Animal ID");
@@ -259,7 +293,7 @@ public class SupportAdmin extends javax.swing.JFrame {
 
         parentPanel.add(bloodCollectionRequestPanel, "card3");
 
-        reportAbusePanel.setBackground(new java.awt.Color(255, 255, 153));
+        reportAbusePanel.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Animal ID");
@@ -361,6 +395,117 @@ public class SupportAdmin extends javax.swing.JFrame {
 
         parentPanel.add(reportAbusePanel, "card4");
 
+        adoptAnimalPanel.setBackground(new java.awt.Color(153, 204, 255));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel14.setText("Animal Type:");
+
+        animalType1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                animalType1ActionPerformed(evt);
+            }
+        });
+
+        breed1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                breed1ActionPerformed(evt);
+            }
+        });
+
+        age1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                age1ActionPerformed(evt);
+            }
+        });
+
+        sendRequest.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        sendRequest.setText("Send Request");
+        sendRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendRequestActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel18.setText("Gender");
+
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel28.setText("Breed");
+
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel29.setText("Age");
+
+        jLabel12.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel12.setText("Adopt Animal");
+
+        jLabel13.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel13.setText("Animal Name");
+
+        javax.swing.GroupLayout adoptAnimalPanelLayout = new javax.swing.GroupLayout(adoptAnimalPanel);
+        adoptAnimalPanel.setLayout(adoptAnimalPanelLayout);
+        adoptAnimalPanelLayout.setHorizontalGroup(
+            adoptAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(adoptAnimalPanelLayout.createSequentialGroup()
+                .addGroup(adoptAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(adoptAnimalPanelLayout.createSequentialGroup()
+                        .addGap(244, 244, 244)
+                        .addComponent(jLabel12)
+                        .addGap(0, 275, Short.MAX_VALUE))
+                    .addGroup(adoptAnimalPanelLayout.createSequentialGroup()
+                        .addGap(137, 137, 137)
+                        .addGroup(adoptAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
+                        .addGap(43, 43, 43)
+                        .addGroup(adoptAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(animalType1)
+                            .addComponent(gender1)
+                            .addComponent(breed1)
+                            .addComponent(age1)
+                            .addGroup(adoptAnimalPanelLayout.createSequentialGroup()
+                                .addComponent(animalName, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, adoptAnimalPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(sendRequest)
+                .addGap(243, 243, 243))
+        );
+        adoptAnimalPanelLayout.setVerticalGroup(
+            adoptAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(adoptAnimalPanelLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel12)
+                .addGap(39, 39, 39)
+                .addGroup(adoptAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(animalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(adoptAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(animalType1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(adoptAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gender1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(adoptAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(breed1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(adoptAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(age1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(100, 100, 100)
+                .addComponent(sendRequest)
+                .addContainerGap(181, Short.MAX_VALUE))
+        );
+
+        parentPanel.add(adoptAnimalPanel, "card3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -452,6 +597,31 @@ public class SupportAdmin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_bloodRequestButtonActionPerformed
 
+    private void adoptAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adoptAnimalActionPerformed
+        // TODO add your handling code here:
+        parentPanel.removeAll();
+        parentPanel.add(adoptAnimalPanel);
+        parentPanel.repaint();
+        parentPanel.revalidate();
+    }//GEN-LAST:event_adoptAnimalActionPerformed
+
+    private void animalType1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_animalType1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_animalType1ActionPerformed
+
+    private void breed1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_breed1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_breed1ActionPerformed
+
+    private void age1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_age1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_age1ActionPerformed
+
+    private void sendRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendRequestActionPerformed
+        // TODO add your handling code here:
+        sendRequestForAdoption();
+    }//GEN-LAST:event_sendRequestActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -489,20 +659,33 @@ public class SupportAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable abuseComplaintScreenTable;
+    private javax.swing.JButton adoptAnimal;
+    private javax.swing.JPanel adoptAnimalPanel;
+    private javax.swing.JTextField age1;
     private javax.swing.JTextField animalID;
     private javax.swing.JTextField animalId;
+    private javax.swing.JTextField animalName;
     private javax.swing.JTextField animalType;
+    private javax.swing.JTextField animalType1;
     private javax.swing.JButton bloodCollectionRequestButton;
     private javax.swing.JPanel bloodCollectionRequestPanel;
     private javax.swing.JButton bloodRequestButton;
     private javax.swing.JTextField bloodType;
+    private javax.swing.JTextField breed1;
     private javax.swing.JTextField complaintComments;
+    private javax.swing.JTextField gender1;
     private javax.swing.JPanel homePanel;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -520,6 +703,7 @@ public class SupportAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField reporterMobile;
     private javax.swing.JTextField reporterName;
     private com.toedter.calendar.JDateChooser requiredDate;
+    private javax.swing.JButton sendRequest;
     private javax.swing.JButton submitComplaintButton;
     private javax.swing.JTextField units;
     // End of variables declaration//GEN-END:variables
@@ -549,6 +733,29 @@ public class SupportAdmin extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
+
+        }
+    }
+    
+    public void  sendRequestForAdoption() {
+        try{
+            System.out.println(age1.getText());
+            AdoptedAnimal animal = new AdoptedAnimal(animalName.getText(),animalType1.getText(),gender1.getText(), breed1.getText() ,
+                    Integer.valueOf(age1.getText()), WorkFlowStatus.PENDING.toString());
+            
+            //Create Address
+            ResultSet rs;
+            rs = DatabaseConnection.storeData(animal);
+
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Animal added to rescue unit!");
+            
+           } catch (HeadlessException | NumberFormatException  e) {
+
+            e.printStackTrace();
+
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Animal Registration failed. Please try again!");
 
         }
     }
