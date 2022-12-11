@@ -176,6 +176,12 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "O Positive", "O Negative", "A Positive", "A Negative", "B Positive", "B Negative", "AB Positive", "AB Negative" }));
 
+        availabilityTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                availabilityTextFieldKeyTyped(evt);
+            }
+        });
+
         setButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         setButton.setText("Update Availability");
         setButton.addActionListener(new java.awt.event.ActionListener() {
@@ -423,6 +429,13 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_setButtonActionPerformed
+
+    private void availabilityTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_availabilityTextFieldKeyTyped
+        // TODO add your handling code here:
+        char TestChar = evt.getKeyChar();
+        if (!(Character.isDigit(TestChar)))
+            evt.consume();
+    }//GEN-LAST:event_availabilityTextFieldKeyTyped
 
     /**
      * @param args the command line arguments

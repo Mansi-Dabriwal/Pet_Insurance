@@ -227,7 +227,7 @@
                                       <Component id="jDateChooser1" min="-2" pref="224" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="jComboBox1" pref="224" max="32767" attributes="0"/>
-                                          <Component id="bloodPressure" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="vitalInfo" alignment="0" max="32767" attributes="0"/>
                                           <Component id="bloodGroup" alignment="0" max="32767" attributes="0"/>
                                           <Component id="med1" alignment="0" max="32767" attributes="0"/>
                                           <Component id="med2" alignment="0" max="32767" attributes="0"/>
@@ -262,7 +262,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="bloodPressure" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="vitalInfo" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -389,11 +389,12 @@
                     <Property name="text" type="java.lang.String" value="Medicine 3"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="bloodPressure">
+                <Component class="javax.swing.JTextField" name="vitalInfo">
                 </Component>
                 <Component class="javax.swing.JTextField" name="bloodGroup">
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bloodGroupActionPerformed"/>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="bloodGroupKeyTyped"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="med1">

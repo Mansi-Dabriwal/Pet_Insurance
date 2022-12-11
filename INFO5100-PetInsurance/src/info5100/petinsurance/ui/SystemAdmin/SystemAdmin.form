@@ -279,6 +279,9 @@
         <Component class="javax.swing.JTextField" name="lastNameTextField">
         </Component>
         <Component class="javax.swing.JTextField" name="phoneNoTextField">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="phoneNoTextFieldKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="emailAddressTextField">
         </Component>
