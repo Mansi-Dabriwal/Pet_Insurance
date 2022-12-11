@@ -6,6 +6,7 @@ package info5100.petinsurance.ui.petowner;
 
 import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
+import info5100.petinsurance.model.insurance.InsuranceClaim;
 import info5100.petinsurance.model.insurance.InsuranceDetails;
 import info5100.petinsurance.ui.SignUp;
 import info5100.petinsurance.ui.WelcomeFrame;
@@ -13,6 +14,7 @@ import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.ValidationService;
 import java.util.ArrayList;
 import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.WorkFlowStatus;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -31,15 +33,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ashit
  */
-
-
-
 public class PetOwner extends javax.swing.JFrame {
 
     /**
      * Creates new form AnimalOwner
      */
-    
     Map<String, Integer> hospitalLookup = new HashMap<>();
     Map<String, Integer> doctorLookup = new HashMap<>();
     Map<String, Integer> animalLookup = new HashMap<>();
@@ -772,33 +770,33 @@ public class PetOwner extends javax.swing.JFrame {
 
     private void registerAnimalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerAnimalButtonActionPerformed
         // TODO add your handling code here:
-        if(animalName.getText().trim().isEmpty()){
+        if (animalName.getText().trim().isEmpty()) {
             jLabel23.setText("Animal name field is empty!");
-        } else if(typeTextField.getText().trim().isEmpty()){
+        } else if (typeTextField.getText().trim().isEmpty()) {
             jLabel6.setText("Type field is empty!");
-        } else if(ageTextField.getText().trim().isEmpty()){
+        } else if (ageTextField.getText().trim().isEmpty()) {
             jLabel6.setText("Age field is empty!");
-        } else if (maleRadioButton.isSelected() | femaleRadioButton.isSelected()){
+        } else if (maleRadioButton.isSelected() | femaleRadioButton.isSelected()) {
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "No gender selected. Please try again!");
-        } else{
+        } else {
             String gender = maleRadioButton.isSelected() ? "male" : "female";
             AnimalDetails animal = new AnimalDetails(animalName.getText(), typeTextField.getText(), breedTextField.getText(),
                     Integer.valueOf(ageTextField.getText()),
                     gender, ua.getPersonID(), null);
 
             ResultSet rs = DatabaseConnection.storeData(animal);
-                flag= true;
-                ValidationService vs= new ValidationService();
-                flag= vs.validateAge(ageTextField.getText());
+            flag = true;
+            ValidationService vs = new ValidationService();
+            flag = vs.validateAge(ageTextField.getText());
 
             if (rs == null) {
                 JFrame jFrame = new JFrame();
                 JOptionPane.showMessageDialog(jFrame, "Sorry the registration couldn't be completed. Please try again!");
-            } else if(!flag){
-                    JFrame jFrame = new JFrame();
-                    JOptionPane.showMessageDialog(jFrame, "Age entered is wrong, please enter correct age!");
-            }else {
+            } else if (!flag) {
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Age entered is wrong, please enter correct age!");
+            } else {
                 try {
                     while (rs.next()) {
                         JFrame jFrame = new JFrame();
@@ -808,18 +806,18 @@ public class PetOwner extends javax.swing.JFrame {
 
                 } catch (SQLException ex) {
                     Logger.getLogger(PetOwner.class.getName()).log(Level.SEVERE, null, ex);
-                } 
+                }
             }
-            
+
         }
     }//GEN-LAST:event_registerAnimalButtonActionPerformed
 
     private void purchaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseButtonActionPerformed
         // TODO add your handling code here:
         boolean activeInsuranceExists = false;
-        int animalId=0;
+        int animalId = 0;
         try {
-            animalId = animals.stream().filter(a->a.getAnimalName().equals(animalIDTextField1.getText())).collect(Collectors.toList()).get(0).getId();
+            animalId = animals.stream().filter(a -> a.getAnimalName().equals(animalIDTextField1.getText())).collect(Collectors.toList()).get(0).getId();
             String select = Constants.GETINSURANCEFORPET + animalId;
             ResultSet rs = DatabaseConnection.getData(select, false);
 
@@ -883,28 +881,26 @@ public class PetOwner extends javax.swing.JFrame {
         InsuranceDetails activeInsuranceDetails = null;
         try {
             String select = Constants.GETINSURANCEFORPET + anmlIDCancelTextField.getText();
-            System.out.print("Cancel insurance :" + select);
             ResultSet rs = DatabaseConnection.getData(select, false);
 
             while (rs.next()) {
                 activeInsuranceExists = true;
                 activeInsuranceDetails = new InsuranceDetails(
-                rs.getInt("animalID"), new Date(rs.getDate("dateOfInsurance").getDate()), rs.getString("existingmedicalconditions"), rs.getInt("planId"),
-                 endDateChooser.getDate());
+                        rs.getInt("animalID"), new Date(rs.getDate("dateOfInsurance").getDate()), rs.getString("existingmedicalconditions"), rs.getInt("planId"),
+                        endDateChooser.getDate());
                 activeInsuranceDetails.setId(rs.getInt("id"));
             }
         } catch (SQLException e) {
             Logger.getLogger(PetOwner.class.getName()).log(Level.SEVERE, null, e);
 
         }
-        
+
         if (activeInsuranceExists) {
-           DatabaseConnection.cancelInsurance(activeInsuranceDetails);
-        }
-        else{
+            DatabaseConnection.cancelInsurance(activeInsuranceDetails);
+        } else {
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "There's no active insurance.");
-        
+
         }
 
     }//GEN-LAST:event_cancelInsurancePanelButtonActionPerformed
@@ -925,9 +921,31 @@ public class PetOwner extends javax.swing.JFrame {
 
     private void submitClaimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitClaimButtonActionPerformed
         // TODO add your handling code here:
-        
-        
-        
+        try {
+            String select = Constants.GETINSURANCEFORPET + animalLookup.get(animalDropDown.getSelectedItem().toString());
+            ResultSet rs = DatabaseConnection.getData(select, false);
+
+            while (rs.next()) {
+                boolean activeInsuranceExists = true;
+                Date crrTime = new Date();
+
+                InsuranceClaim claim = new InsuranceClaim(
+                        animalLookup.get(animalDropDown.getSelectedItem().toString()),
+                        1, WorkFlowStatus.PENDING, Integer.valueOf(claimAmount.getText()), 
+                        hospitalLookup.get(hospitalName.getSelectedItem().toString()), 
+                        doctorName.getSelectedItem().toString(), contactEmail.getText(), 
+                        contactNumber.getText(), crrTime
+                );
+                
+                claim.setInsuranceDetailsId(rs.getInt("id"));
+                DatabaseConnection.submitClaim(claim);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(PetOwner.class.getName()).log(Level.SEVERE, null, e);
+
+        }
+
+
     }//GEN-LAST:event_submitClaimButtonActionPerformed
 
     private void submitclaimButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -1060,7 +1078,7 @@ public class PetOwner extends javax.swing.JFrame {
                 planLookup.put(plan.getString("planName"), plan.getInt("id"));
                 i++;
             }
-            plans = Arrays.stream(plans).filter(value ->value != null && value.length() > 0).toArray(size -> new String[size]);
+            plans = Arrays.stream(plans).filter(value -> value != null && value.length() > 0).toArray(size -> new String[size]);
 
         } catch (SQLException e) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
@@ -1081,12 +1099,12 @@ public class PetOwner extends javax.swing.JFrame {
             while (rs.next()) {
                 Object[] row = {rs.getString("name"), rs.getString("animalType"), rs.getString("breed"), rs.getString("gender")};
                 model.addRow(row);
-                AnimalDetails animalnew = new AnimalDetails( rs.getString("name") ,rs.getString("animalType"),
-                rs.getString("breed"),
+                AnimalDetails animalnew = new AnimalDetails(rs.getString("name"), rs.getString("animalType"),
+                        rs.getString("breed"),
                         rs.getInt("age"),
                         rs.getString("gender"),
                         ua.getPersonID(),
-                        rs.getString("bloodType")       
+                        rs.getString("bloodType")
                 );
                 animalnew.setId(rs.getInt("id"));
                 animals.add(animalnew);
@@ -1116,7 +1134,7 @@ public class PetOwner extends javax.swing.JFrame {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-    
+
     private void populateDoctorsInDropDown() {
         String[] doctors = new String[15];
 
@@ -1124,13 +1142,13 @@ public class PetOwner extends javax.swing.JFrame {
             ResultSet docs = DatabaseConnection.getData(Constants.GETALLDOCTORS, false);
             int i = 0;
             while (docs.next()) {
-                String docName = docs.getString("fname")+ " " + docs.getString("lname");
+                String docName = docs.getString("fname") + " " + docs.getString("lname");
                 doctors[i] = docName;
                 doctorLookup.put(docName, docs.getInt("id"));
                 i++;
             }
-            
-            doctors = Arrays.stream(doctors).filter(value ->value != null && value.length() > 0).toArray(size -> new String[size]);
+
+            doctors = Arrays.stream(doctors).filter(value -> value != null && value.length() > 0).toArray(size -> new String[size]);
 
         } catch (SQLException e) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
@@ -1138,12 +1156,12 @@ public class PetOwner extends javax.swing.JFrame {
 
         doctorName.setModel(new javax.swing.DefaultComboBoxModel<>(doctors));
     }
-    
+
     private void populateHospitalsInDropDown() {
         String[] hospitals = new String[15];
 
         try {
-           ResultSet hospitalN = DatabaseConnection.getData(Constants.GETALLHOSPITALS, false);
+            ResultSet hospitalN = DatabaseConnection.getData(Constants.GETALLHOSPITALS, false);
 
             int i = 0;
             while (hospitalN.next()) {
@@ -1151,37 +1169,36 @@ public class PetOwner extends javax.swing.JFrame {
                 hospitalLookup.put(hospitalN.getString("hospitalName"), hospitalN.getInt("id"));
                 i++;
             }
-            hospitals = Arrays.stream(hospitals).filter(value ->value != null && value.length() > 0).toArray(size -> new String[size]);
+            hospitals = Arrays.stream(hospitals).filter(value -> value != null && value.length() > 0).toArray(size -> new String[size]);
 
         } catch (SQLException e) {
-            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);          
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
         }
         hospitalName.setModel(new javax.swing.DefaultComboBoxModel<>(hospitals));
     }
 
     private void populateTable() {
-         DefaultTableModel model = (DefaultTableModel) submitClaimTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) submitClaimTable.getModel();
         model.setRowCount(0);
-        try{
+        try {
             ResultSet rs = DatabaseConnection.getData(Constants.GETINSURANCEDETAILSFORCLAIM, false);
             while (rs.next()) {
                 Object[] row = {rs.getInt("AnimalID"), rs.getString("AnimalName"), rs.getInt("InsuranceID"), rs.getInt("planCoverage"), "ACTIVE"};
                 model.addRow(row);
             }
-            
-            
-        } catch(SQLException e){
+
+        } catch (SQLException e) {
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
-        
+
         }
     }
-    
-    private void populateAnimalsForSubmitClaim(){
-        
+
+    private void populateAnimalsForSubmitClaim() {
+
         String[] animals = new String[15];
 
         try {
-           ResultSet animalnames = DatabaseConnection.getData(Constants.GETALLANIMALFOROWNER + ua.getPersonID(), false);
+            ResultSet animalnames = DatabaseConnection.getData(Constants.GETALLANIMALFOROWNER + ua.getPersonID(), false);
 
             int i = 0;
             while (animalnames.next()) {
@@ -1189,10 +1206,10 @@ public class PetOwner extends javax.swing.JFrame {
                 animalLookup.put(animalnames.getString("name"), animalnames.getInt("id"));
                 i++;
             }
-            animals = Arrays.stream(animals).filter(value ->value != null && value.length() > 0).toArray(size -> new String[size]);
+            animals = Arrays.stream(animals).filter(value -> value != null && value.length() > 0).toArray(size -> new String[size]);
 
         } catch (SQLException e) {
-            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);          
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
         }
         animalDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(animals));
     }
