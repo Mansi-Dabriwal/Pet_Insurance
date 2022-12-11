@@ -136,7 +136,7 @@ public class PlanType extends javax.swing.JFrame {
         parentPanel.setBackground(new java.awt.Color(255, 255, 153));
         parentPanel.setLayout(new java.awt.CardLayout());
 
-        home.setBackground(new java.awt.Color(255, 255, 153));
+        home.setBackground(new java.awt.Color(153, 204, 255));
 
         javax.swing.GroupLayout homeLayout = new javax.swing.GroupLayout(home);
         home.setLayout(homeLayout);
@@ -151,7 +151,7 @@ public class PlanType extends javax.swing.JFrame {
 
         parentPanel.add(home, "card2");
 
-        planA.setBackground(new java.awt.Color(255, 255, 153));
+        planA.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Premium Amount");
@@ -234,7 +234,7 @@ public class PlanType extends javax.swing.JFrame {
 
         parentPanel.add(planA, "card5");
 
-        planB.setBackground(new java.awt.Color(255, 255, 153));
+        planB.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("Amount");
@@ -287,7 +287,7 @@ public class PlanType extends javax.swing.JFrame {
 
         parentPanel.add(planB, "card4");
 
-        planC.setBackground(new java.awt.Color(255, 255, 153));
+        planC.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setText("Amount");

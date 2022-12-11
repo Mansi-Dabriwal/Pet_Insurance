@@ -83,7 +83,7 @@ public class DoctorPortal extends javax.swing.JFrame {
         pnlCards.setBackground(new java.awt.Color(255, 189, 50));
         pnlCards.setLayout(new java.awt.CardLayout());
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 153));
+        jPanel3.setBackground(new java.awt.Color(153, 204, 255));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -98,7 +98,7 @@ public class DoctorPortal extends javax.swing.JFrame {
 
         pnlCards.add(jPanel3, "card4");
 
-        pnlCard1.setBackground(new java.awt.Color(255, 255, 153));
+        pnlCard1.setBackground(new java.awt.Color(153, 204, 255));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -146,7 +146,7 @@ public class DoctorPortal extends javax.swing.JFrame {
 
         pnlCards.add(pnlCard1, "pnlCard1");
 
-        pnlCard2.setBackground(new java.awt.Color(255, 255, 153));
+        pnlCard2.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Patient Name");
@@ -274,7 +274,7 @@ public class DoctorPortal extends javax.swing.JFrame {
 
         jSplitPane1.setRightComponent(pnlCards);
 
-        jPanel2.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel2.setBackground(new java.awt.Color(51, 153, 255));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton1.setText("Upcoming Appointments");
@@ -315,7 +315,7 @@ public class DoctorPortal extends javax.swing.JFrame {
 
         jSplitPane1.setLeftComponent(jPanel2);
 
-        jPanel1.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Doctor Portal");
