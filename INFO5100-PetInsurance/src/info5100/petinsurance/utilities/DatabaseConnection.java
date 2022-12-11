@@ -520,7 +520,28 @@ public class DatabaseConnection {
         return resultSet;
         
     }
-    
-    
+
+    public static ResultSet updateInsuranceDetails(InsuranceDetails insurance) {
         
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("Update InsuranceDetails SET existingMedicalConditions =?, planId =? where id = ?", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setString(1, insurance.getExistingMedicalConditions());
+            ps.setInt(2, insurance.getPlanId());
+            ps.setInt(3, insurance.getId());
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+        
+    }
 }

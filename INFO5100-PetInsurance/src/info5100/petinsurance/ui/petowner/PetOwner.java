@@ -18,6 +18,7 @@ import info5100.petinsurance.utilities.DatabaseConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -393,6 +394,11 @@ public class PetOwner extends javax.swing.JFrame {
         existingMedicalConditions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Yes", "No" }));
 
         planComboBox.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        planComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                planComboBoxActionPerformed(evt);
+            }
+        });
 
         purchaseButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         purchaseButton.setText("Purchase");
@@ -870,6 +876,10 @@ public class PetOwner extends javax.swing.JFrame {
         insuranceID.setText(cancelInsuranceTable.getValueAt(cancelInsuranceTable.getSelectedRow(), 0).toString());
     }//GEN-LAST:event_cancelInsuranceTableMouseClicked
 
+    private void planComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_planComboBoxActionPerformed
+
     private void submitclaimButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         parentPanel.removeAll();
@@ -989,7 +999,9 @@ public class PetOwner extends javax.swing.JFrame {
             while (plan.next()) {
                 plans[i] = plan.getString("planName");
                 planLookup.put(plan.getString("planName"), plan.getInt("id"));
+                i++;
             }
+            plans = Arrays.stream(plans).filter(value ->value != null && value.length() > 0).toArray(size -> new String[size]);
 
         } catch (SQLException e) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
