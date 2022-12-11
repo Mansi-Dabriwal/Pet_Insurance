@@ -10,6 +10,7 @@ import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
 import info5100.petinsurance.model.hospital.Doctor;
 import info5100.petinsurance.model.hospital.Hospital;
+import info5100.petinsurance.model.hospital.UpcomingAppointments;
 import info5100.petinsurance.model.insurance.InsuranceDetails;
 import info5100.petinsurance.model.insurance.InsurancePlan;
 import info5100.petinsurance.model.rescueoperation.AdoptedAnimal;
@@ -371,6 +372,31 @@ public class DatabaseConnection {
             ps.setString(3, a.getPlaceOfRescue());
             ps.setDate(2, (Date) a.getDateOfRescue());
             ps.setInt(4, a.getAnimalID());
+            
+            
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    }
+    
+    public static ResultSet storeData(UpcomingAppointments u) {
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO UpcomingAppointments VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setString(1, u.getPatientName());
+            ps.setInt(2,u.getPatientId());
+            ps.setDate(3, new Date(u.getDateOfAppointment().getTime()));
+            
             
             
             
