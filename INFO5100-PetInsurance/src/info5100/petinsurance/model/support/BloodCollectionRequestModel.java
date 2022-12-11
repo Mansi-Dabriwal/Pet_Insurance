@@ -24,8 +24,9 @@ NumberofUnits INT, RequiredByDate DATE, SupportPersonID INT FOREIGN KEY REFERENC
    int supportPersonID;
    String supportPersonName;
    WorkFlowStatus status;
+   String ownerEmail;
 
-    public BloodCollectionRequestModel(int animalID, String animalType, String bloodType, int units, Date requiredByDate, int supportPersonID, String supportPersonName, WorkFlowStatus status) {
+    public BloodCollectionRequestModel(int animalID, String animalType, String bloodType, int units, Date requiredByDate, int supportPersonID, String supportPersonName, WorkFlowStatus status, String ownerEmail) {
         this.animalID = animalID;
         this.animalType = animalType;
         this.bloodType = bloodType;
@@ -34,6 +35,7 @@ NumberofUnits INT, RequiredByDate DATE, SupportPersonID INT FOREIGN KEY REFERENC
         this.supportPersonID = supportPersonID;
         this.supportPersonName = supportPersonName;
         this.status = status;
+        this.ownerEmail = ownerEmail;
     }
 
     public int getAnimalID() {
@@ -100,4 +102,21 @@ NumberofUnits INT, RequiredByDate DATE, SupportPersonID INT FOREIGN KEY REFERENC
         this.status = status;
     }
 
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
 }

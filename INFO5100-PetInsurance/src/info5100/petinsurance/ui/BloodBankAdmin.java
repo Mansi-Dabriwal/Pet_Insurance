@@ -4,9 +4,17 @@
  */
 package info5100.petinsurance.ui;
 
+import info5100.petinsurance.model.hospital.bloodbank.Bloodbank;
+import info5100.petinsurance.model.support.BloodCollectionRequestModel;
 import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.WorkFlowStatus;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,7 +28,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
      */
     public BloodBankAdmin() {
         initComponents();
-        
+
         populatePendingRequestsTable();
     }
 
@@ -160,6 +168,11 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
         setButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         setButton.setText("Update Availability");
+        setButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout updatePanelLayout = new javax.swing.GroupLayout(updatePanel);
         updatePanel.setLayout(updatePanelLayout);
@@ -297,6 +310,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
         parentPanel.add(viewPendingRequestPanel);
         parentPanel.repaint();
         parentPanel.revalidate();
+        populatePendingRequestsTable();
     }//GEN-LAST:event_viewRequestButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -309,11 +323,92 @@ public class BloodBankAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selectedRow = pendingRequestsTable.getSelectedRow();
         String select = "Select * from BloodCollectionRequests where id = " + pendingRequestsTable.getValueAt(selectedRow, 0);
+
+        try {
+
+            ResultSet rs = DatabaseConnection.getData(select, false);
+            while (rs.next()) {
+                BloodCollectionRequestModel bcr = new BloodCollectionRequestModel(
+                rs.getInt("AnimalID"),
+                        rs.getString("animalType"),
+                        rs.getString("bloodType"),
+                        rs.getInt("NumberofUnits"),
+                        rs.getDate("RequiredByDate"),
+                        rs.getInt("SupportPersonID"),
+                        rs.getString("SupportPersonName"),
+                        WorkFlowStatus.COMPLETED,
+                        rs.getString("OwnerEmail")
+                ) ;
+                bcr.setId(Integer.valueOf(pendingRequestsTable.getValueAt(selectedRow, 0).toString()));
+                DatabaseConnection.updateBloodCollectionRequestStatus(bcr);
+
+            }
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Blood collection request approved");
+        } catch (SQLException e) {
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
+
+        }
+        populatePendingRequestsTable();
     }//GEN-LAST:event_approveButtonActionPerformed
 
     private void rejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectButtonActionPerformed
         // TODO add your handling code here:
+       int selectedRow = pendingRequestsTable.getSelectedRow();
+        String select = "Select * from BloodCollectionRequests where id = " + pendingRequestsTable.getValueAt(selectedRow, 0);
+
+        try {
+
+            ResultSet rs = DatabaseConnection.getData(select, false);
+            while (rs.next()) {
+                BloodCollectionRequestModel bcr = new BloodCollectionRequestModel(
+                rs.getInt("AnimalID"),
+                        rs.getString("animalType"),
+                        rs.getString("bloodType"),
+                        rs.getInt("NumberofUnits"),
+                        rs.getDate("RequiredByDate"),
+                        rs.getInt("SupportPersonID"),
+                        rs.getString("SupportPersonName"),
+                        WorkFlowStatus.CANCELLED,
+                        rs.getString("OwnerEmail")
+                ) ;
+                bcr.setId(Integer.valueOf(pendingRequestsTable.getValueAt(selectedRow, 0).toString()));
+                DatabaseConnection.updateBloodCollectionRequestStatus(bcr);
+
+            }
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Blood collection request denied");
+        } catch (SQLException e) {
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
+
+        }
+        populatePendingRequestsTable();
     }//GEN-LAST:event_rejectButtonActionPerformed
+
+    private void setButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setButtonActionPerformed
+        // TODO add your handling code here:
+        ResultSet rs = null;
+
+        boolean existingBloodType = false;
+        Bloodbank bb = new Bloodbank(jComboBox1.getSelectedItem().toString(), Integer.valueOf(availabilityTextField.getText()));
+        try {
+            rs = DatabaseConnection.getData("Select * from BloodBank where bloodType = '" + jComboBox1.getSelectedItem().toString() + "'", false);
+            while (rs.next()) {
+                existingBloodType = true;
+            }
+
+            if (existingBloodType) {
+                DatabaseConnection.updateAvailability(bb);
+            } else {
+                DatabaseConnection.storeBloodAvailability(bb);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
+
+        }
+
+
+    }//GEN-LAST:event_setButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,11 +476,12 @@ public class BloodBankAdmin extends javax.swing.JFrame {
             String selectStatmt = "Select * from BloodCollectionRequests WHERE status = 'PENDING'";
             rs = DatabaseConnection.getData(selectStatmt, false);
             while (rs.next()) {
-                Object[] row = {rs.getInt("ID"), rs.getInt("AnimalID") , rs.getString("AnimalType"), rs.getString("BloodType"), rs.getString("NumberofUnits")};
+                Object[] row = {rs.getInt("ID"), rs.getInt("AnimalID"), rs.getString("AnimalType"), rs.getString("BloodType"), rs.getString("NumberofUnits")};
                 model.addRow(row);
             }
 
         } catch (SQLException e) {
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
 
         }
     }
