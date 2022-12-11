@@ -8,6 +8,8 @@ import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
 import info5100.petinsurance.model.rescueoperation.AdoptedAnimal;
 import info5100.petinsurance.model.rescueoperation.AnimalRescueOperation;
+//import info5100.petinsurance.model.rescueoperation.AdoptedAnimal;
+//import info5100.petinsurance.model.rescueoperation.AnimalRescueOperation;
 import info5100.petinsurance.ui.WelcomeFrame;
 import info5100.petinsurance.ui.hospital.HospitalAdmin;
 import info5100.petinsurance.utilities.DatabaseConnection;
@@ -59,7 +61,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
         homePanel = new javax.swing.JPanel();
         addAnimalPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        animalId = new javax.swing.JTextField();
+        name = new javax.swing.JTextField();
         wasRescued = new javax.swing.JComboBox<>();
         placeOfRescue = new javax.swing.JTextField();
         rescueDate = new com.toedter.calendar.JDateChooser();
@@ -216,7 +218,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
         });
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel19.setText("Animal ID");
+        jLabel19.setText("Animal Name");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Rescued");
@@ -247,20 +249,20 @@ public class RescueUnitManager extends javax.swing.JFrame {
                 .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(addAnimalPanelLayout.createSequentialGroup()
                         .addGap(53, 53, 53)
-                        .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel27))
-                        .addGap(76, 76, 76)
+                            .addComponent(jLabel27)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
+                        .addGap(38, 38, 38)
                         .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(wasRescued, 0, 274, Short.MAX_VALUE)
-                            .addComponent(animalId, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                            .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
                             .addComponent(placeOfRescue, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
                             .addComponent(rescueDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(animalType)
@@ -279,7 +281,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(animalId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(addAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -648,7 +650,6 @@ public class RescueUnitManager extends javax.swing.JFrame {
     private javax.swing.JPanel adoptAnimalPanel;
     private javax.swing.JTextField age;
     private javax.swing.JTextField age1;
-    private javax.swing.JTextField animalId;
     private javax.swing.JTextField animalType;
     private javax.swing.JTextField animalType1;
     private javax.swing.JButton back;
@@ -680,6 +681,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField name;
     private javax.swing.JPanel parentPanel;
     private javax.swing.JPanel pendingRequestPanel;
     private javax.swing.JButton pendingRequests;
@@ -696,7 +698,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
             
             
             
-            AnimalDetails animal = new AnimalDetails(animalType.getText(), breed.getText() ,
+            AnimalDetails animal = new AnimalDetails(name.getText(),animalType.getText(), breed.getText() ,
                     Integer.valueOf(age.getText()), gender.getText(), ua.getPersonID(),bloodType.getText());
             
             //Create Address
