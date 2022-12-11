@@ -78,7 +78,7 @@ public class SignIn extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Role");
 
-        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Insurance Provider Admin", "Hospital Admin", "Veterinary Admin", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Support Representative", "System Admin" }));
+        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Insurance Provider Admin", "Hospital Admin", "Veterinary Doctor", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Support Representative", "System Admin" }));
 
         signInButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         signInButton.setText("Sign In");
@@ -241,7 +241,7 @@ public class SignIn extends javax.swing.JFrame {
                                 this.dispose();
                                 break;
                             case VeterinaryDoctor:
-                                new DoctorPortal().setVisible(true);
+                                new DoctorPortal(ua).setVisible(true);
                                 this.dispose();
                                 break;
                         }

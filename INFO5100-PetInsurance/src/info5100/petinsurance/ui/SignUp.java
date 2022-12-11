@@ -38,6 +38,7 @@ public class SignUp extends javax.swing.JFrame {
     public SignUp() {
         this.allowSignUp = true;
         initComponents();
+        signUpButton.setEnabled(false);
     }
 
     /**
@@ -82,6 +83,8 @@ public class SignUp extends javax.swing.JFrame {
         PasswordField = new javax.swing.JPasswordField();
         backBtn = new javax.swing.JButton();
         vldLabel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        phoneTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,7 +120,7 @@ public class SignUp extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         jLabel9.setText("Address Line 1");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -144,8 +147,14 @@ public class SignUp extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel18.setText("Username");
 
+        zipCodeTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                zipCodeTextFieldKeyTyped(evt);
+            }
+        });
+
         roleComboBox.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Insurance Provider Admin", "Hospital Admin", "Veterinary Admin", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Support Representative", "System Admin" }));
+        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Insurance Provider Admin", "Hospital Admin", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Support Representative", "System Admin" }));
 
         backBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         backBtn.setText("Back");
@@ -158,6 +167,15 @@ public class SignUp extends javax.swing.JFrame {
         vldLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         vldLabel.setForeground(new java.awt.Color(153, 0, 0));
         vldLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel2.setText("Phone");
+
+        phoneTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                phoneTextFieldKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -202,9 +220,13 @@ public class SignUp extends javax.swing.JFrame {
                                             .addComponent(firstNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
                                             .addComponent(emailTextField))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
                                 .addGap(18, 18, 18)
-                                .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lastNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                                    .addComponent(phoneTextField))))
                         .addGap(26, 26, 26))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,7 +280,9 @@ public class SignUp extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(phoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -350,6 +374,8 @@ public class SignUp extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if(allowSignUp)
+            signUpButton.setEnabled(true);
     }//GEN-LAST:event_verifyBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
@@ -357,6 +383,20 @@ public class SignUp extends javax.swing.JFrame {
         new WelcomeFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
+
+    private void zipCodeTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_zipCodeTextFieldKeyTyped
+        // TODO add your handling code here:
+        char TestChar = evt.getKeyChar();
+        if (!(Character.isDigit(TestChar)))
+            evt.consume();
+    }//GEN-LAST:event_zipCodeTextFieldKeyTyped
+
+    private void phoneTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneTextFieldKeyTyped
+        // TODO add your handling code here:
+        char TestChar = evt.getKeyChar();
+        if (!(Character.isDigit(TestChar)))
+            evt.consume();
+    }//GEN-LAST:event_phoneTextFieldKeyTyped
 
     /**
      * @param args the command line arguments
@@ -412,12 +452,14 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField lastNameTextField;
+    private javax.swing.JTextField phoneTextField;
     private javax.swing.JComboBox<String> roleComboBox;
     private javax.swing.JButton signUpButton;
     private javax.swing.JTextField stateTextField;
@@ -427,6 +469,7 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JTextField zipCodeTextField;
     // End of variables declaration//GEN-END:variables
     public void registerUser() {
+      
         if (addressLine1TextField.getText().trim().isEmpty() && cityTextField.getText().trim().isEmpty() && stateTextField.getText().trim().isEmpty() && countryTextField.getText().trim().isEmpty()
                 && zipCodeTextField.getText().trim().isEmpty() && firstNameTextField.getText().trim().isEmpty() && lastNameTextField.getText().trim().isEmpty() && emailTextField.getText().trim().isEmpty()
                 && usernameTextField.getText().trim().isEmpty() && PasswordField.getText().trim().isEmpty()) {
@@ -443,6 +486,8 @@ public class SignUp extends javax.swing.JFrame {
             vldLabel.setText("ZipCode field is Empty!");
         } else if (firstNameTextField.getText().trim().isEmpty()) {
             vldLabel.setText("First Name field is Empty!");
+        } else if (phoneTextField.getText().trim().isEmpty()) {
+            vldLabel.setText("Phone Number field is Empty!");
         } else if (lastNameTextField.getText().trim().isEmpty()) {
             vldLabel.setText("Last Name field is Empty!");
         } else if (usernameTextField.getText().trim().isEmpty()) {
@@ -467,12 +512,11 @@ public class SignUp extends javax.swing.JFrame {
 
                 //Create Person
                 int personID = 0;
-                Person person = new Person(firstNameTextField.getText(), lastNameTextField.getText(), null, emailTextField.getText(),
+                Person person = new Person(firstNameTextField.getText(), lastNameTextField.getText(), phoneTextField.getText(), emailTextField.getText(),
                         addressID);
 
                 flag = true;
-                ValidationService vs = new ValidationService();
-                flag = vs.validateEmail(emailTextField.getText());
+                flag = ValidationService.validateEmail(emailTextField.getText());
                 if (!flag) {
                     JFrame jFrame = new JFrame();
                     JOptionPane.showMessageDialog(jFrame, "Email entered is wrong, please enter correct email!");
@@ -528,8 +572,6 @@ public class SignUp extends javax.swing.JFrame {
                             this.dispose();
                             break;
                         case VeterinaryDoctor:
-                            new DoctorPortal().setVisible(true);
-                            this.dispose();
                             break;
                     }
                 }

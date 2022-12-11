@@ -27,4 +27,6 @@ public class Constants {
     public static final String USERCOUNT =  "select count(*) AS countofusers from Useraccount where username = '";
      
     public static final String GETUSERACCOUNT =  "select * from Useraccount where username = '";
+    
+    public static final String GETALLAPPOINTMENTSFORDOCTOR = "SELECT * FROM UpcomingAppointments ua JOIN Doctor d ON d.id = ua.DoctorID WHERE d.personId =";
 }
