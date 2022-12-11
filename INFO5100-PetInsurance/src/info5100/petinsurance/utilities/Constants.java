@@ -37,4 +37,8 @@ public class Constants {
     public static final String GETALLANIMALS = "Select * from AnimalDetails";
     
     public static final String GETALLDOCTORS = " select p.id as id, p.fName , p.lName from Person p JOIN UserAccount ua ON p.id = ua.PersonID Where ua.RoleName = 'Veterinary Doctor'";
+
+    public static final String GETALLACTIVEINSURANCE = "select id.id AS ID, id.animalId , existingMedicalConditions , dateOfInsurance , planName from InsuranceDetails id JOIN InsurancePlan ip ON ip.id = id.planId where Status = 'ACTIVE'";
+    
+
 }
