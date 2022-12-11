@@ -4,15 +4,22 @@
  */
 package info5100.petinsurance.ui;
 
+import info5100.petinsurance.ui.petowner.PetOwner;
+import info5100.petinsurance.ui.SystemAdmin.SystemAdmin;
+import info5100.petinsurance.ui.bloodbank.BloodBankAdmin;
 import info5100.petinsurance.model.UserAccount;
+import info5100.petinsurance.ui.doctor.DoctorPortal;
 import info5100.petinsurance.ui.hospital.HospitalAdmin;
 import info5100.petinsurance.ui.insurance.InsuranceAdmin;
-import info5100.petinsurance.ui.insurance.InsuranceAdminWorkFlow;
 import info5100.petinsurance.ui.rescueunit.RescueUnitManager;
 import info5100.petinsurance.ui.support.SupportAdmin;
+import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.Roles;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -55,7 +62,7 @@ public class SignIn extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -71,7 +78,7 @@ public class SignIn extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Role");
 
-        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Insurance Provider Admin", "Hospital Admin", "Veterinary Admin", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Support Representative", "System Admin" }));
+        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Insurance Provider Admin", "Hospital Admin", "Veterinary Doctor", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Support Representative", "System Admin" }));
 
         signInButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         signInButton.setText("Sign In");
@@ -174,8 +181,8 @@ public class SignIn extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             ResultSet rs;
-            String selectStatement = selectCountUserString();
-            System.out.print("Select statment :" + selectStatement);
+            String selectStatement = Constants.USERCOUNT.concat(userNameField.getText())
+                    .concat("' and password = '").concat(passwordField1.getText()).concat("'");
             rs = DatabaseConnection.getData(selectStatement, false);
 
             rs.next();
@@ -183,13 +190,14 @@ public class SignIn extends javax.swing.JFrame {
                 JFrame jFrame = new JFrame();
                 JOptionPane.showMessageDialog(jFrame, "Wrong username-password. Please try again!");
             } else {
-                String selectStmt = selectUserString();
+                String selectStmt = Constants.GETUSERACCOUNT.concat(userNameField.getText())
+                    .concat("' and password = '").concat(passwordField1.getText()).concat("'");
                 rs = DatabaseConnection.getData(selectStmt, false);
                 boolean login = false;
                 while (rs.next()) {
                     if (rs.getString(5).equalsIgnoreCase(roleComboBox.getSelectedItem().toString())) {
                         JFrame jFrame = new JFrame();
-                        JOptionPane.showMessageDialog(jFrame, "Sign Up Successful!");
+                        JOptionPane.showMessageDialog(jFrame, "Sign In Successful!");
                         login = true;
 
                         Roles r = null;
@@ -225,14 +233,17 @@ public class SignIn extends javax.swing.JFrame {
                                 this.dispose();
                                 break;
                             case SystemAdmin:
+                                new SystemAdmin(ua).setVisible(true);
+                                this.dispose();
                                 break;
                             case SupportRepresentative:
                                 new SupportAdmin(ua).setVisible(true);
                                 this.dispose();
                                 break;
                             case VeterinaryDoctor:
+                                new DoctorPortal(ua).setVisible(true);
+                                this.dispose();
                                 break;
-
                         }
                     }
 
@@ -244,8 +255,8 @@ public class SignIn extends javax.swing.JFrame {
                 }
 
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_signInButtonActionPerformed
 
@@ -299,19 +310,5 @@ public class SignIn extends javax.swing.JFrame {
     private javax.swing.JTextField userNameField;
     // End of variables declaration//GEN-END:variables
 
-    private String selectUserString() {
-        return new StringBuilder().append("select * from Useraccount where username = '")
-                .append(userNameField.getText()).append("' and password = '")
-                .append(passwordField1.getText()).append("'")
-                .toString();
-
-    }
-
-    private String selectCountUserString() {
-        return new StringBuilder().append("select count(*) AS countofusers from Useraccount where username = '")
-                .append(userNameField.getText()).append("' and password = '")
-                .append(passwordField1.getText()).append("'")
-                .toString();
-    }
 
 }
