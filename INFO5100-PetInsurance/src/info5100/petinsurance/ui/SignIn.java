@@ -5,6 +5,7 @@
 package info5100.petinsurance.ui;
 
 import info5100.petinsurance.model.UserAccount;
+import info5100.petinsurance.ui.doctor.DoctorPortal;
 import info5100.petinsurance.ui.hospital.HospitalAdmin;
 import info5100.petinsurance.ui.insurance.InsuranceAdmin;
 import info5100.petinsurance.ui.insurance.InsuranceAdminWorkFlow;
@@ -225,12 +226,16 @@ public class SignIn extends javax.swing.JFrame {
                                 this.dispose();
                                 break;
                             case SystemAdmin:
+                                new SystemAdmin(ua).setVisible(true);
+                                this.dispose();
                                 break;
                             case SupportRepresentative:
                                 new SupportAdmin(ua).setVisible(true);
                                 this.dispose();
                                 break;
                             case VeterinaryDoctor:
+                                new DoctorPortal().setVisible(true);
+                                this.dispose();
                                 break;
 
                         }

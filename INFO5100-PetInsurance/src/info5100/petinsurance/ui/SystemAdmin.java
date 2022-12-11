@@ -4,6 +4,18 @@
  */
 package info5100.petinsurance.ui;
 
+import info5100.petinsurance.model.Person;
+import info5100.petinsurance.model.UserAccount;
+import info5100.petinsurance.utilities.DatabaseConnection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author ashit
@@ -13,8 +25,12 @@ public class SystemAdmin extends javax.swing.JFrame {
     /**
      * Creates new form SystemAdmin
      */
-    public SystemAdmin() {
+    int selectedRow ;
+    UserAccount ua;
+    public SystemAdmin(UserAccount ua) {
         initComponents();
+        this.ua = ua;
+        populateDetailsTable();
     }
 
     /**
@@ -28,7 +44,7 @@ public class SystemAdmin extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
         updateDetailsPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         updateDetailstable = new javax.swing.JTable();
@@ -37,7 +53,7 @@ public class SystemAdmin extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         firstNameTextField = new javax.swing.JTextField();
-        lastNameTextField2 = new javax.swing.JTextField();
+        lastNameTextField = new javax.swing.JTextField();
         phoneNoTextField = new javax.swing.JTextField();
         emailAddressTextField = new javax.swing.JTextField();
         updateButton = new javax.swing.JButton();
@@ -50,11 +66,11 @@ public class SystemAdmin extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("System Admin");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setText("Back");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        backButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                backButtonActionPerformed(evt);
             }
         });
 
@@ -64,7 +80,7 @@ public class SystemAdmin extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(backButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(262, 262, 262))
@@ -75,7 +91,7 @@ public class SystemAdmin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(backButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -83,15 +99,20 @@ public class SystemAdmin extends javax.swing.JFrame {
 
         updateDetailstable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "First Name", "Last Name", "Phone No.", "Email Address"
+                "First Name", "Last Name", "Phone No.", "Email Address", "id"
             }
         ));
+        updateDetailstable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateDetailstableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(updateDetailstable);
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -108,6 +129,11 @@ public class SystemAdmin extends javax.swing.JFrame {
 
         updateButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         updateButton.setText("Update");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout updateDetailsPanelLayout = new javax.swing.GroupLayout(updateDetailsPanel);
         updateDetailsPanel.setLayout(updateDetailsPanelLayout);
@@ -132,7 +158,7 @@ public class SystemAdmin extends javax.swing.JFrame {
                             .addGroup(updateDetailsPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(98, 98, 98)
-                                .addComponent(lastNameTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(updateDetailsPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(98, 98, 98)
@@ -156,7 +182,7 @@ public class SystemAdmin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(updateDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lastNameTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(updateDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -192,51 +218,71 @@ public class SystemAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
-         new WelcomeFrame().setVisible(true);
+        new WelcomeFrame().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_backButtonActionPerformed
+
+    private void updateDetailstableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateDetailstableMouseClicked
+        // TODO add your handling code here:
+        selectedRow = updateDetailstable.getSelectedRow();    
+        firstNameTextField.setText(updateDetailstable.getValueAt(selectedRow, 0).toString());
+        lastNameTextField.setText(updateDetailstable.getValueAt(selectedRow, 1).toString());
+        phoneNoTextField.setText(updateDetailstable.getValueAt(selectedRow, 2).toString());
+        emailAddressTextField.setText(updateDetailstable.getValueAt(selectedRow, 3).toString());
+    }//GEN-LAST:event_updateDetailstableMouseClicked
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        // TODO add your handling code here:
+        Person p = new Person(firstNameTextField.getText(), lastNameTextField.getText(), phoneNoTextField.getText(), emailAddressTextField.getText(), 0);
+        p.setId(Integer.valueOf(updateDetailstable.getModel().getValueAt(selectedRow, 4).toString()));
+        
+        DatabaseConnection.updatePerson(p);
+        JFrame jFrame = new JFrame();
+        JOptionPane.showMessageDialog(jFrame, "Information Updated");
+        populateDetailsTable();
+    }//GEN-LAST:event_updateButtonActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SystemAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SystemAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SystemAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SystemAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SystemAdmin().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(SystemAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(SystemAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(SystemAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(SystemAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new SystemAdmin().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JTextField emailAddressTextField;
     private javax.swing.JTextField firstNameTextField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -244,10 +290,30 @@ public class SystemAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField lastNameTextField2;
+    private javax.swing.JTextField lastNameTextField;
     private javax.swing.JTextField phoneNoTextField;
     private javax.swing.JButton updateButton;
     private javax.swing.JPanel updateDetailsPanel;
     private javax.swing.JTable updateDetailstable;
     // End of variables declaration//GEN-END:variables
+
+    private void populateDetailsTable() {
+            
+        String select = "select * from person";
+        DefaultTableModel model = (DefaultTableModel) updateDetailstable.getModel();
+        model.setRowCount(0);
+
+        try {
+            ResultSet rs = DatabaseConnection.getData(select, false);
+            while (rs.next()) {
+                Object[] row = {rs.getString("fname"), rs.getString("lname"), rs.getString("phone"), rs.getString("email"), rs.getInt("id")};
+                model.addRow(row);
+
+            }
+
+        } catch (SQLException e) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
+
+        }
+    }
 }
