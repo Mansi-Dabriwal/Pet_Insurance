@@ -145,7 +145,7 @@ public class SignUp extends javax.swing.JFrame {
         jLabel18.setText("Username");
 
         roleComboBox.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Insurance Provider Admin", "Hospital Admin", "Veterinary Admin", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Support Representative", "System Admin" }));
+        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Insurance Provider Admin", "Hospital Admin", "Blood Bank Admin", "Rescue Unit Manager", "Pet Owner", "Support Representative", "System Admin" }));
 
         backBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         backBtn.setText("Back");
@@ -427,6 +427,7 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JTextField zipCodeTextField;
     // End of variables declaration//GEN-END:variables
     public void registerUser() {
+      
         if (addressLine1TextField.getText().trim().isEmpty() && cityTextField.getText().trim().isEmpty() && stateTextField.getText().trim().isEmpty() && countryTextField.getText().trim().isEmpty()
                 && zipCodeTextField.getText().trim().isEmpty() && firstNameTextField.getText().trim().isEmpty() && lastNameTextField.getText().trim().isEmpty() && emailTextField.getText().trim().isEmpty()
                 && usernameTextField.getText().trim().isEmpty() && PasswordField.getText().trim().isEmpty()) {
@@ -528,8 +529,6 @@ public class SignUp extends javax.swing.JFrame {
                             this.dispose();
                             break;
                         case VeterinaryDoctor:
-                            new DoctorPortal().setVisible(true);
-                            this.dispose();
                             break;
                     }
                 }
