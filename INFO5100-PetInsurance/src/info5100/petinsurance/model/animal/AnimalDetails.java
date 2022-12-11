@@ -17,16 +17,16 @@ public class AnimalDetails {
     String gender;
     int animalOwnerID;
     String bloodType;
-    String animalName;
+    String name;
 
-    public AnimalDetails(String animalType, String breed, int age, String gender, int animalOwnerID, String bloodType, String animalName) {
+    public AnimalDetails( String name,String animalType, String breed, int age, String gender, int animalOwnerID, String bloodType) {
         this.animalType = animalType;
         this.breed = breed;
         this.age = age;
         this.gender = gender;
         this.animalOwnerID = animalOwnerID;
         this.bloodType = bloodType;
-        this.animalName = animalName;
+        this.name = name;
     }
     
     
@@ -92,11 +92,11 @@ public class AnimalDetails {
     }
 
     public String getAnimalName() {
-        return animalName;
+        return name;
     }
 
     public void setAnimalName(String animalName) {
-        this.animalName = animalName;
+        this.name = name;
     }
     
     
