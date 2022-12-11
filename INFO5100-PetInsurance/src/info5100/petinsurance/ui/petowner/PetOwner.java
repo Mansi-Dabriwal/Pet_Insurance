@@ -7,17 +7,14 @@ package info5100.petinsurance.ui.petowner;
 import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
 import info5100.petinsurance.model.insurance.InsuranceDetails;
+import info5100.petinsurance.ui.SignUp;
 import info5100.petinsurance.ui.WelcomeFrame;
 import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.ValidationService;
-import info5100.petinsurance.utilities.DatabaseConnection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -34,14 +31,21 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ashit
  */
+
+
+
 public class PetOwner extends javax.swing.JFrame {
 
     /**
      * Creates new form AnimalOwner
      */
+    
+    Map<String, Integer> hospitalLookup = new HashMap<>();
+    Map<String, Integer> doctorLookup = new HashMap<>();
+    Map<String, Integer> animalLookup = new HashMap<>();
     UserAccount ua;
     ResultSet plan;
-    Map<String, Integer> planLookup = new HashMap<String, Integer>();
+    Map<String, Integer> planLookup = new HashMap<>();
     List<AnimalDetails> animals;
     private boolean flag;
 
@@ -62,6 +66,7 @@ public class PetOwner extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField3 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         registerButton = new javax.swing.JButton();
         purchaseInsuranceButton2 = new javax.swing.JButton();
@@ -121,12 +126,18 @@ public class PetOwner extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         claimAmount = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        contactNumber = new javax.swing.JTextField();
         submitClaimButton = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel();
+        contactEmail = new javax.swing.JTextField();
+        hospitalName = new javax.swing.JComboBox<>();
+        doctorName = new javax.swing.JComboBox<>();
+        jLabel26 = new javax.swing.JLabel();
+        animalDropDown = new javax.swing.JComboBox<>();
+
+        jTextField3.setText("jTextField3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -575,15 +586,20 @@ public class PetOwner extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Name", "Insurance Amount", "Status"
+                "Animal ID", "Name", "Insurance ID", "Insurance Amount", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        submitClaimTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitClaimTableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(submitClaimTable);
@@ -616,12 +632,23 @@ public class PetOwner extends javax.swing.JFrame {
 
         submitClaimButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         submitClaimButton.setText("Submit");
+        submitClaimButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitClaimButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel25.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel25.setText("Email");
+
+        jLabel26.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel26.setText("Animal");
 
         javax.swing.GroupLayout submitClaimPanelLayout = new javax.swing.GroupLayout(submitClaimPanel);
         submitClaimPanel.setLayout(submitClaimPanelLayout);
         submitClaimPanelLayout.setHorizontalGroup(
             submitClaimPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
             .addGroup(submitClaimPanelLayout.createSequentialGroup()
                 .addGroup(submitClaimPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(submitClaimPanelLayout.createSequentialGroup()
@@ -630,19 +657,23 @@ public class PetOwner extends javax.swing.JFrame {
                             .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17))
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25)
+                            .addComponent(jLabel26))
                         .addGap(35, 35, 35)
-                        .addGroup(submitClaimPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(claimAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(submitClaimPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(claimAmount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                            .addComponent(contactNumber, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                            .addComponent(contactEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(hospitalName, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(doctorName, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(animalDropDown, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(submitClaimPanelLayout.createSequentialGroup()
-                        .addGap(319, 319, 319)
+                        .addGap(318, 318, 318)
                         .addComponent(submitClaimButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         submitClaimPanelLayout.setVerticalGroup(
             submitClaimPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -650,13 +681,17 @@ public class PetOwner extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(submitClaimPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hospitalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(submitClaimPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(doctorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(submitClaimPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(animalDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(submitClaimPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -667,10 +702,14 @@ public class PetOwner extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(submitClaimPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(contactNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(submitClaimPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(contactEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(submitClaimButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         parentPanel.add(submitClaimPanel, "card2");
@@ -880,12 +919,27 @@ public class PetOwner extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_planComboBoxActionPerformed
 
+    private void submitClaimTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitClaimTableMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_submitClaimTableMouseClicked
+
+    private void submitClaimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitClaimButtonActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_submitClaimButtonActionPerformed
+
     private void submitclaimButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         parentPanel.removeAll();
         parentPanel.add(submitClaimPanel);
         parentPanel.repaint();
         parentPanel.revalidate();
+        populateTable();
+        populateDoctorsInDropDown();
+        populateHospitalsInDropDown();
+        populateAnimalsForSubmitClaim();
     }
     /**
      * @param args the command line arguments
@@ -925,6 +979,7 @@ public class PetOwner extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ageTextField;
+    private javax.swing.JComboBox<String> animalDropDown;
     private javax.swing.JTextField animalIDTextField1;
     private javax.swing.JTextField animalName;
     private javax.swing.JTextField anmlIDCancelTextField;
@@ -935,10 +990,14 @@ public class PetOwner extends javax.swing.JFrame {
     private javax.swing.JButton cancelInsurancePanelButton;
     private javax.swing.JTable cancelInsuranceTable;
     private javax.swing.JTextField claimAmount;
+    private javax.swing.JTextField contactEmail;
+    private javax.swing.JTextField contactNumber;
+    private javax.swing.JComboBox<String> doctorName;
     private com.toedter.calendar.JDateChooser endDateChooser;
     private javax.swing.JComboBox<String> existingMedicalConditions;
     private javax.swing.JRadioButton femaleRadioButton;
     private javax.swing.JPanel homePanel;
+    private javax.swing.JComboBox<String> hospitalName;
     private javax.swing.JTextField insuranceID;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -957,6 +1016,8 @@ public class PetOwner extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -969,10 +1030,8 @@ public class PetOwner extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JRadioButton maleRadioButton;
     private javax.swing.JPanel parentPanel;
     private javax.swing.JComboBox<String> planComboBox;
@@ -1016,7 +1075,7 @@ public class PetOwner extends javax.swing.JFrame {
 
         try {
             ResultSet rs = null;
-            String selectStatmt = "Select * from AnimalDetails WHERE animalOwnerID = " + ua.getPersonID();
+            String selectStatmt = Constants.GETALLANIMALFOROWNER + ua.getPersonID();
             System.out.print(selectStatmt);
             rs = DatabaseConnection.getData(selectStatmt, false);
             while (rs.next()) {
@@ -1054,10 +1113,88 @@ public class PetOwner extends javax.swing.JFrame {
             }
 
         } catch (SQLException e) {
-
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
-
         }
+    }
+    
+    private void populateDoctorsInDropDown() {
+        String[] doctors = new String[15];
+
+        try {
+            ResultSet docs = DatabaseConnection.getData(Constants.GETALLDOCTORS, false);
+            int i = 0;
+            while (docs.next()) {
+                String docName = docs.getString("fname")+ " " + docs.getString("lname");
+                doctors[i] = docName;
+                doctorLookup.put(docName, docs.getInt("id"));
+                i++;
+            }
+            
+            doctors = Arrays.stream(doctors).filter(value ->value != null && value.length() > 0).toArray(size -> new String[size]);
+
+        } catch (SQLException e) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        doctorName.setModel(new javax.swing.DefaultComboBoxModel<>(doctors));
+    }
+    
+    private void populateHospitalsInDropDown() {
+        String[] hospitals = new String[15];
+
+        try {
+           ResultSet hospitalN = DatabaseConnection.getData(Constants.GETALLHOSPITALS, false);
+
+            int i = 0;
+            while (hospitalN.next()) {
+                hospitals[i] = hospitalN.getString("hospitalName");
+                hospitalLookup.put(hospitalN.getString("hospitalName"), hospitalN.getInt("id"));
+                i++;
+            }
+            hospitals = Arrays.stream(hospitals).filter(value ->value != null && value.length() > 0).toArray(size -> new String[size]);
+
+        } catch (SQLException e) {
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);          
+        }
+        hospitalName.setModel(new javax.swing.DefaultComboBoxModel<>(hospitals));
+    }
+
+    private void populateTable() {
+         DefaultTableModel model = (DefaultTableModel) submitClaimTable.getModel();
+        model.setRowCount(0);
+        try{
+            ResultSet rs = DatabaseConnection.getData(Constants.GETINSURANCEDETAILSFORCLAIM, false);
+            while (rs.next()) {
+                Object[] row = {rs.getInt("AnimalID"), rs.getString("AnimalName"), rs.getInt("InsuranceID"), rs.getInt("planCoverage"), "ACTIVE"};
+                model.addRow(row);
+            }
+            
+            
+        } catch(SQLException e){
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
+        
+        }
+    }
+    
+    private void populateAnimalsForSubmitClaim(){
+        
+        String[] animals = new String[15];
+
+        try {
+           ResultSet animalnames = DatabaseConnection.getData(Constants.GETALLANIMALFOROWNER + ua.getPersonID(), false);
+
+            int i = 0;
+            while (animalnames.next()) {
+                animals[i] = animalnames.getString("name");
+                animalLookup.put(animalnames.getString("name"), animalnames.getInt("id"));
+                i++;
+            }
+            animals = Arrays.stream(animals).filter(value ->value != null && value.length() > 0).toArray(size -> new String[size]);
+
+        } catch (SQLException e) {
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);          
+        }
+        animalDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(animals));
     }
 
 }
