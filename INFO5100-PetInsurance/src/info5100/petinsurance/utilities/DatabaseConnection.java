@@ -451,7 +451,7 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO AdoptedAnimal VALUES (?, ?, ?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO AnimalsForAdoption VALUES (?, ?, ?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             
             ps.setString(1, a.getName());
             ps.setString(2, a.getType());
@@ -520,5 +520,7 @@ public class DatabaseConnection {
         return resultSet;
         
     }
+    
+    
         
 }

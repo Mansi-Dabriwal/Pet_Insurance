@@ -17,6 +17,15 @@ public class AdoptedAnimal {
     String status;
     String name;
 
+    public AdoptedAnimal(String name, String type, String gender, String breed, int age, String status) {
+       this.name =name;
+       this.type = type;
+       this.breed = breed;
+       this.gender = gender;
+       this.status = status;
+       this.age = age;
+    }
+
     public int getId() {
         return id;
     }
