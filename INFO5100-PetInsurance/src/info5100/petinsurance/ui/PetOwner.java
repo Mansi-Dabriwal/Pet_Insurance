@@ -968,13 +968,12 @@ public class PetOwner extends javax.swing.JFrame {
             while (rs.next()) {
                 Object[] row = {rs.getString("name"), rs.getString("animalType"), rs.getString("breed"), rs.getString("gender")};
                 model.addRow(row);
-                AnimalDetails animalnew = new AnimalDetails( rs.getString("animalType"),
+                AnimalDetails animalnew = new AnimalDetails( rs.getString("name") ,rs.getString("animalType"),
                 rs.getString("breed"),
                         rs.getInt("age"),
                         rs.getString("gender"),
                         ua.getPersonID(),
-                        rs.getString("bloodType"),
-                        rs.getString("name")     
+                        rs.getString("bloodType")       
                 );
                 animalnew.setId(rs.getInt("id"));
                 animals.add(animalnew);
