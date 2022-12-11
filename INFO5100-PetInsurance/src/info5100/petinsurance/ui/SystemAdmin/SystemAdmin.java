@@ -8,6 +8,7 @@ import info5100.petinsurance.model.Person;
 import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.ui.WelcomeFrame;
 import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.ValidationService;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -28,6 +29,9 @@ public class SystemAdmin extends javax.swing.JFrame {
      */
     int selectedRow ;
     UserAccount ua;
+    private boolean flag;
+    private boolean flag1;
+    
     public SystemAdmin(UserAccount ua) {
         initComponents();
         this.ua = ua;
@@ -127,6 +131,12 @@ public class SystemAdmin extends javax.swing.JFrame {
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel16.setText("Phone No.");
+
+        phoneNoTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                phoneNoTextFieldKeyTyped(evt);
+            }
+        });
 
         updateButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         updateButton.setText("Update");
@@ -239,11 +249,30 @@ public class SystemAdmin extends javax.swing.JFrame {
         Person p = new Person(firstNameTextField.getText(), lastNameTextField.getText(), phoneNoTextField.getText(), emailAddressTextField.getText(), 0);
         p.setId(Integer.valueOf(updateDetailstable.getModel().getValueAt(selectedRow, 4).toString()));
         
-        DatabaseConnection.updatePerson(p);
-        JFrame jFrame = new JFrame();
-        JOptionPane.showMessageDialog(jFrame, "Information Updated");
-        populateDetailsTable();
+        flag = true;
+        flag1 = true;
+        flag = ValidationService.validateEmail(emailAddressTextField.getText());
+        flag1 = ValidationService.validateNumber(phoneNoTextField.getText());
+        if (!flag) {
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Email entered is wrong, please enter correct email!");
+        }else if (!flag1) {
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Phone number entered is wrong, please enter correct number!");
+        } else{
+            DatabaseConnection.updatePerson(p);
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Information Updated");
+            populateDetailsTable();
+        }
     }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void phoneNoTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneNoTextFieldKeyTyped
+        // TODO add your handling code here:
+        char TestChar = evt.getKeyChar();
+        if (!(Character.isDigit(TestChar)))
+            evt.consume();
+    }//GEN-LAST:event_phoneNoTextFieldKeyTyped
 
     /**
      * @param args the command line arguments

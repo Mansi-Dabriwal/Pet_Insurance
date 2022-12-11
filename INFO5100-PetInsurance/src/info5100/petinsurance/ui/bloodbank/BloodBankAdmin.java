@@ -51,6 +51,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
         viewRequestButton = new javax.swing.JButton();
         parentPanel = new javax.swing.JPanel();
         homePanel = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         updatePanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -143,15 +144,22 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
         homePanel.setBackground(new java.awt.Color(153, 204, 255));
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info5100/petinsurance/ui/bloodbank/Blood_bank.png"))); // NOI18N
+        jLabel4.setText("jLabel4");
+
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
         homePanelLayout.setHorizontalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 554, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         homePanelLayout.setVerticalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 478, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelLayout.createSequentialGroup()
+                .addGap(0, 62, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         parentPanel.add(homePanel, "card4");
@@ -167,6 +175,12 @@ public class BloodBankAdmin extends javax.swing.JFrame {
         jLabel3.setText("Set Availability (Units)");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "O Positive", "O Negative", "A Positive", "A Negative", "B Positive", "B Negative", "AB Positive", "AB Negative" }));
+
+        availabilityTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                availabilityTextFieldKeyTyped(evt);
+            }
+        });
 
         setButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         setButton.setText("Update Availability");
@@ -194,7 +208,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
                     .addGroup(updatePanelLayout.createSequentialGroup()
                         .addGap(180, 180, 180)
                         .addComponent(setButton)))
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         updatePanelLayout.setVerticalGroup(
             updatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,12 +266,12 @@ public class BloodBankAdmin extends javax.swing.JFrame {
             .addGroup(viewPendingRequestPanelLayout.createSequentialGroup()
                 .addGap(112, 112, 112)
                 .addComponent(approveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
                 .addComponent(rejectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(118, 118, 118))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewPendingRequestPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
                 .addContainerGap())
         );
         viewPendingRequestPanelLayout.setVerticalGroup(
@@ -416,6 +430,13 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
     }//GEN-LAST:event_setButtonActionPerformed
 
+    private void availabilityTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_availabilityTextFieldKeyTyped
+        // TODO add your handling code here:
+        char TestChar = evt.getKeyChar();
+        if (!(Character.isDigit(TestChar)))
+            evt.consume();
+    }//GEN-LAST:event_availabilityTextFieldKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -460,6 +481,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
