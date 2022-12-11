@@ -86,7 +86,7 @@ public class SupportAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton4.setText("Back");
@@ -122,7 +122,7 @@ public class SupportAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel2.setBackground(new java.awt.Color(51, 153, 255));
 
         reportAbuseButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         reportAbuseButton.setText("Report Abuse");
@@ -147,23 +147,26 @@ public class SupportAdmin extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(reportAbuseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bloodCollectionRequestButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(bloodCollectionRequestButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(reportAbuseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(194, 194, 194)
-                .addComponent(reportAbuseButton)
-                .addGap(92, 92, 92)
-                .addComponent(bloodCollectionRequestButton)
+                .addGap(195, 195, 195)
+                .addComponent(reportAbuseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73)
+                .addComponent(bloodCollectionRequestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         parentPanel.setLayout(new java.awt.CardLayout());
 
-        homePanel.setBackground(new java.awt.Color(255, 255, 153));
+        homePanel.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
@@ -259,7 +262,7 @@ public class SupportAdmin extends javax.swing.JFrame {
 
         parentPanel.add(bloodCollectionRequestPanel, "card3");
 
-        reportAbusePanel.setBackground(new java.awt.Color(255, 255, 153));
+        reportAbusePanel.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Animal ID");

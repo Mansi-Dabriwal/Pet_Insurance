@@ -100,7 +100,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
         back.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         back.setText("Back");
@@ -135,7 +135,7 @@ public class RescueUnitManager extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 189, 50));
+        jPanel2.setBackground(new java.awt.Color(51, 153, 255));
 
         addAnimal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         addAnimal.setText("Add animal to family");
