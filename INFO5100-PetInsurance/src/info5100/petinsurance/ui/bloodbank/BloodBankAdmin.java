@@ -8,6 +8,7 @@ import info5100.petinsurance.model.hospital.bloodbank.Bloodbank;
 import info5100.petinsurance.model.support.BloodCollectionRequestModel;
 import info5100.petinsurance.ui.SignUp;
 import info5100.petinsurance.ui.WelcomeFrame;
+import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.WorkFlowStatus;
 import java.sql.ResultSet;
@@ -167,11 +168,11 @@ public class BloodBankAdmin extends javax.swing.JFrame {
         updatePanel.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Blood Type");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Set Availability (Units)");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "O Positive", "O Negative", "A Positive", "A Negative", "B Positive", "B Negative", "AB Positive", "AB Negative" }));
@@ -197,33 +198,33 @@ public class BloodBankAdmin extends javax.swing.JFrame {
             .addGroup(updatePanelLayout.createSequentialGroup()
                 .addGroup(updatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(updatePanelLayout.createSequentialGroup()
-                        .addGap(58, 58, 58)
+                        .addGap(83, 83, 83)
                         .addGroup(updatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(44, 44, 44)
                         .addGroup(updatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox1, 0, 146, Short.MAX_VALUE)
-                            .addComponent(availabilityTextField)))
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(availabilityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(updatePanelLayout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(setButton)))
-                .addContainerGap(132, Short.MAX_VALUE))
+                        .addGap(190, 190, 190)
+                        .addComponent(setButton, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         updatePanelLayout.setVerticalGroup(
             updatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(updatePanelLayout.createSequentialGroup()
-                .addGap(65, 65, 65)
+                .addGap(125, 125, 125)
                 .addGroup(updatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(updatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(availabilityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(87, 87, 87)
-                .addComponent(setButton)
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addGap(71, 71, 71)
+                .addComponent(setButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
         parentPanel.add(updatePanel, "card3");
@@ -263,27 +264,27 @@ public class BloodBankAdmin extends javax.swing.JFrame {
         viewPendingRequestPanel.setLayout(viewPendingRequestPanelLayout);
         viewPendingRequestPanelLayout.setHorizontalGroup(
             viewPendingRequestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(viewPendingRequestPanelLayout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(approveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
-                .addComponent(rejectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewPendingRequestPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(viewPendingRequestPanelLayout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(approveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(103, 103, 103)
+                .addComponent(rejectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         viewPendingRequestPanelLayout.setVerticalGroup(
             viewPendingRequestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewPendingRequestPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(50, 50, 50)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
-                .addGroup(viewPendingRequestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(approveButton)
-                    .addComponent(rejectButton))
-                .addGap(0, 202, Short.MAX_VALUE))
+                .addGap(72, 72, 72)
+                .addGroup(viewPendingRequestPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(approveButton, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .addComponent(rejectButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 127, Short.MAX_VALUE))
         );
 
         parentPanel.add(viewPendingRequestPanel, "card2");
@@ -338,7 +339,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
     private void approveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveButtonActionPerformed
         // TODO add your handling code here:
         int selectedRow = pendingRequestsTable.getSelectedRow();
-        String select = "Select * from BloodCollectionRequests where id = " + pendingRequestsTable.getValueAt(selectedRow, 0);
+        String select = Constants.GETBLOODCOLLECTIONREQUESTSID + pendingRequestsTable.getValueAt(selectedRow, 0);
 
         try {
 
@@ -371,7 +372,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
     private void rejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectButtonActionPerformed
         // TODO add your handling code here:
        int selectedRow = pendingRequestsTable.getSelectedRow();
-        String select = "Select * from BloodCollectionRequests where id = " + pendingRequestsTable.getValueAt(selectedRow, 0);
+        String select = Constants.GETBLOODCOLLECTIONREQUESTSID + pendingRequestsTable.getValueAt(selectedRow, 0);
 
         try {
 
@@ -408,7 +409,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
         boolean existingBloodType = false;
         Bloodbank bb = new Bloodbank(jComboBox1.getSelectedItem().toString(), Integer.valueOf(availabilityTextField.getText()));
         try {
-            rs = DatabaseConnection.getData("Select * from BloodBank where bloodType = '" + jComboBox1.getSelectedItem().toString() + "'", false);
+            rs = DatabaseConnection.getData(Constants.GETBLOODBANKINFO + jComboBox1.getSelectedItem().toString() + "'", false);
             while (rs.next()) {
                 existingBloodType = true;
             }
@@ -501,8 +502,8 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
         try {
             ResultSet rs = null;
-            String selectStatmt = "Select * from BloodCollectionRequests WHERE status = 'PENDING'";
-            rs = DatabaseConnection.getData(selectStatmt, false);
+          
+            rs = DatabaseConnection.getData(Constants.GETBLOODCOLLECTIONREQUESTS, false);
             while (rs.next()) {
                 Object[] row = {rs.getInt("ID"), rs.getInt("AnimalID"), rs.getString("AnimalType"), rs.getString("BloodType"), rs.getString("NumberofUnits")};
                 model.addRow(row);
