@@ -903,6 +903,8 @@ public class PetOwner extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(jFrame, "There's no active insurance.");
 
         }
+        
+        populateCancelInsuranceTable();
 
     }//GEN-LAST:event_cancelInsurancePanelButtonActionPerformed
 
@@ -1126,10 +1128,10 @@ public class PetOwner extends javax.swing.JFrame {
 
         try {
             ResultSet rs = null;
-            String selectStatmt = "select * from InsuranceDetails id JOIN AnimalDetails ad ON id.animalId = ad.id WHERE status='ACTIVE' and ad.animalOwnerID = " + ua.getPersonID();
+            String selectStatmt = Constants.GETINSURANCEUNDEROWNER + ua.getPersonID();
             rs = DatabaseConnection.getData(selectStatmt, false);
             while (rs.next()) {
-                Object[] row = {rs.getString("name"), rs.getString("animalType"), rs.getString("breed"), rs.getString("gender")};
+                Object[] row = {rs.getInt("InsuranceID"), rs.getString("name"), rs.getString("planName"), rs.getDate("dateOfInsurance")};
                 model.addRow(row);
             }
 

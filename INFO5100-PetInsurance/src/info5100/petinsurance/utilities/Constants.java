@@ -58,5 +58,7 @@ public class Constants {
     public static final String GETALLANIMALFOROWNER = "Select * from AnimalDetails WHERE animalOwnerID = ";
     
     public static final String GETANIMALOWNERCONTACT= "select phone,email from Person p JOIN AnimalDetails ad ON p.id = ad.animalOwnerID  ";
+    
+    public static final String GETINSURANCEUNDEROWNER = "select id.id as InsuranceID, name, planName, dateOfInsurance  from InsuranceDetails id JOIN AnimalDetails ad ON id.animalId = ad.id JOIN InsurancePlan ip  ON ip.id  = id.planId WHERE status='ACTIVE' and ad.animalOwnerID =";
 
 }
