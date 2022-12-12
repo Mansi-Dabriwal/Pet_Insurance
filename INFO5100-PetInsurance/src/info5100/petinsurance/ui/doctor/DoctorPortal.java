@@ -4,16 +4,28 @@
  */
 package info5100.petinsurance.ui.doctor;
 
+import info5100.petinsurance.model.Address;
 import info5100.petinsurance.model.UserAccount;
+import info5100.petinsurance.model.hospital.Hospital;
+import info5100.petinsurance.model.hospital.PatientDiagnose;
+import info5100.petinsurance.model.hospital.UpcomingAppointments;
+import info5100.petinsurance.ui.SignUp;
 import info5100.petinsurance.ui.WelcomeFrame;
+import info5100.petinsurance.ui.hospital.HospitalAdmin;
 import info5100.petinsurance.ui.rescueunit.RescueUnitManager;
 import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.ValidationService;
 import java.awt.CardLayout;
+import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,6 +40,9 @@ public class DoctorPortal extends javax.swing.JFrame {
     
     CardLayout cardLayout;
     UserAccount ua;
+    ResultSet patientN;
+    Map<String, Integer> patientLookup = new HashMap<>();
+    
     public DoctorPortal(UserAccount ua) {
         initComponents();
         this.ua = ua;
@@ -53,24 +68,21 @@ public class DoctorPortal extends javax.swing.JFrame {
         showAll = new javax.swing.JButton();
         pnlCard2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        patientName = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        vitalInfo = new javax.swing.JTextField();
         bloodGroup = new javax.swing.JTextField();
-        med1 = new javax.swing.JTextField();
         med2 = new javax.swing.JTextField();
-        med3 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        date = new com.toedter.calendar.JDateChooser();
         btnComplete = new javax.swing.JButton();
-        med4 = new javax.swing.JTextField();
-        med5 = new javax.swing.JTextField();
+        med1 = new javax.swing.JTextField();
+        med3 = new javax.swing.JTextField();
+        bloodPressure = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         upcomingAppointments = new javax.swing.JButton();
         diagnoseapatient = new javax.swing.JButton();
@@ -159,22 +171,19 @@ public class DoctorPortal extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Patient Name");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        patientName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Date");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("Vital Info");
+        jLabel4.setText("Vital Info-");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("Blood Pressure\n");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Blood Group");
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setText("Medicine");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("Medicine 1");
@@ -213,74 +222,70 @@ public class DoctorPortal extends javax.swing.JFrame {
                     .addGroup(pnlCard2Layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addGap(34, 34, 34)
-                        .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jComboBox1, 0, 224, Short.MAX_VALUE)
-                                .addComponent(vitalInfo)
-                                .addComponent(bloodGroup)
-                                .addComponent(med1)
-                                .addComponent(med2)
-                                .addComponent(med3)
-                                .addComponent(med4, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(med5))))
+                            .addGroup(pnlCard2Layout.createSequentialGroup()
+                                .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10))
+                                .addGap(76, 76, 76)
+                                .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(med2, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                                    .addComponent(med1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(med3)))
+                            .addGroup(pnlCard2Layout.createSequentialGroup()
+                                .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(34, 34, 34)
+                                .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                                    .addComponent(patientName, 0, 224, Short.MAX_VALUE)
+                                    .addComponent(bloodGroup)
+                                    .addComponent(bloodPressure)))))
                     .addGroup(pnlCard2Layout.createSequentialGroup()
                         .addGap(180, 180, 180)
-                        .addComponent(btnComplete)))
+                        .addComponent(btnComplete, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(163, Short.MAX_VALUE))
         );
         pnlCard2Layout.setVerticalGroup(
             pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCard2Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(74, 74, 74)
                 .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(patientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
-                .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(vitalInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(bloodGroup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bloodPressure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(med1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(med2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bloodGroup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(med4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(med1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(med3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(med2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(med5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(med3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addGap(48, 48, 48)
-                .addComponent(btnComplete)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addComponent(btnComplete, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pnlCards.add(pnlCard2, "pnlCard2");
@@ -320,10 +325,10 @@ public class DoctorPortal extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(176, 176, 176)
-                .addComponent(upcomingAppointments)
-                .addGap(80, 80, 80)
-                .addComponent(diagnoseapatient)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addComponent(upcomingAppointments, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
+                .addComponent(diagnoseapatient, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(229, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel2);
@@ -393,15 +398,12 @@ public class DoctorPortal extends javax.swing.JFrame {
     private void diagnoseapatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diagnoseapatientActionPerformed
         // TODO add your handling code here:
         cardLayout.show(pnlCards,"pnlCard2");
+        populatePatientsInDropDown1();
     }//GEN-LAST:event_diagnoseapatientActionPerformed
-
-    private void bloodGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloodGroupActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bloodGroupActionPerformed
 
     private void btnCompleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteActionPerformed
         // TODO add your handling code here:
-
+        completeDiagnose();
     }//GEN-LAST:event_btnCompleteActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -427,9 +429,15 @@ public class DoctorPortal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_showAllActionPerformed
 
+
     private void bloodGroupKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bloodGroupKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_bloodGroupKeyTyped
+
+    private void bloodGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloodGroupActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bloodGroupActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -469,10 +477,10 @@ public class DoctorPortal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JTextField bloodGroup;
+    private javax.swing.JTextField bloodPressure;
     private javax.swing.JButton btnComplete;
+    private com.toedter.calendar.JDateChooser date;
     private javax.swing.JButton diagnoseapatient;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -481,7 +489,6 @@ public class DoctorPortal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -493,13 +500,54 @@ public class DoctorPortal extends javax.swing.JFrame {
     private javax.swing.JTextField med1;
     private javax.swing.JTextField med2;
     private javax.swing.JTextField med3;
-    private javax.swing.JTextField med4;
-    private javax.swing.JTextField med5;
+    private javax.swing.JComboBox<String> patientName;
     private javax.swing.JPanel pnlCard1;
     private javax.swing.JPanel pnlCard2;
     private javax.swing.JPanel pnlCards;
     private javax.swing.JButton showAll;
     private javax.swing.JButton upcomingAppointments;
-    private javax.swing.JTextField vitalInfo;
     // End of variables declaration//GEN-END:variables
+
+    private void populatePatientsInDropDown1() {
+        String[] patients = new String[15];
+
+        try {
+            patientN = DatabaseConnection.getData(Constants.GETPATIENTS, false);
+            int j = 0;
+            while (patientN.next()) {
+                patients[j] = patientN.getString("patientName");
+                patientLookup.put(patientN.getString("patientName"), patientN.getInt("patientId"));
+                j++;
+            }   
+            
+        } catch (SQLException e) {
+            Logger.getLogger(DoctorPortal.class.getName()).log(Level.SEVERE, null, e);          
+        }
+        patientName.setModel(new javax.swing.DefaultComboBoxModel<>(patients));
+    }
+    
+   public void completeDiagnose() {
+        try {
+
+            String patientNa = patientName.getSelectedItem().toString();
+            int patientIDD = patientLookup.get(patientNa);
+            
+            //Patient Diagnoses
+            PatientDiagnose diagnoses = new PatientDiagnose(patientIDD,patientName.getSelectedItem().toString(), date.getDate(), bloodPressure.getText(),bloodGroup.getText(), med1.getText(),med2.getText(),med3.getText());
+            DatabaseConnection.storeData(diagnoses);
+            //Create Appointment
+//            ResultSet rs;
+//            rs = DatabaseConnection.storeData(appointment);
+
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Diagnoses Completed!");
+        } catch (HeadlessException | NumberFormatException e) {
+            
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Diagnoses failed. Please try again!");
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
+
+        }
+
+    }
 }
