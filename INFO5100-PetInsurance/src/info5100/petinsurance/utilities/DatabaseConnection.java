@@ -10,6 +10,7 @@ import info5100.petinsurance.model.UserAccount;
 import info5100.petinsurance.model.animal.AnimalDetails;
 import info5100.petinsurance.model.hospital.Doctor;
 import info5100.petinsurance.model.hospital.Hospital;
+import info5100.petinsurance.model.hospital.PatientDiagnose;
 import info5100.petinsurance.model.hospital.UpcomingAppointments;
 import info5100.petinsurance.model.hospital.bloodbank.Bloodbank;
 import info5100.petinsurance.model.insurance.InsuranceClaim;
@@ -572,4 +573,35 @@ public class DatabaseConnection {
 
         return resultSet;
     }
+
+    
+    public static ResultSet storeData(PatientDiagnose p) {
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO PatientDiagnose VALUES (?, ?, ?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setInt(1, p.getPatientId());
+            ps.setString(2, p.getPatientName());
+            ps.setDate(3, new Date(p.getDateOfPatient().getTime()));
+            ps.setString(4, p.getBloodPressure());
+            ps.setString(5, p.getBloodGroup());
+            ps.setString(6, p.getMedicine1());
+            ps.setString(7, p.getMedicine2());
+            ps.setString(8, p.getMedicine3());
+            
+            
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    }
+        
+
 }

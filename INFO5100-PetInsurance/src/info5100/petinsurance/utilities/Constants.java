@@ -45,6 +45,8 @@ public class Constants {
     public static final String GETBLOODCOLLECTIONREQUESTS = "Select * from BloodCollectionRequests WHERE status = 'PENDING'";
     
     public static final String GETBLOODCOLLECTIONREQUESTSID = "Select * from BloodCollectionRequests where id = ";
+    
+    public static final String GETPATIENTS = "Select * from UpcomingAppointments";
                                                                
     public static final String GETALLACTIVEINSURANCE = "select id.id AS ID, id.animalId , existingMedicalConditions , dateOfInsurance , planName from InsuranceDetails id JOIN InsurancePlan ip ON ip.id = id.planId where Status = 'ACTIVE'";
     
