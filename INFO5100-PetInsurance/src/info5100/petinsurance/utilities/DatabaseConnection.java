@@ -406,11 +406,12 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO UpcomingAppointments VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO UpcomingAppointments VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, u.getPatientName());
             ps.setInt(2, u.getPatientId());
             ps.setDate(3, new Date(u.getDateOfAppointment().getTime()));
+            ps.setInt(4, u.getDoctorID());
 
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
