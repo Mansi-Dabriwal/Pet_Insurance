@@ -108,6 +108,12 @@ public class SignUp extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Last Name");
 
+        firstNameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                firstNameTextFieldKeyTyped(evt);
+            }
+        });
+
         signUpButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         signUpButton.setText("Sign Up");
         signUpButton.addActionListener(new java.awt.event.ActionListener() {
@@ -401,6 +407,10 @@ public class SignUp extends javax.swing.JFrame {
         if (!(Character.isDigit(TestChar)))
             evt.consume();
     }//GEN-LAST:event_phoneTextFieldKeyTyped
+
+    private void firstNameTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_firstNameTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_firstNameTextFieldKeyTyped
 
     /**
      * @param args the command line arguments
