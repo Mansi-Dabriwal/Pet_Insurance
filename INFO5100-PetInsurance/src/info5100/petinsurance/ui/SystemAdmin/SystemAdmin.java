@@ -100,7 +100,7 @@ public class SystemAdmin extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        updateDetailsPanel.setBackground(new java.awt.Color(255, 255, 153));
+        updateDetailsPanel.setBackground(new java.awt.Color(153, 204, 255));
 
         updateDetailstable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
