@@ -339,7 +339,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selectedRow = pendingRequestsTable.getSelectedRow();
         String select = "Select * from BloodCollectionRequests where id = " + pendingRequestsTable.getValueAt(selectedRow, 0);
-
+        
         try {
 
             ResultSet rs = DatabaseConnection.getData(select, false);
@@ -407,6 +407,13 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
         boolean existingBloodType = false;
         Bloodbank bb = new Bloodbank(jComboBox1.getSelectedItem().toString(), Integer.valueOf(availabilityTextField.getText()));
+        if (jComboBox1.getSelectedItem().equals("")) {
+           JFrame jFrame = new JFrame();
+           JOptionPane.showMessageDialog(jFrame, "Please select a blood type!");
+        } else if(availabilityTextField.getText().trim().isEmpty()){
+        JFrame jFrame = new JFrame();
+        JOptionPane.showMessageDialog(jFrame, "Please enter availability!");
+        } else{
         try {
             rs = DatabaseConnection.getData("Select * from BloodBank where bloodType = '" + jComboBox1.getSelectedItem().toString() + "'", false);
             while (rs.next()) {
@@ -427,7 +434,7 @@ public class BloodBankAdmin extends javax.swing.JFrame {
 
         }
 
-
+        }
     }//GEN-LAST:event_setButtonActionPerformed
 
     private void availabilityTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_availabilityTextFieldKeyTyped
