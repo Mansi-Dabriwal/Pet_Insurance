@@ -67,4 +67,7 @@ public class Constants {
     public static final String GETANIMALSFORADOPTION = "select * from AnimalsForAdoption where status='PENDING'";
     
     public static final String GETALLINSURANCEPLANS = "Select * from InsurancePlan";
+    
+    public static final String ANIMALSSUPPORT = "Select ad.id AS AnimalID, ad.name AS AnimalName, ad.breed , ad.gender , ad.animalType , p.id  AS OwnerID, p.fname +  ' ' +p.lName  as OwnerName, ad.age, ad.bloodType from \n" +
+"AnimalDetails ad JOIN Person p  ON ad.animalOwnerID = p.id ";
 }
