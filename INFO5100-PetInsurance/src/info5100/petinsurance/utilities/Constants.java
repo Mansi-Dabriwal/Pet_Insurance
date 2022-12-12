@@ -62,4 +62,9 @@ public class Constants {
     public static final String GETINSURANCEUNDEROWNER = "select id.id as InsuranceID, name, planName, dateOfInsurance  from InsuranceDetails id JOIN AnimalDetails ad ON id.animalId = ad.id JOIN InsurancePlan ip  ON ip.id  = id.planId WHERE status='ACTIVE' and ad.animalOwnerID =";
 
     public static final String GETACTIVEAPPOINTMENTS = "select count(*) AS COUNT from upcomingappointments where status='PENDING' and patientId =";
+    
+    
+    public static final String GETANIMALSFORADOPTION = "select * from AnimalsForAdoption where status='PENDING'";
+    
+    public static final String GETALLINSURANCEPLANS = "Select * from InsurancePlan";
 }

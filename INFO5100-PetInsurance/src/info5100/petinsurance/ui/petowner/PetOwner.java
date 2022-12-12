@@ -1076,7 +1076,7 @@ public class PetOwner extends javax.swing.JFrame {
         String[] plans = new String[15];
 
         try {
-            plan = DatabaseConnection.getData("Select * from InsurancePlan", false);
+            plan = DatabaseConnection.getData(Constants.GETALLINSURANCEPLANS, false);
             int i = 0;
             while (plan.next()) {
                 plans[i] = plan.getString("planName");

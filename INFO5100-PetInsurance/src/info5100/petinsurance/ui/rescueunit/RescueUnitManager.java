@@ -12,6 +12,7 @@ import info5100.petinsurance.model.rescueoperation.AnimalRescueOperation;
 //import info5100.petinsurance.model.rescueoperation.AnimalRescueOperation;
 import info5100.petinsurance.ui.WelcomeFrame;
 import info5100.petinsurance.ui.hospital.HospitalAdmin;
+import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.ValidationService;
 import info5100.petinsurance.utilities.WorkFlowStatus;
@@ -445,32 +446,21 @@ public class RescueUnitManager extends javax.swing.JFrame {
 
     private void showAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-        model.setRowCount(0);
-
-        ResultSet rs;
-        try {
-            rs = DatabaseConnection.getData("select * from AnimalsForAdoption where status='PENDING'", false);
-            
-            while (rs.next()) {
-
-                model.addRow(new Object[]{rs.getInt("id"),rs.getString("animalType"), rs.getString("gender"), rs.getString("breed"), rs.getInt("age")});
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(RescueUnitManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        showAll();
 
     }//GEN-LAST:event_showAllActionPerformed
 
     private void confirmRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmRequestActionPerformed
         // TODO add your handling code here:
         StatusUpdateForAdoption(WorkFlowStatus.COMPLETED);
+        showAll();
     }//GEN-LAST:event_confirmRequestActionPerformed
 
     private void cancelRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelRequestActionPerformed
         // TODO add your handling code here:
 
         StatusUpdateForAdoption(WorkFlowStatus.CANCELLED);
+        showAll();
 
     }//GEN-LAST:event_cancelRequestActionPerformed
 
@@ -636,6 +626,23 @@ public class RescueUnitManager extends javax.swing.JFrame {
 
         }
 
+    }
+    
+    private void showAll(){
+    DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        model.setRowCount(0);
+
+        ResultSet rs;
+        try {
+            rs = DatabaseConnection.getData(Constants.GETANIMALSFORADOPTION, false);
+            
+            while (rs.next()) {
+
+                model.addRow(new Object[]{rs.getInt("id"),rs.getString("animalType"), rs.getString("gender"), rs.getString("breed"), rs.getInt("age")});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RescueUnitManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
