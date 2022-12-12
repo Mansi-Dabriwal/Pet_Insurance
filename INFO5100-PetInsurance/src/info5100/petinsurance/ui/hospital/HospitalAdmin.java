@@ -14,12 +14,15 @@ import info5100.petinsurance.ui.SignUp;
 import info5100.petinsurance.ui.WelcomeFrame;
 import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.EmailUtility;
 import info5100.petinsurance.utilities.Roles;
+import info5100.petinsurance.utilities.SmsUtility;
 import info5100.petinsurance.utilities.ValidationService;
 import java.awt.CardLayout;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -1141,9 +1144,27 @@ public class HospitalAdmin extends javax.swing.JFrame {
             //Create Appointment
 //            ResultSet rs;
 //            rs = DatabaseConnection.storeData(appointment);
+             String email = null, phone = null;
+             try{
+             ResultSet rs =DatabaseConnection.getData(Constants.GETANIMALOWNERCONTACT, false);
+             while(rs.next()){
+                email = rs.getString("email");
+                        phone = rs.getString("phone");
+             }
+             
+             } catch(SQLException e){
+              Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
+             
+             }
+            
+
 
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Appointment booked!");
+            if(null != email)
+               EmailUtility.sendEmail(email, "Appointment Confirmation", "Hello There,\nYour appointment has been booked for "+ new SimpleDateFormat("mm-dd-yyy").format(dateOfAppointment.getDate()) +".\nRegards,\nLove Pet Care");
+             if(null != phone)
+                SmsUtility.sendSMS(phone, "Hello There,Appointment has been booked for " + new SimpleDateFormat("mm-dd-yyy").format(dateOfAppointment.getDate()));
         } catch (HeadlessException | NumberFormatException e) {
             
             JFrame jFrame = new JFrame();

@@ -17,7 +17,7 @@ public class SmsUtility {
     public static void sendSMS(String to, String smsMessage) {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message.creator(
-                new com.twilio.type.PhoneNumber(to),
+                new com.twilio.type.PhoneNumber("+1"+to),
                 new com.twilio.type.PhoneNumber("+17432007211"),
                 smsMessage)
             .create();
@@ -26,6 +26,6 @@ public class SmsUtility {
     }
     
     public static void main(String[] args) {
-        SmsUtility.sendSMS("+18575441709", "Hello From Twilio");
+        SmsUtility.sendSMS("8575441709", "Hello From Twilio");
     }
 }
