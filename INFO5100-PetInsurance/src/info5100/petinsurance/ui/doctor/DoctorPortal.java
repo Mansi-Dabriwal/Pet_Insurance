@@ -21,6 +21,7 @@ import java.awt.CardLayout;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -422,7 +423,6 @@ public class DoctorPortal extends javax.swing.JFrame {
         try {
             rs = DatabaseConnection.getData(Constants.GETALLAPPOINTMENTSFORDOCTOR + ua.getPersonID()  , false);
             while (rs.next()) {
-
                 model.addRow(new Object[]{rs.getString("patientName"), rs.getDate("dateOfAppointment")});
             }
         } catch (SQLException ex) {
@@ -520,11 +520,13 @@ public class DoctorPortal extends javax.swing.JFrame {
                 patientLookup.put(patientN.getString("patientName"), patientN.getInt("patientId"));
                 j++;
             }   
+            patients = Arrays.stream(patients).filter(value -> value != null && value.length() > 0).toArray(size -> new String[size]);
             
         } catch (SQLException e) {
             Logger.getLogger(DoctorPortal.class.getName()).log(Level.SEVERE, null, e);          
         }
         patientName.setModel(new javax.swing.DefaultComboBoxModel<>(patients));
+        
     }
     
    public void completeDiagnose() {
