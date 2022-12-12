@@ -17,7 +17,9 @@ import info5100.petinsurance.ui.rescueunit.RescueUnitManager;
 import info5100.petinsurance.ui.support.SupportAdmin;
 import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.EmailUtility;
 import info5100.petinsurance.utilities.Roles;
+import info5100.petinsurance.utilities.SmsUtility;
 import info5100.petinsurance.utilities.ValidationService;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
@@ -105,6 +107,12 @@ public class SignUp extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Last Name");
+
+        firstNameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                firstNameTextFieldKeyTyped(evt);
+            }
+        });
 
         signUpButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         signUpButton.setText("Sign Up");
@@ -400,6 +408,10 @@ public class SignUp extends javax.swing.JFrame {
             evt.consume();
     }//GEN-LAST:event_phoneTextFieldKeyTyped
 
+    private void firstNameTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_firstNameTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_firstNameTextFieldKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -543,6 +555,8 @@ public class SignUp extends javax.swing.JFrame {
 
                     JFrame jFrame = new JFrame();
                     JOptionPane.showMessageDialog(jFrame, "Sign up completed!");
+                    EmailUtility.sendEmail(emailTextField.getText(), "Welcome to Love Pet Care", "Hello There,\nThanks for signing up on our system.\nRegards,\nLove Pet Care");
+                    SmsUtility.sendSMS(phoneTextField.getText(), "Hello There,Thanks for signing up on Love Pet Care.");
 
                     switch (r) {
                         case InsuranceProviderAdmin:
