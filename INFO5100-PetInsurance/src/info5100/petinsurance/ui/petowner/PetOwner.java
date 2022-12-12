@@ -46,6 +46,7 @@ public class PetOwner extends javax.swing.JFrame {
     Map<String, Integer> planLookup = new HashMap<>();
     List<AnimalDetails> animals;
     private boolean flag;
+     private boolean flag1;
 
     public PetOwner(UserAccount ua) {
         this.ua = ua;
@@ -90,11 +91,6 @@ public class PetOwner extends javax.swing.JFrame {
         maleRadioButton = new javax.swing.JRadioButton();
         femaleRadioButton = new javax.swing.JRadioButton();
         registerAnimalButton = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
         purchaseInsurancePanel = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -303,16 +299,6 @@ public class PetOwner extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setForeground(new java.awt.Color(204, 0, 0));
-
-        jLabel7.setForeground(new java.awt.Color(204, 0, 0));
-
-        jLabel21.setForeground(new java.awt.Color(204, 0, 0));
-
-        jLabel22.setForeground(new java.awt.Color(204, 0, 0));
-
-        jLabel23.setForeground(new java.awt.Color(204, 0, 0));
-
         javax.swing.GroupLayout registerAnimalPanelLayout = new javax.swing.GroupLayout(registerAnimalPanel);
         registerAnimalPanel.setLayout(registerAnimalPanelLayout);
         registerAnimalPanelLayout.setHorizontalGroup(
@@ -340,14 +326,7 @@ public class PetOwner extends javax.swing.JFrame {
                             .addComponent(breedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(animalName, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(registerAnimalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(58, 58, 58)
-                .addGroup(registerAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(272, Short.MAX_VALUE))
         );
         registerAnimalPanelLayout.setVerticalGroup(
             registerAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,33 +334,27 @@ public class PetOwner extends javax.swing.JFrame {
                 .addGap(65, 65, 65)
                 .addGroup(registerAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(typeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(registerAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(breedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(registerAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(registerAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel21)))
+                    .addComponent(ageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(registerAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(femaleRadioButton)
                     .addComponent(maleRadioButton)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(registerAnimalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(animalName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23))
+                    .addComponent(animalName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(62, 62, 62)
                 .addComponent(registerAnimalButton)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
 
         parentPanel.add(registerAnimalPanel, "card5");
@@ -527,6 +500,12 @@ public class PetOwner extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel1.setText("Insurance ID");
 
+        insuranceID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                insuranceIDKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout cancelInsurancePanelLayout = new javax.swing.GroupLayout(cancelInsurancePanel);
         cancelInsurancePanel.setLayout(cancelInsurancePanelLayout);
         cancelInsurancePanelLayout.setHorizontalGroup(
@@ -626,6 +605,12 @@ public class PetOwner extends javax.swing.JFrame {
         claimAmount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 claimAmountKeyTyped(evt);
+            }
+        });
+
+        contactNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                contactNumberKeyTyped(evt);
             }
         });
 
@@ -771,14 +756,17 @@ public class PetOwner extends javax.swing.JFrame {
 
     private void registerAnimalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerAnimalButtonActionPerformed
         // TODO add your handling code here:
-        if (animalName.getText().trim().isEmpty()) {
-            jLabel23.setText("Animal name field is empty!");
+        JFrame jFrame = new JFrame();
+        if (animalName.getText().trim().isEmpty() && typeTextField.getText().trim().isEmpty() &&
+               ageTextField.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(jFrame, "All fields are empty. Please try again!");
+        } else if (animalName.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(jFrame, "Animal name field is empty. Please try again!");
         } else if (typeTextField.getText().trim().isEmpty()) {
-            jLabel6.setText("Type field is empty!");
+            JOptionPane.showMessageDialog(jFrame, "Type field is empty!. Please try again!");
         } else if (ageTextField.getText().trim().isEmpty()) {
-            jLabel6.setText("Age field is empty!");
+            JOptionPane.showMessageDialog(jFrame, "Age field is empty. Please try again!");
         } else if (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected()) {
-            JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "No gender selected. Please try again!");
         } else {
             String gender = maleRadioButton.isSelected() ? "male" : "female";
@@ -792,15 +780,13 @@ public class PetOwner extends javax.swing.JFrame {
             flag = vs.validateAge(ageTextField.getText());
 
             if (rs == null) {
-                JFrame jFrame = new JFrame();
+                
                 JOptionPane.showMessageDialog(jFrame, "Sorry the registration couldn't be completed. Please try again!");
             } else if (!flag) {
-                JFrame jFrame = new JFrame();
                 JOptionPane.showMessageDialog(jFrame, "Age entered is wrong, please enter correct age!");
             } else {
                 try {
                     while (rs.next()) {
-                        JFrame jFrame = new JFrame();
                         String pronoun = gender.equals("male") ? "him" : "her";
                         JOptionPane.showMessageDialog(jFrame, "Your pet is Registered. We wish " + pronoun + " a good health");
                     }
@@ -923,7 +909,17 @@ public class PetOwner extends javax.swing.JFrame {
     private void submitClaimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitClaimButtonActionPerformed
         // TODO add your handling code here:
         try {
+             JFrame jFrame = new JFrame();
             String select = Constants.GETINSURANCEFORPET + animalLookup.get(animalDropDown.getSelectedItem().toString());
+        flag = true;
+        flag1 = true;
+        flag = ValidationService.validateEmail(contactEmail.getText());
+        flag1 = ValidationService.validateNumber(contactNumber.getText());
+        if (!flag) {
+            JOptionPane.showMessageDialog(jFrame, "Email entered is wrong, please enter correct email!");
+        } else if (!flag1) {
+            JOptionPane.showMessageDialog(jFrame, "Phone number entered is wrong, please enter correct email!");
+        }else{
             ResultSet rs = DatabaseConnection.getData(select, false);
 
             while (rs.next()) {
@@ -940,9 +936,9 @@ public class PetOwner extends javax.swing.JFrame {
                 
                 claim.setInsuranceDetailsId(rs.getInt("id"));
                 DatabaseConnection.submitClaim(claim);
-                JFrame jFrame = new JFrame();
                 JOptionPane.showMessageDialog(jFrame, "Claim Submitted!");
             }
+        }
         } catch (SQLException e) {
             Logger.getLogger(PetOwner.class.getName()).log(Level.SEVERE, null, e);
 
@@ -950,6 +946,20 @@ public class PetOwner extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_submitClaimButtonActionPerformed
+
+    private void contactNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contactNumberKeyTyped
+        // TODO add your handling code here:
+        char TestChar = evt.getKeyChar();
+        if (!(Character.isDigit(TestChar)))
+            evt.consume();
+    }//GEN-LAST:event_contactNumberKeyTyped
+
+    private void insuranceIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_insuranceIDKeyTyped
+        // TODO add your handling code here:
+        char TestChar = evt.getKeyChar();
+        if (!(Character.isDigit(TestChar)))
+            evt.consume();
+    }//GEN-LAST:event_insuranceIDKeyTyped
 
     private void submitclaimButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -1033,17 +1043,12 @@ public class PetOwner extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

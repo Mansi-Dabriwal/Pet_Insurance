@@ -306,6 +306,12 @@ public class SupportAdmin extends javax.swing.JFrame {
 
         reportAbusePanel.setBackground(new java.awt.Color(153, 204, 255));
 
+        reporterMobile.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                reporterMobileKeyTyped(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Animal ID");
 
@@ -647,6 +653,13 @@ public class SupportAdmin extends javax.swing.JFrame {
         if (!(Character.isDigit(TestChar)))
             evt.consume();
     }//GEN-LAST:event_unitsKeyTyped
+
+    private void reporterMobileKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_reporterMobileKeyTyped
+        // TODO add your handling code here:
+        char TestChar = evt.getKeyChar();
+        if (!(Character.isDigit(TestChar)))
+            evt.consume();
+    }//GEN-LAST:event_reporterMobileKeyTyped
 
     /**
      * @param args the command line arguments

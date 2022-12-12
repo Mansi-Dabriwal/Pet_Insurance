@@ -464,6 +464,9 @@
             <Component class="javax.swing.JTextField" name="reporterEmail">
             </Component>
             <Component class="javax.swing.JTextField" name="reporterMobile">
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="reporterMobileKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
