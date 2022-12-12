@@ -871,8 +871,8 @@ public class HospitalAdmin extends javax.swing.JFrame {
 
     private void addDoctorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDoctorBtnActionPerformed
         // TODO add your handling code here:
-      if(allowSignUp) 
-        addDoctor();
+        if (allowSignUp)
+            addDoctor();
     }//GEN-LAST:event_addDoctorBtnActionPerformed
 
     private void bookAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookAppointmentActionPerformed
@@ -885,7 +885,7 @@ public class HospitalAdmin extends javax.swing.JFrame {
         cardLayout.show(pnlCards, "pnlCard4");
         populatePatientsInDropDown();
         populateDoctorsInDropDown();
-      
+
     }//GEN-LAST:event_bookAppointmentpanelActionPerformed
 
     private void userNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameTextFieldActionPerformed
@@ -1095,7 +1095,7 @@ public class HospitalAdmin extends javax.swing.JFrame {
         } catch (HeadlessException | NumberFormatException e) {
 
             JFrame jFrame = new JFrame();
-            JOptionPane.showMessageDialog(jFrame, "Hospital Registration failed. Please try again!"); 
+            JOptionPane.showMessageDialog(jFrame, "Hospital Registration failed. Please try again!");
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
 
         }
@@ -1142,10 +1142,10 @@ public class HospitalAdmin extends javax.swing.JFrame {
                     Logger.getLogger(HospitalAdmin.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 String HospitalN = hospitalName.getSelectedItem().toString();
-                
-                 UserAccount ua = new UserAccount(userNameTextField.getText(), passwordTextField.getText(),
-                            personID, Roles.VeterinaryDoctor);
-                    DatabaseConnection.storeData(ua);
+
+                UserAccount ua = new UserAccount(userNameTextField.getText(), passwordTextField.getText(),
+                        personID, Roles.VeterinaryDoctor);
+                DatabaseConnection.storeData(ua);
 
                 //Create Doctor
                 Doctor d = new Doctor(personID, speciality.getText(), hospitalLookup.get(HospitalN));
@@ -1157,7 +1157,7 @@ public class HospitalAdmin extends javax.swing.JFrame {
         } catch (HeadlessException | NumberFormatException e) {
 
             JFrame jFrame = new JFrame();
-            JOptionPane.showMessageDialog(jFrame, "Doctor Registration failed. Please try again!");          
+            JOptionPane.showMessageDialog(jFrame, "Doctor Registration failed. Please try again!");
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
         }
     }
@@ -1168,35 +1168,53 @@ public class HospitalAdmin extends javax.swing.JFrame {
             String patientNa = patientName.getSelectedItem().toString();
             int patientIDD = patientLookup.get(patientNa);
 
-            UpcomingAppointments appointment = new UpcomingAppointments(
-                    patientName.getSelectedItem().toString(), patientIDD, dateOfAppointment.getDate(), doctorLookup.get(doctorsComboBox.getSelectedItem().toString()), WorkFlowStatus.PENDING.toString());
-            DatabaseConnection.storeData(appointment);
-            //Create Appointment
+            boolean createappointment = false;
+            try {
+                System.out.println(Constants.GETACTIVEAPPOINTMENTS + patientIDD);
+                ResultSet rs = DatabaseConnection.getData(Constants.GETACTIVEAPPOINTMENTS + patientIDD, false);
+                while (rs.next()) {
+                    if(rs.getInt("count")==0)
+                    createappointment = true;
+                }
+
+            } catch (SQLException e) {
+
+            }
+            if (createappointment) {
+                UpcomingAppointments appointment = new UpcomingAppointments(
+                        patientName.getSelectedItem().toString(), patientIDD, dateOfAppointment.getDate(), doctorLookup.get(doctorsComboBox.getSelectedItem().toString()), WorkFlowStatus.PENDING.toString());
+                DatabaseConnection.storeData(appointment);
+                //Create Appointment
 //            ResultSet rs;
 //            rs = DatabaseConnection.storeData(appointment);
-             String email = null, phone = null;
-             try{
-             ResultSet rs =DatabaseConnection.getData(Constants.GETANIMALOWNERCONTACT, false);
-             while(rs.next()){
-                email = rs.getString("email");
+                String email = null, phone = null;
+                try {
+                    ResultSet rs = DatabaseConnection.getData(Constants.GETANIMALOWNERCONTACT, false);
+                    while (rs.next()) {
+                        email = rs.getString("email");
                         phone = rs.getString("phone");
-             }
-             
-             } catch(SQLException e){
-              Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
-             
-             }
-            
+                    }
 
+                } catch (SQLException e) {
+                    Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
 
+                }
+
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Appointment booked!");
+                if (null != email) {
+                    EmailUtility.sendEmail(email, "Appointment Confirmation", "Hello There,\nYour appointment has been booked for " + new SimpleDateFormat("mm-dd-yyy").format(dateOfAppointment.getDate()) + ".\nRegards,\nLove Pet Care");
+                }
+                if (null != phone) {
+                    SmsUtility.sendSMS(phone, "Hello There,Appointment has been booked for " + new SimpleDateFormat("mm-dd-yyy").format(dateOfAppointment.getDate()));
+                }
+            }
+            else{
             JFrame jFrame = new JFrame();
-            JOptionPane.showMessageDialog(jFrame, "Appointment booked!");
-            if(null != email)
-               EmailUtility.sendEmail(email, "Appointment Confirmation", "Hello There,\nYour appointment has been booked for "+ new SimpleDateFormat("mm-dd-yyy").format(dateOfAppointment.getDate()) +".\nRegards,\nLove Pet Care");
-             if(null != phone)
-                SmsUtility.sendSMS(phone, "Hello There,Appointment has been booked for " + new SimpleDateFormat("mm-dd-yyy").format(dateOfAppointment.getDate()));
+                JOptionPane.showMessageDialog(jFrame, "There's already an active appointment!");
+            }
         } catch (HeadlessException | NumberFormatException e) {
-            
+
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Appointment booked failed. Please try again!");
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
@@ -1212,13 +1230,13 @@ public class HospitalAdmin extends javax.swing.JFrame {
             ResultSet docs = DatabaseConnection.getData(Constants.GETALLDOCTORS, false);
             int i = 0;
             while (docs.next()) {
-                String docName = docs.getString("fname")+ " " + docs.getString("lname");
+                String docName = docs.getString("fname") + " " + docs.getString("lname");
                 doctors[i] = docName;
                 doctorLookup.put(docName, docs.getInt("id"));
                 i++;
             }
-            
-            doctors = Arrays.stream(doctors).filter(value ->value != null && value.length() > 0).toArray(size -> new String[size]);
+
+            doctors = Arrays.stream(doctors).filter(value -> value != null && value.length() > 0).toArray(size -> new String[size]);
 
         } catch (SQLException e) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
@@ -1226,7 +1244,7 @@ public class HospitalAdmin extends javax.swing.JFrame {
 
         doctorsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(doctors));
     }
-    
+
     private void populateHospitalsInDropDown() {
         String[] hospitals = new String[15];
 
@@ -1239,14 +1257,14 @@ public class HospitalAdmin extends javax.swing.JFrame {
                 hospitalLookup.put(hospitalN.getString("hospitalName"), hospitalN.getInt("id"));
                 i++;
             }
-            hospitals = Arrays.stream(hospitals).filter(value ->value != null && value.length() > 0).toArray(size -> new String[size]);
+            hospitals = Arrays.stream(hospitals).filter(value -> value != null && value.length() > 0).toArray(size -> new String[size]);
 
         } catch (SQLException e) {
-            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);          
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
         }
         hospitalName.setModel(new javax.swing.DefaultComboBoxModel<>(hospitals));
     }
-    
+
     private void populatePatientsInDropDown() {
         String[] patients = new String[15];
 
@@ -1257,11 +1275,11 @@ public class HospitalAdmin extends javax.swing.JFrame {
                 patients[j] = patientN.getString("name");
                 patientLookup.put(patientN.getString("name"), patientN.getInt("id"));
                 j++;
-            }   
-            patients = Arrays.stream(patients).filter(value ->value != null && value.length() > 0).toArray(size -> new String[size]);
+            }
+            patients = Arrays.stream(patients).filter(value -> value != null && value.length() > 0).toArray(size -> new String[size]);
 
         } catch (SQLException e) {
-            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);          
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
         }
         patientName.setModel(new javax.swing.DefaultComboBoxModel<>(patients));
     }

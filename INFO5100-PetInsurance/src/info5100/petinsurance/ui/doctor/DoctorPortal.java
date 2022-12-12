@@ -16,6 +16,7 @@ import info5100.petinsurance.ui.rescueunit.RescueUnitManager;
 import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.DatabaseConnection;
 import info5100.petinsurance.utilities.ValidationService;
+import info5100.petinsurance.utilities.WorkFlowStatus;
 import java.awt.CardLayout;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
@@ -532,8 +533,11 @@ public class DoctorPortal extends javax.swing.JFrame {
             String patientNa = patientName.getSelectedItem().toString();
             int patientIDD = patientLookup.get(patientNa);
             
-            PatientDiagnose diagnoses = new PatientDiagnose(patientIDD,patientName.getSelectedItem().toString(), date.getDate(), bloodPressure.getText(),bloodGroup.getText(), med1.getText(),med2.getText(),med3.getText());
+            PatientDiagnose diagnoses = new PatientDiagnose(patientIDD,patientName.getSelectedItem().toString(), date.getDate(), bloodPressure.getText(),bloodGroup.getText(), med1.getText(),med2.getText(),med3.getText(), WorkFlowStatus.COMPLETED.toString());
             DatabaseConnection.storeData(diagnoses);
+            
+            UpcomingAppointments ua = new UpcomingAppointments(patientNa, patientIDD, null, 0, null);
+            DatabaseConnection.updateAppointment(ua);
 
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Diagnoses Completed!");

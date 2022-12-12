@@ -582,7 +582,7 @@ public class DatabaseConnection {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO PatientDiagnose VALUES (?, ?, ?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement("INSERT INTO PatientDiagnose VALUES (?, ?, ?,?,?,?,?,?, ?)", Statement.RETURN_GENERATED_KEYS);
             
             ps.setInt(1, p.getPatientId());
             ps.setString(2, p.getPatientName());
@@ -592,8 +592,29 @@ public class DatabaseConnection {
             ps.setString(6, p.getMedicine1());
             ps.setString(7, p.getMedicine2());
             ps.setString(8, p.getMedicine3());
+            ps.setString(9, p.getStatus());
             
             
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultSet;
+    }
+    
+    public static ResultSet updateAppointment(UpcomingAppointments p) {
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("Update upcomingappointments set status = 'COMPLETED' WHERE patientId = ?", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setInt(1, p.getPatientId());
+
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
