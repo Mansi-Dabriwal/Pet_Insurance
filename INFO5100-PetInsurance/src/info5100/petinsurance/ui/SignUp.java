@@ -37,7 +37,6 @@ public class SignUp extends javax.swing.JFrame {
 
     private boolean allowSignUp;
     private boolean flag;
- 
 
     public SignUp() {
         this.allowSignUp = true;
@@ -384,7 +383,7 @@ public class SignUp extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(allowSignUp)
+        if (allowSignUp)
             signUpButton.setEnabled(true);
     }//GEN-LAST:event_verifyBtnActionPerformed
 
@@ -483,7 +482,7 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JTextField zipCodeTextField;
     // End of variables declaration//GEN-END:variables
     public void registerUser() {
-      
+
         if (addressLine1TextField.getText().trim().isEmpty() && cityTextField.getText().trim().isEmpty() && stateTextField.getText().trim().isEmpty() && countryTextField.getText().trim().isEmpty()
                 && zipCodeTextField.getText().trim().isEmpty() && firstNameTextField.getText().trim().isEmpty() && lastNameTextField.getText().trim().isEmpty() && emailTextField.getText().trim().isEmpty()
                 && usernameTextField.getText().trim().isEmpty() && PasswordField.getText().trim().isEmpty()) {
@@ -555,8 +554,11 @@ public class SignUp extends javax.swing.JFrame {
 
                     JFrame jFrame = new JFrame();
                     JOptionPane.showMessageDialog(jFrame, "Sign up completed!");
-                    EmailUtility.sendEmail(emailTextField.getText(), "Welcome to Love Pet Care", "Hello There,\nThanks for signing up on our system.\nRegards,\nLove Pet Care");
-                    SmsUtility.sendSMS(phoneTextField.getText(), "Hello There,Thanks for signing up on Love Pet Care.");
+                    try {
+                        EmailUtility.sendEmail(emailTextField.getText(), "Welcome to Love Pet Care", "Hello There,\nThanks for signing up on our system.\nRegards,\nLove Pet Care");
+                        SmsUtility.sendSMS(phoneTextField.getText(), "Hello There,Thanks for signing up on Love Pet Care.");
+                    } catch (Exception e) {
+                    }
 
                     switch (r) {
                         case InsuranceProviderAdmin:
