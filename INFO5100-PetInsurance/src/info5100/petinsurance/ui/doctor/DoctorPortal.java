@@ -46,6 +46,7 @@ public class DoctorPortal extends javax.swing.JFrame {
         jSplitPane1 = new javax.swing.JSplitPane();
         pnlCards = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
         pnlCard1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -61,7 +62,7 @@ public class DoctorPortal extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        bloodPressure = new javax.swing.JTextField();
+        vitalInfo = new javax.swing.JTextField();
         bloodGroup = new javax.swing.JTextField();
         med1 = new javax.swing.JTextField();
         med2 = new javax.swing.JTextField();
@@ -79,22 +80,28 @@ public class DoctorPortal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jSplitPane1.setBackground(new java.awt.Color(255, 204, 0));
-
         pnlCards.setBackground(new java.awt.Color(255, 189, 50));
         pnlCards.setLayout(new java.awt.CardLayout());
 
         jPanel3.setBackground(new java.awt.Color(153, 204, 255));
 
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/info5100/petinsurance/ui/doctor/Vet_doc.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 577, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(76, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         pnlCards.add(jPanel3, "card4");
@@ -126,7 +133,7 @@ public class DoctorPortal extends javax.swing.JFrame {
         pnlCard1Layout.setHorizontalGroup(
             pnlCard1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCard1Layout.createSequentialGroup()
-                .addContainerGap(84, Short.MAX_VALUE)
+                .addContainerGap(105, Short.MAX_VALUE)
                 .addGroup(pnlCard1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCard1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -183,6 +190,11 @@ public class DoctorPortal extends javax.swing.JFrame {
                 bloodGroupActionPerformed(evt);
             }
         });
+        bloodGroup.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                bloodGroupKeyTyped(evt);
+            }
+        });
 
         btnComplete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnComplete.setText("Complete Diagnosis");
@@ -215,7 +227,7 @@ public class DoctorPortal extends javax.swing.JFrame {
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jComboBox1, 0, 224, Short.MAX_VALUE)
-                                .addComponent(bloodPressure)
+                                .addComponent(vitalInfo)
                                 .addComponent(bloodGroup)
                                 .addComponent(med1)
                                 .addComponent(med2)
@@ -225,7 +237,7 @@ public class DoctorPortal extends javax.swing.JFrame {
                     .addGroup(pnlCard2Layout.createSequentialGroup()
                         .addGap(180, 180, 180)
                         .addComponent(btnComplete)))
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
         pnlCard2Layout.setVerticalGroup(
             pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +253,7 @@ public class DoctorPortal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(bloodPressure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(vitalInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -415,6 +427,10 @@ public class DoctorPortal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_showAllActionPerformed
 
+    private void bloodGroupKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bloodGroupKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bloodGroupKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -453,13 +469,13 @@ public class DoctorPortal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JTextField bloodGroup;
-    private javax.swing.JTextField bloodPressure;
     private javax.swing.JButton btnComplete;
     private javax.swing.JButton diagnoseapatient;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -484,5 +500,6 @@ public class DoctorPortal extends javax.swing.JFrame {
     private javax.swing.JPanel pnlCards;
     private javax.swing.JButton showAll;
     private javax.swing.JButton upcomingAppointments;
+    private javax.swing.JTextField vitalInfo;
     // End of variables declaration//GEN-END:variables
 }

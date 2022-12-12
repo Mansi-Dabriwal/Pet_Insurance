@@ -35,6 +35,7 @@ public class SignUp extends javax.swing.JFrame {
 
     private boolean allowSignUp;
     private boolean flag;
+ 
 
     public SignUp() {
         this.allowSignUp = true;

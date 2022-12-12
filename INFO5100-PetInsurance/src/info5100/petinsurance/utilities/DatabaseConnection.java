@@ -12,6 +12,7 @@ import info5100.petinsurance.model.hospital.Doctor;
 import info5100.petinsurance.model.hospital.Hospital;
 import info5100.petinsurance.model.hospital.UpcomingAppointments;
 import info5100.petinsurance.model.hospital.bloodbank.Bloodbank;
+import info5100.petinsurance.model.insurance.InsuranceClaim;
 import info5100.petinsurance.model.insurance.InsuranceDetails;
 import info5100.petinsurance.model.insurance.InsurancePlan;
 import info5100.petinsurance.model.support.AbuseReport;
@@ -43,7 +44,7 @@ public class DatabaseConnection {
 
         } catch (SQLException e) {
             Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, e);
-            
+
         }
 
     }
@@ -66,7 +67,7 @@ public class DatabaseConnection {
 
         return resultSet;
     }
-    
+
     public static void storeData(UserAccount ua) {
         try {
             setConnection();
@@ -84,10 +85,10 @@ public class DatabaseConnection {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static ResultSet storeData(AnimalDetails ad) {
-        
-         ResultSet resultSet = null;
+
+        ResultSet resultSet = null;
         try {
             setConnection();
             PreparedStatement ps;
@@ -106,12 +107,12 @@ public class DatabaseConnection {
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet;
     }
-    
-    public static ResultSet storeData(InsuranceDetails insurance){
-        
+
+    public static ResultSet storeData(InsuranceDetails insurance) {
+
         ResultSet resultSet = null;
         try {
             setConnection();
@@ -119,7 +120,7 @@ public class DatabaseConnection {
 
             ps = connection.prepareStatement("INSERT INTO InsuranceDetails VALUES ( ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, insurance.getAnimalId());
-            ps.setDate(2,  new Date(insurance.getDateOfInsurance().getTime()));
+            ps.setDate(2, new Date(insurance.getDateOfInsurance().getTime()));
             ps.setString(3, insurance.getExistingMedicalConditions());
             ps.setInt(4, insurance.getPlanId());
             ps.setDate(5, null);
@@ -130,12 +131,12 @@ public class DatabaseConnection {
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return resultSet;   
+
+        return resultSet;
     }
-    
-    public static ResultSet storeData(Address address){
-        
+
+    public static ResultSet storeData(Address address) {
+
         ResultSet resultSet = null;
         try {
             setConnection();
@@ -148,20 +149,20 @@ public class DatabaseConnection {
             ps.setString(4, address.getState());
             ps.setString(5, address.getCountry());
             ps.setInt(6, address.getZipCode());
-            
+
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet;
-    
+
     }
-    
-    public static ResultSet storeData(Person person){
-        
+
+    public static ResultSet storeData(Person person) {
+
         ResultSet resultSet = null;
         try {
             setConnection();
@@ -173,20 +174,20 @@ public class DatabaseConnection {
             ps.setString(3, person.getPhone());
             ps.setString(4, person.getEmail());
             ps.setInt(5, person.getAddressID());
-            
+
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet;
-    
+
     }
 
-    public static ResultSet storeData(InsurancePlan insurancePlan){
-        
+    public static ResultSet storeData(InsurancePlan insurancePlan) {
+
         ResultSet resultSet = null;
         try {
             setConnection();
@@ -198,41 +199,41 @@ public class DatabaseConnection {
             ps.setInt(3, insurancePlan.getPlanPremium());
             ps.setInt(4, insurancePlan.getPlanCoverage());
             ps.setInt(5, insurancePlan.getValidity());
-            
+
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet;
-    
+
     }
-    
-    public static ResultSet updatePlan(InsurancePlan insurancePlan){
-        
+
+    public static ResultSet updatePlan(InsurancePlan insurancePlan) {
+
         ResultSet resultSet = null;
         try {
             setConnection();
             PreparedStatement ps;
 
             ps = connection.prepareStatement("Update InsurancePlan SET validity =?, planPremium =?, planCoverage = ? where planName = ?", Statement.RETURN_GENERATED_KEYS);
-            
+
             ps.setInt(1, insurancePlan.getValidity());
             ps.setInt(2, insurancePlan.getPlanPremium());
             ps.setInt(3, insurancePlan.getPlanCoverage());
             ps.setString(4, insurancePlan.getPlanName());
-            
+
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet;
-    
+
     }
 
     public static ResultSet storeData(Hospital h) {
@@ -242,22 +243,22 @@ public class DatabaseConnection {
             PreparedStatement ps;
 
             ps = connection.prepareStatement("INSERT INTO Hospital VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            
+
             ps.setString(1, h.getHospitalName());
             ps.setInt(2, h.getAddressID());
             ps.setString(3, h.getPhone());
             ps.setString(4, h.getEmail());
-            
+
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet;
     }
-    
+
     public static ResultSet StoreData(AbuseReport ar) {
         ResultSet resultSet = null;
         try {
@@ -273,19 +274,19 @@ public class DatabaseConnection {
             ps.setInt(6, ar.getSupportPersonId());
             ps.setString(7, ar.getSupportPersonName());
             ps.setString(8, ar.getStatus().toString());
-            
+
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet; //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public static ResultSet storeData(BloodCollectionRequestModel bcr) {
-        
+
         ResultSet resultSet = null;
         try {
             setConnection();
@@ -301,18 +302,18 @@ public class DatabaseConnection {
             ps.setString(7, bcr.getSupportPersonName());
             ps.setString(8, bcr.getStatus().toString());
             ps.setString(9, bcr.getOwnerEmail());
-            
+
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet; //To change body of generated methods, choose Tools | Templates.
-        
+
     }
-    
+
     public static ResultSet storeData(Doctor d) {
         ResultSet resultSet = null;
         try {
@@ -320,48 +321,47 @@ public class DatabaseConnection {
             PreparedStatement ps;
 
             ps = connection.prepareStatement("INSERT INTO Doctor VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            
+
             ps.setInt(1, d.getPersonId());
             ps.setString(2, d.getSpeciality());
             ps.setInt(3, d.getHospitalId());
-            
-            
+
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet;
     }
 
     public static ResultSet updateAvailability(Bloodbank bb) {
-        
+
         ResultSet resultSet = null;
         try {
             setConnection();
             PreparedStatement ps;
 
             ps = connection.prepareStatement("Update BloodBank SET availability =? where bloodType = ?", Statement.RETURN_GENERATED_KEYS);
-            
+
             ps.setInt(1, bb.getAvailability());
             ps.setString(2, bb.getBloodType());
-            
+
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet;
-        
+
     }
 
     public static ResultSet storeBloodAvailability(Bloodbank bb) {
-        
-         ResultSet resultSet = null;
+
+        ResultSet resultSet = null;
         try {
             setConnection();
             PreparedStatement ps;
@@ -376,22 +376,22 @@ public class DatabaseConnection {
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet;
-        
+
     }
 
     public static void updateBloodCollectionRequestStatus(BloodCollectionRequestModel bcr) {
-         ResultSet resultSet = null;
+        ResultSet resultSet = null;
         try {
             setConnection();
             PreparedStatement ps;
 
             ps = connection.prepareStatement("Update BloodCollectionRequests SET status =? where id = ?", Statement.RETURN_GENERATED_KEYS);
-            
+
             ps.setString(1, bcr.getStatus().toString());
             ps.setInt(2, bcr.getId());
-            
+
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
@@ -399,18 +399,19 @@ public class DatabaseConnection {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static ResultSet storeData(UpcomingAppointments u) {
         ResultSet resultSet = null;
         try {
             setConnection();
             PreparedStatement ps;
 
-            ps = connection.prepareStatement("INSERT INTO UpcomingAppointments VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            
+            ps = connection.prepareStatement("INSERT INTO UpcomingAppointments VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+
             ps.setString(1, u.getPatientName());
-            ps.setInt(2,u.getPatientId());
+            ps.setInt(2, u.getPatientId());
             ps.setDate(3, new Date(u.getDateOfAppointment().getTime()));
+            ps.setInt(4, u.getDoctorID());
 
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
@@ -418,10 +419,10 @@ public class DatabaseConnection {
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet;
     }
-    
+
     public static ResultSet storeData(AnimalRescueOperation a) {
         ResultSet resultSet = null;
         try {
@@ -429,22 +430,22 @@ public class DatabaseConnection {
             PreparedStatement ps;
 
             ps = connection.prepareStatement("INSERT INTO AnimalRescueOperation VALUES (?, ?, ?,?)", Statement.RETURN_GENERATED_KEYS);
-            
+
             ps.setString(1, a.getWasRescued());
             ps.setString(3, a.getPlaceOfRescue());
             ps.setDate(2, (Date) a.getDateOfRescue());
             ps.setInt(4, a.getAnimalID());
-            
+
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet;
     }
-    
+
     public static ResultSet storeData(AdoptedAnimal a) {
         ResultSet resultSet = null;
         try {
@@ -452,75 +453,123 @@ public class DatabaseConnection {
             PreparedStatement ps;
 
             ps = connection.prepareStatement("INSERT INTO AnimalsForAdoption VALUES (?, ?, ?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            
+
             ps.setString(1, a.getName());
             ps.setString(2, a.getType());
             ps.setString(3, a.getGender());
             ps.setString(4, a.getBreed());
             ps.setInt(5, a.getAge());
             ps.setString(6, a.getStatus());
-            
-            
+
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet;
     }
-    
+
     public static ResultSet cancelInsurance(InsuranceDetails activeInsuranceDetails) {
-        
-         ResultSet resultSet = null;
+
+        ResultSet resultSet = null;
         try {
             setConnection();
             PreparedStatement ps;
 
             ps = connection.prepareStatement("Update InsuranceDetails SET status =?, endDate =? where id = ?", Statement.RETURN_GENERATED_KEYS);
-            
+
             ps.setString(1, "INACTIVE");
             ps.setDate(2, new Date(activeInsuranceDetails.getEndDate().getTime()));
             ps.setInt(3, activeInsuranceDetails.getId());
-            
+
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet;
-        
+
     }
 
     public static ResultSet updatePerson(Person p) {
-        
+
         ResultSet resultSet = null;
         try {
             setConnection();
             PreparedStatement ps;
 
             ps = connection.prepareStatement("Update Person SET fname =?, lname =?, phone = ?, email = ? where id = ?", Statement.RETURN_GENERATED_KEYS);
-            
+
             ps.setString(1, p.getfName());
             ps.setString(2, p.getlName());
             ps.setString(3, p.getPhone());
             ps.setString(4, p.getEmail());
             ps.setInt(5, p.getId());
-            
+
             ps.executeUpdate();
             resultSet = ps.getGeneratedKeys();
 
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return resultSet;
-        
+
     }
-    
-    
-        
+
+    public static ResultSet updateInsuranceDetails(InsuranceDetails insurance) {
+
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("Update InsuranceDetails SET existingMedicalConditions =?, planId =? where id = ?", Statement.RETURN_GENERATED_KEYS);
+
+            ps.setString(1, insurance.getExistingMedicalConditions());
+            ps.setInt(2, insurance.getPlanId());
+            ps.setInt(3, insurance.getId());
+
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return resultSet;
+
+    }
+
+    public static ResultSet submitClaim(InsuranceClaim claim) {
+        ResultSet resultSet = null;
+        try {
+            setConnection();
+            PreparedStatement ps;
+
+            ps = connection.prepareStatement("INSERT INTO ClaimDetails VALUES (?, ?, ?,?,?,?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, claim.getAnimalId());
+            ps.setInt(2, claim.getAmount());
+            ps.setInt(3, claim.getInsuranceDetailsId());
+            ps.setInt(4, claim.getHospitalId());
+            ps.setString(5, claim.getDoctorId());
+            ps.setString(6, claim.getStatus().toString());
+
+            ps.setString(7, claim.getOwnerEmail());
+            ps.setString(8, claim.getOwnerPhone());
+            ps.setDate(9, new Date(claim.getSubmissionDate().getTime()));
+
+            ps.executeUpdate();
+            resultSet = ps.getGeneratedKeys();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return resultSet;
+    }
 }

@@ -1135,7 +1135,8 @@ public class HospitalAdmin extends javax.swing.JFrame {
             String patientNa = patientName.getSelectedItem().toString();
             int patientIDD = patientLookup.get(patientNa);
 
-            UpcomingAppointments appointment = new UpcomingAppointments(patientName.getSelectedItem().toString(), patientIDD, dateOfAppointment.getDate());
+            UpcomingAppointments appointment = new UpcomingAppointments(
+                    patientName.getSelectedItem().toString(), patientIDD, dateOfAppointment.getDate(), doctorLookup.get(doctorsComboBox.getSelectedItem().toString()));
             DatabaseConnection.storeData(appointment);
             //Create Appointment
 //            ResultSet rs;
