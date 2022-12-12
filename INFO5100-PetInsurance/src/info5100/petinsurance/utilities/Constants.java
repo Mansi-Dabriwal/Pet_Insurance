@@ -54,5 +54,7 @@ public class Constants {
     "WHERE STATUS='ACTIVE'";
 
     public static final String GETALLANIMALFOROWNER = "Select * from AnimalDetails WHERE animalOwnerID = ";
+    
+    public static final String GETANIMALOWNERCONTACT= "select phone,email from Person p JOIN AnimalDetails ad ON p.id = ad.animalOwnerID  ";
 
 }
