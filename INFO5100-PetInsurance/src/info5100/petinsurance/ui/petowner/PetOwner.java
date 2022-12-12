@@ -776,7 +776,7 @@ public class PetOwner extends javax.swing.JFrame {
             jLabel6.setText("Type field is empty!");
         } else if (ageTextField.getText().trim().isEmpty()) {
             jLabel6.setText("Age field is empty!");
-        } else if (maleRadioButton.isSelected() | femaleRadioButton.isSelected()) {
+        } else if(!(maleRadioButton.isSelected() | femaleRadioButton.isSelected())) {
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "No gender selected. Please try again!");
         } else {
