@@ -532,12 +532,8 @@ public class DoctorPortal extends javax.swing.JFrame {
             String patientNa = patientName.getSelectedItem().toString();
             int patientIDD = patientLookup.get(patientNa);
             
-            //Patient Diagnoses
             PatientDiagnose diagnoses = new PatientDiagnose(patientIDD,patientName.getSelectedItem().toString(), date.getDate(), bloodPressure.getText(),bloodGroup.getText(), med1.getText(),med2.getText(),med3.getText());
             DatabaseConnection.storeData(diagnoses);
-            //Create Appointment
-//            ResultSet rs;
-//            rs = DatabaseConnection.storeData(appointment);
 
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "Diagnoses Completed!");
