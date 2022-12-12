@@ -53,6 +53,7 @@ public class PetOwner extends javax.swing.JFrame {
         animals = new ArrayList<>();
 
         populateInsurancePlans();
+        populateAnimalsForSubmitClaim();
     }
 
     /**
@@ -776,7 +777,7 @@ public class PetOwner extends javax.swing.JFrame {
             jLabel6.setText("Type field is empty!");
         } else if (ageTextField.getText().trim().isEmpty()) {
             jLabel6.setText("Age field is empty!");
-        } else if(!(maleRadioButton.isSelected() | femaleRadioButton.isSelected())) {
+        } else if (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected()) {
             JFrame jFrame = new JFrame();
             JOptionPane.showMessageDialog(jFrame, "No gender selected. Please try again!");
         } else {
@@ -880,7 +881,7 @@ public class PetOwner extends javax.swing.JFrame {
         boolean activeInsuranceExists = false;
         InsuranceDetails activeInsuranceDetails = null;
         try {
-            String select = Constants.GETINSURANCEFORPET + anmlIDCancelTextField.getText();
+            String select = Constants.GETINSURANCEFORPET + animalLookup.get(anmlIDCancelTextField.getText());
             ResultSet rs = DatabaseConnection.getData(select, false);
 
             while (rs.next()) {
@@ -939,6 +940,8 @@ public class PetOwner extends javax.swing.JFrame {
                 
                 claim.setInsuranceDetailsId(rs.getInt("id"));
                 DatabaseConnection.submitClaim(claim);
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Claim Submitted!");
             }
         } catch (SQLException e) {
             Logger.getLogger(PetOwner.class.getName()).log(Level.SEVERE, null, e);

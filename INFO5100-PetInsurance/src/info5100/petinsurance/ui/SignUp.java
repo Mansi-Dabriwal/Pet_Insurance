@@ -17,7 +17,9 @@ import info5100.petinsurance.ui.rescueunit.RescueUnitManager;
 import info5100.petinsurance.ui.support.SupportAdmin;
 import info5100.petinsurance.utilities.Constants;
 import info5100.petinsurance.utilities.DatabaseConnection;
+import info5100.petinsurance.utilities.EmailUtility;
 import info5100.petinsurance.utilities.Roles;
+import info5100.petinsurance.utilities.SmsUtility;
 import info5100.petinsurance.utilities.ValidationService;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
@@ -553,6 +555,8 @@ public class SignUp extends javax.swing.JFrame {
 
                     JFrame jFrame = new JFrame();
                     JOptionPane.showMessageDialog(jFrame, "Sign up completed!");
+                    EmailUtility.sendEmail(emailTextField.getText(), "Welcome to Love Pet Care", "Hello There,\nThanks for signing up on our system.\nRegards,\nLove Pet Care");
+                    SmsUtility.sendSMS(phoneTextField.getText(), "Hello There,Thanks for signing up on Love Pet Care.");
 
                     switch (r) {
                         case InsuranceProviderAdmin:
