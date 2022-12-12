@@ -18,6 +18,7 @@ import info5100.petinsurance.utilities.EmailUtility;
 import info5100.petinsurance.utilities.Roles;
 import info5100.petinsurance.utilities.SmsUtility;
 import info5100.petinsurance.utilities.ValidationService;
+import info5100.petinsurance.utilities.WorkFlowStatus;
 import java.awt.CardLayout;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
@@ -1168,7 +1169,7 @@ public class HospitalAdmin extends javax.swing.JFrame {
             int patientIDD = patientLookup.get(patientNa);
 
             UpcomingAppointments appointment = new UpcomingAppointments(
-                    patientName.getSelectedItem().toString(), patientIDD, dateOfAppointment.getDate(), doctorLookup.get(doctorsComboBox.getSelectedItem().toString()));
+                    patientName.getSelectedItem().toString(), patientIDD, dateOfAppointment.getDate(), doctorLookup.get(doctorsComboBox.getSelectedItem().toString()), WorkFlowStatus.PENDING.toString());
             DatabaseConnection.storeData(appointment);
             //Create Appointment
 //            ResultSet rs;
