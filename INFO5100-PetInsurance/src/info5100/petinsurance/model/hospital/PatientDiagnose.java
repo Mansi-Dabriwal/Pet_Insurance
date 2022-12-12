@@ -20,8 +20,9 @@ public class PatientDiagnose {
     String medicine1;
     String medicine2;
     String medicine3;
+    String status;
     
-    public PatientDiagnose(int patientId, String patientName, Date dateOfAppointment, String bloodPressure,String bloodGroup, String medicine1,String medicine2, String medicine3){
+    public PatientDiagnose(int patientId, String patientName, Date dateOfAppointment, String bloodPressure,String bloodGroup, String medicine1,String medicine2, String medicine3, String status){
         this.patientId = patientId;
         this.bloodGroup = bloodGroup;
         this.bloodPressure = bloodPressure;
@@ -30,7 +31,7 @@ public class PatientDiagnose {
         this.medicine2 = medicine2;
         this.medicine3 = medicine3;
         this.patientName = patientName;
-        
+        this.status=status;
     }
 
     public int getId() {
@@ -104,4 +105,22 @@ public class PatientDiagnose {
     public void setMedicine3(String medicine3) {
         this.medicine3 = medicine3;
     }
+
+    public Date getDateOfAppointment() {
+        return dateOfAppointment;
+    }
+
+    public void setDateOfAppointment(Date dateOfAppointment) {
+        this.dateOfAppointment = dateOfAppointment;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    
 }

@@ -16,12 +16,14 @@ public class UpcomingAppointments {
     String patientName;
     Date dateOfAppointment;
     int doctorID;
+    String status;
     
-    public UpcomingAppointments( String patientName, int patientId, Date dateOfAppointment, int docID){
+    public UpcomingAppointments( String patientName, int patientId, Date dateOfAppointment, int docID, String status){
         this.dateOfAppointment = dateOfAppointment;
         this.patientId = patientId;
         this.patientName = patientName;
         this.doctorID = docID;
+        this.status= status;
     }
 
     public int getId() {
@@ -63,6 +65,13 @@ public class UpcomingAppointments {
     public void setDoctorID(int doctorID) {
         this.doctorID = doctorID;
     }
-    
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
     
 }

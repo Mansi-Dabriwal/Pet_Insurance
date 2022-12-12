@@ -23,7 +23,7 @@ public class InsuranceDetails {
         this.dateOfInsurance = dateOfInsurance;
         this.existingMedicalConditions = existingMedicalConditions;
         this.planId = planId;
-        this.endDate = null;
+        this.endDate = endDate;
     }
 
     public int getId() {

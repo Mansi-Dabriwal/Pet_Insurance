@@ -28,7 +28,7 @@ public class Constants {
      
     public static final String GETUSERACCOUNT =  "select * from Useraccount where username = '";
     
-    public static final String GETALLAPPOINTMENTSFORDOCTOR = "SELECT * FROM UpcomingAppointments ua  WHERE doctorId =";
+    public static final String GETALLAPPOINTMENTSFORDOCTOR = "SELECT * FROM UpcomingAppointments ua  WHERE status = 'PENDING' and doctorId =";
     
     public static final String GETALLUSERNAMES = "select username from UserAccount";
     
@@ -46,7 +46,7 @@ public class Constants {
     
     public static final String GETBLOODCOLLECTIONREQUESTSID = "Select * from BloodCollectionRequests where id = ";
     
-    public static final String GETPATIENTS = "Select * from UpcomingAppointments";
+    public static final String GETPATIENTS = "Select * from UpcomingAppointments where Status='PENDING'";
                                                                
     public static final String GETALLACTIVEINSURANCE = "select id.id AS ID, id.animalId , existingMedicalConditions , dateOfInsurance , planName from InsuranceDetails id JOIN InsurancePlan ip ON ip.id = id.planId where Status = 'ACTIVE'";
     
@@ -58,5 +58,8 @@ public class Constants {
     public static final String GETALLANIMALFOROWNER = "Select * from AnimalDetails WHERE animalOwnerID = ";
     
     public static final String GETANIMALOWNERCONTACT= "select phone,email from Person p JOIN AnimalDetails ad ON p.id = ad.animalOwnerID  ";
+    
+    public static final String GETINSURANCEUNDEROWNER = "select id.id as InsuranceID, name, planName, dateOfInsurance  from InsuranceDetails id JOIN AnimalDetails ad ON id.animalId = ad.id JOIN InsurancePlan ip  ON ip.id  = id.planId WHERE status='ACTIVE' and ad.animalOwnerID =";
 
+    public static final String GETACTIVEAPPOINTMENTS = "select count(*) AS COUNT from upcomingappointments where status='PENDING' and patientId =";
 }
